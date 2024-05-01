@@ -1,0 +1,25 @@
+# Reset the port that SpringBoot would take for avoiding conflicts with other app
+server:
+  port: 8090
+
+spring:
+  # Set database information
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hidrink
+    username: 'root'
+    password: '041006'
+  mvc:
+    # Set SpringBoot to allow static resources to be accessed
+    static-path-pattern: /static/**
+  web:
+    resources:
+      # Set SpringBoot to allow static resources to be accessed
+      static-locations: classpath:/static
+
+mybatis:
+  configuration:
+    # Set mybatis to allow it to accept the camel case
+    map-underscore-to-camel-case: true
+    # Set mybatis to show its running log in the console
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
