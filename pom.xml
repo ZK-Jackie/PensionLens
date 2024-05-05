@@ -8,11 +8,11 @@
         <version>2.7.17</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.hidrink</groupId>
-    <artifactId>hidrink</artifactId>
+    <groupId>edu.gdou</groupId>
+    <artifactId>pensionlens</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hidrink</name>
-    <description>hidrink</description>
+    <name>PensionLens-sever</name>
+    <description>PensionLens-sever</description>
     <properties>
         <java.version>17</java.version>
     </properties>
