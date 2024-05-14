@@ -14,7 +14,7 @@ public class Neo4jQueryUtils {
 
 
     /**
-     * @Author: GitHub Copilot
+     * @Author: Jackie
      * @Time: 2024-04-22 20:54
      * @Description: Execute the cypher query and return the result
      * @Example:

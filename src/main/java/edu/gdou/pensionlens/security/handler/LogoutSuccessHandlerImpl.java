@@ -1,15 +1,17 @@
 package edu.gdou.pensionlens.security.handler;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
+import edu.gdou.pensionlens.security.domain.LoginUser;
+import edu.gdou.pensionlens.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
-import org.superdata.medismart.entity.SysUser;
-import org.superdata.medismart.service.SysUserService;
-import org.superdata.medismart.utils.JwtUtil;
-import org.superdata.medismart.utils.RedisCache;
-import org.superdata.medismart.utils.WebUtil;
+import edu.gdou.pensionlens.pojo.SysUser;
+import edu.gdou.pensionlens.service.SysUserService;
+import edu.gdou.pensionlens.utils.JwtUtils;
+import edu.gdou.pensionlens.utils.RedisCache;
+import edu.gdou.pensionlens.utils.WebUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -33,16 +35,15 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
         //解析token
         String userid;
         try {
-            Claims claims = JwtUtil.parseJWT(token);
+            Claims claims = JwtUtils.parseJwt(token);
             userid = claims.getSubject();
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("token非法");
         }
         // 获取用户信息
-        LambdaQueryWrapper<SysUser> sysUserLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        sysUserLambdaQueryWrapper.eq(SysUser::getId, userid);
-        SysUser loginUser = sysUserService.getOne(sysUserLambdaQueryWrapper);
+
+        LoginUser loginUser = redisCache.getCacheObject("login:" + userid);
         if (loginUser == null) {
             throw new RuntimeException("用户未登录");
         }

@@ -1,11 +1,11 @@
 package edu.gdou.pensionlens.security.service;
 
-import org.superdata.medismart.common.ResponseResult;
-import org.superdata.medismart.entity.SysUser;
+import edu.gdou.pensionlens.pojo.Result;
+import edu.gdou.pensionlens.pojo.SysUser;
 
 public interface LoginService {
 
-    ResponseResult login(SysUser user);
+    Result login(SysUser user);
 
-    ResponseResult logout();
+    Result logout();
 }

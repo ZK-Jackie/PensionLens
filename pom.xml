@@ -122,11 +122,19 @@
             <version>2.7</version>
         </dependency>
 
-
+        <!-- 健康监控 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+
+        <!-- CAPTCHA -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
+            <version>5.8.27</version>
+        </dependency>
+
     </dependencies>
 
     <build>

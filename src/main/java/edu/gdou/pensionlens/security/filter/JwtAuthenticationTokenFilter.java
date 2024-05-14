@@ -8,9 +8,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.superdata.medismart.security.domain.LoginUser;
-import org.superdata.medismart.utils.JwtUtil;
-import org.superdata.medismart.utils.RedisCache;
+import edu.gdou.pensionlens.security.domain.LoginUser;
+import edu.gdou.pensionlens.utils.JwtUtils;
+import edu.gdou.pensionlens.utils.RedisCache;
 
 import javax.annotation.Resource;
 import javax.servlet.FilterChain;
@@ -40,7 +40,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //解析token
         String userid;
         try {
-            Claims claims = JwtUtil.parseJWT(token);
+            Claims claims = JwtUtils.parseJwt(token);
             userid = claims.getSubject();
         } catch (Exception e) {
 //            e.printStackTrace();

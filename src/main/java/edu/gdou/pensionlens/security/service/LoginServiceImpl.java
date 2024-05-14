@@ -1,21 +1,26 @@
 package edu.gdou.pensionlens.security.service;
 
+
+import edu.gdou.pensionlens.constant.HttpStatus;
+import edu.gdou.pensionlens.pojo.Result;
+import edu.gdou.pensionlens.pojo.SysUser;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.superdata.medismart.common.ResponseResult;
-import org.superdata.medismart.constant.CacheConstants;
-import org.superdata.medismart.entity.SysUser;
-import org.superdata.medismart.security.domain.LoginUser;
-import org.superdata.medismart.utils.JwtUtil;
-import org.superdata.medismart.utils.RedisCache;
+import edu.gdou.pensionlens.constant.CacheConstants;
+import edu.gdou.pensionlens.security.domain.LoginUser;
+import edu.gdou.pensionlens.utils.JwtUtils;
+import edu.gdou.pensionlens.utils.RedisCache;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -25,30 +30,36 @@ public class LoginServiceImpl implements LoginService {
     private RedisCache redisCache;
 
     @Override
-    public ResponseResult login(SysUser user) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
+    public Result login(SysUser user) {
+        // 1. 造一个UsernamePasswordAuthenticationToken，交给authenticationManager去验证
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
-        if(Objects.isNull(authenticate)){
-            throw new RuntimeException("用户名或密码错误");
+        if (Objects.isNull(authenticate)) {
+            log.info("用户名或密码错误");
+            return new Result(HttpStatus.BAD_REQUEST, "用户名或密码错误");
         }
-        //使用userid生成token
+        // 2. 验证通过，使用userid生成token
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         String userId = loginUser.getUser().getId().toString();
-        String jwt = JwtUtil.createJWT(userId);
-        //authenticate存入redis
-        redisCache.setCacheObject(CacheConstants.USER_LOGIN_KEY+userId,loginUser);
-        //把token响应给前端
-        HashMap<String,String> data = new HashMap<>();
-        data.put("token",jwt);
-        return new ResponseResult(200,"登陆成功", data);
+        Map<String, String> claims = new HashMap<>();
+        claims.put("userId", userId);
+        String jwt = JwtUtils.generateJwt(claims);
+        // 3. 把authenticate凭证存入redis
+        redisCache.setCacheObject(CacheConstants.USER_LOGIN_KEY + userId, loginUser);
+        // 4. 把token响应给前端
+        HashMap<String, String> data = new HashMap<>();
+        data.put("token", jwt);
+        return new Result(HttpStatus.SUCCESS, "登陆成功", data);
     }
 
     @Override
-    public ResponseResult logout() {
+    public Result logout() {
+        // 1. 获取当前用户loginUser
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         Long userid = loginUser.getUser().getId();
-        redisCache.deleteObject(CacheConstants.USER_LOGIN_KEY+userid);
-        return new ResponseResult(200,"退出成功");
+        // 2. 删除redis中的loginUser
+        redisCache.deleteObject(CacheConstants.USER_LOGIN_KEY + userid);
+        return new Result(HttpStatus.SUCCESS, "退出成功");
     }
 }

@@ -9,4 +9,5 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 public class PensionLensApplication {
     public static void main(String[] args) {
         SpringApplication.run(PensionLensApplication.class, args);
-    }}
+    }
+}

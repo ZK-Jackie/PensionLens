@@ -1,4 +1,4 @@
-package edu.gdou.pensionlens.security.pojo;
+package edu.gdou.pensionlens.security.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.superdata.medismart.entity.SysUser;
+import edu.gdou.pensionlens.pojo.SysUser;
 
 import java.util.Collection;
 import java.util.List;

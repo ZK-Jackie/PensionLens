@@ -14,8 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.superdata.medismart.security.filter.JwtAuthenticationTokenFilter;
-import org.superdata.medismart.security.handler.LogoutSuccessHandlerImpl;
+import edu.gdou.pensionlens.security.filter.JwtAuthenticationTokenFilter;
+import edu.gdou.pensionlens.security.handler.LogoutSuccessHandlerImpl;
 
 import javax.annotation.Resource;
 
