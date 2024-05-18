@@ -104,6 +104,26 @@ const routes = [
       headHidden: true,
     }
   },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/Login/index.vue'),
+    meta: {
+      hidden: true,
+      headHidden: false,
+    }
+  },
+
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@/views/register/index.vue'),
+    meta: {
+      hidden: true,
+      headHidden: false,
+    }
+  },
 ]
 
 const router = new VueRouter({
