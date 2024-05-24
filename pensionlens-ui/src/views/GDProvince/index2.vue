@@ -140,12 +140,12 @@ export default {
       this.activeItem2 = 1;//默认激活的项是'1'
       this.activeItem = 3;//默认激活的项是'3'
       this.activeItem3 = 1;//默认激活的项是'1'
-      this.population31.push(res.data.H_population101[0]);
-      this.population32.push(res.data.M_population102[0]);
-      this.population33.push(res.data.L_population103[0]);
-      this.population41.push(res.data.H_population101[1]);
-      this.population42.push(res.data.M_population102[2]);
-      this.population43.push(res.data.L_population103[3]);
+      this.population31.push(res.data.H_population201[0]);
+      this.population32.push(res.data.M_population202[0]);
+      this.population33.push(res.data.L_population203[0]);
+      this.population41.push(res.data.H_population201[1]);
+      this.population42.push(res.data.M_population202[2]);
+      this.population43.push(res.data.L_population203[3]);
 
       this.income_and_expense2 = res.data.income_and_expense02;
       this.participants2 = res.data.participants02;
