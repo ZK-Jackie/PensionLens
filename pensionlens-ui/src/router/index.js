@@ -88,7 +88,7 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/firstPage.vue'),
+    component: () => import('@/views/FirstPage/index.vue'),
     meta: {
       hidden: true,
       headHidden: false,
@@ -98,7 +98,7 @@ const routes = [
   {
     path: '/animation',
     name: 'animation',
-    component: () => import('@/views/animation/index.vue'),
+    component: () => import('@/views/Animation/index.vue'),
     meta: {
       hidden: true,
       headHidden: true,
@@ -118,7 +118,7 @@ const routes = [
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/register/index.vue'),
+    component: () => import('@/views/Register/index.vue'),
     meta: {
       hidden: true,
       headHidden: false,
