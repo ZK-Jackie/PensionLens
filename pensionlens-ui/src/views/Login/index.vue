@@ -49,6 +49,9 @@
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
+        <div style="float: left;" v-if="home">
+          <router-link class="link-type" :to="'/home'">返回首页</router-link>
+        </div>
         <div style="float: right;" v-if="register">
           <router-link class="link-type" :to="'/register'">立即注册</router-link>
         </div>
@@ -64,6 +67,7 @@
 <script>
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
+import {encrypt} from "@/utils/jsencrypt";
 // import { encrypt, decrypt } from '@/utils/jsencrypt'
 
 export default {
@@ -92,7 +96,9 @@ export default {
       captchaEnabled: true,
       // 注册开关
       register: true,
-      redirect: undefined
+      redirect: undefined,
+      //返回首页开关
+      home:true
     };
   },
   watch: {

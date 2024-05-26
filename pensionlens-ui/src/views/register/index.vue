@@ -54,6 +54,9 @@
           <span v-if="!loading">注 册</span>
           <span v-else>注 册 中...</span>
         </el-button>
+        <div style="float: left;">
+          <router-link class="link-type" :to="'/home'">返回首页</router-link>
+        </div>
         <div style="float: right;">
           <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
         </div>
