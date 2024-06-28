@@ -14,7 +14,7 @@ public class SysUser implements Serializable {
     /**
      * 主键
      */
-    private Long id;
+    private Long userId;
 
     /**
      * 用户名
@@ -64,7 +64,7 @@ public class SysUser implements Serializable {
     /**
      * 创建人的用户id
      */
-    private Long createBy;
+//    private Long createBy;
 
     /**
      * 创建时间

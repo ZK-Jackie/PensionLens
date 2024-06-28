@@ -40,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
         }
         // 2. 验证通过，使用userid生成token
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-        String userId = loginUser.getUser().getId().toString();
+        String userId = loginUser.getUser().getUserId().toString();
         Map<String, String> claims = new HashMap<>();
         claims.put("userId", userId);
         String jwt = JwtUtils.generateJwt(claims);
@@ -57,7 +57,7 @@ public class LoginServiceImpl implements LoginService {
         // 1. 获取当前用户loginUser
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
-        Long userid = loginUser.getUser().getId();
+        Long userid = loginUser.getUser().getUserId();
         // 2. 删除redis中的loginUser
         redisCache.deleteObject(CacheConstants.USER_LOGIN_KEY + userid);
         return new Result(HttpStatus.SUCCESS, "退出成功");

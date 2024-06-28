@@ -31,7 +31,7 @@ public class SysUserController {
         }
         // 1. 验证码校验
         Result captchaResult = validateCaptcha(user.getUsername(), user.getCode(), user.getUuid());
-        if(captchaResult != null){
+        if (captchaResult != null) {
             return captchaResult;
         }
         // 2. 登录前校验
@@ -52,6 +52,7 @@ public class SysUserController {
         // 验证码校验
         // 1. 组织查询key
         String verifyKey = CacheConstants.CAPTCHA_CODE_KEY + uuid;
+        log.info("用户:{}", username);
         log.info("验证码key:{}", verifyKey);
         String captcha = redisCache.getCacheObject(verifyKey);
         redisCache.deleteObject(verifyKey);
@@ -71,7 +72,7 @@ public class SysUserController {
         if (password.length() < 6 || password.length() > 20){
             return Result.error(HttpStatus.BAD_REQUEST,"密码长度不符合要求");
         }
-        if (username.length() < 6 || username.length() > 20){
+        if (username.length() < 2 || username.length() > 20){
             return Result.error(HttpStatus.BAD_REQUEST,"用户名长度不符合要求");
         }
         return null;

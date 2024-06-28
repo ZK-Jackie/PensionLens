@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
         //TODO 根据用户查询权限信息 添加到LoginUser中
-        List<String> list = sysMenuMapper.selectPermsByUserId(user.getId());
+        List<String> list = sysMenuMapper.selectPermsByUserId(user.getUserId());
         log.info("用户权限信息：{}", list);
         //封装成UserDetails对象返回
         return new LoginUser(user, list);

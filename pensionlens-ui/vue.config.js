@@ -23,7 +23,7 @@ module.exports = defineConfig({
         proxy: {
             //反向代理，前端解决跨域问题
             [process.env.VUE_APP_BASE_API]: {
-                target: `http://localhost:9093`,
+                target: `http://localhost:8090`,
                 changeOrigin: true,
                 //重写路径
                 pathRewrite: {
