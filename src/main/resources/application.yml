@@ -6,9 +6,9 @@ spring:
   # mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pensionlens?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/userData?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: 'root'
-    password: '041006'
+    password: 'Zyp886554.'
   # redis
   redis:
     host: localhost
