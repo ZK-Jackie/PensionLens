@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import {isIntervalOrLogScale} from "echarts/types/src/scale/helper";
 
 export default {
   name: 'HomePage',

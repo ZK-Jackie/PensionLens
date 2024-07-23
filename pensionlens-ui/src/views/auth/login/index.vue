@@ -169,7 +169,7 @@ body{
   height: 100vh;
 }
 .login-title {
-  margin: 0px auto 30px auto;
+  margin: 0 auto 30px auto;
   text-align: center;
   color: #707070;
   font-size: 30px;
@@ -214,7 +214,7 @@ body{
   width: 100%;
   text-align: center;
   color: #fff;
-  font-family: Arial;
+  font-family: Arial,serif;
   font-size: 18px;
   letter-spacing: 1px;
 }
