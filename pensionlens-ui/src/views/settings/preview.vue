@@ -259,10 +259,10 @@ export default {
     });
     setTimeout(() => {
       this.stage = 2;
-    }, 25000);//8秒后进入加载状态
+    }, 27000);//8秒后进入加载状态
     setTimeout(() => {
       this.stage = 3;
-    }, 30000);//加载5秒进入新页面
+    }, 34000);//加载5秒进入新页面
   }
 }
 </script>
