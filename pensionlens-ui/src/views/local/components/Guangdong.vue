@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import gdMap from '@/assets/Guangdong.json';
+import gdMap from '../../../assets/map/Guangdong.json';
 
 //展示有关广东养老保险相关的数据
 export default {

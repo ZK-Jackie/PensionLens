@@ -10,7 +10,7 @@
               <div v-else class="mood not_importance">不重要</div>
               <div class="source">{{item.source_name}}</div>
               <div class="date">{{item.publish_time}}</div>
-              <div class="title">{{item.title}}</div>
+              <div class="login-title">{{item.title}}</div>
             </div>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default {
       font-size: 15px;
       margin-right: .3rem;
     }
-    .title{
+    .login-title{
       flex: 1;
       color: #fff;
       font-size: 16px;

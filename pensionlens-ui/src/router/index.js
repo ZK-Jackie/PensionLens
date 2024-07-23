@@ -11,67 +11,67 @@ const routes = [
     meta:{
       hidden: true,
       reload: false,
-      headHidden: true,
+      showNav: true,
     }
   },
-
   {
     path: '/nation',
     name: 'nation',
-    component: () => import('@/views/MainScreen/index.vue'),
+    component: () => import('@/views/nation/index.vue'),
     meta: {
       title: '智算古稀——养老保险测算可视化平台',
       miniTitle: '全国概况',
       hidden: false,
       reload: false,
-      headHidden: true,
+      showNav: true,
     }
   },
   {
     path: '/policy',
     name: 'policy',
-    component: () => import('@/views/PoliciesInfo/index.vue'),
+    component: () => import('@/views/policy/index.vue'),
     meta: {
       title: '养老政策信息',
       miniTitle: '政策资讯',
       hidden: false,
       reload: false,
-      headHidden: true,
+      showNav: true,
     }
   },
   {
     path: '/regin',
     name: 'regin',
-    component: () => import('@/views/GDProvince/index.vue'),
+    component: () => import('@/views/local/index.vue'),
     meta: {
       title: '广东省区域大屏信息',
       miniTitle: '区域信息',
       hidden: false,
-      reload: true,
-      headHidden: true,
+      reload: false,
+      showNav: true,
     }
   },
   {
     path: '/modify',
     name: 'modify',
-    component: () => import('@/views/ParamSetting/index.vue'),
+    component: () => import('@/views/settings/index.vue'),
     meta: {
       title: '养老测算',
       miniTitle: '参数调配',
       hidden: false,
-      reload: true,
-      headHidden: true,
+      reload: false,
+      showNav: true,
     }
   },
   {
     path: '/gd',
     name: 'gd',
-    component: () => import('@/views/GDProvince/index2.vue'),
+    component: () => import('@/views/local/index2.vue'),
     meta: {
       title: '广东省区域大屏信息',
       miniTitle: '区域信息',
       hidden: true,
-      headHidden: true,
+      reload: false,
+      showNav: true,
     }
   },
   {
@@ -82,54 +82,59 @@ const routes = [
       title: '测试专用',
       miniTitle: '测试',
       hidden: true,
-      headHidden: true,
+      reload: false,
+      showNav: true,
     }
   },
   {
     path: '/home',
     name: 'home',
-    component: () => import('@/views/FirstPage/index.vue'),
+    component: () => import('@/views/index.vue'),
     meta: {
       hidden: true,
-      headHidden: false,
+      reload: false,
+      showNav: false,
     }
   },
 
   {
     path: '/animation',
     name: 'animation',
-    component: () => import('@/views/Animation/index.vue'),
+    component: () => import('@/views/animation/index.vue'),
     meta: {
       hidden: true,
-      headHidden: true,
+      reload: false,
+      showNav: false,
     }
   },
 
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login/index.vue'),
+    component: () => import('@/views/auth/login/index.vue'),
     meta: {
       hidden: true,
-      headHidden: false,
+      reload: false,
+      showNav: false,
     }
   },
 
   {
     path: '/register',
     name: 'register',
-    component: () => import('@/views/Register/index.vue'),
+    component: () => import('@/views/auth/register/index.vue'),
     meta: {
       hidden: true,
-      headHidden: false,
+      reload: false,
+      showNav: false,
     }
   },
 ]
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
-
+  mode: 'history',
+  base: process.env.VUE_APP_BASE_URL,
 })
 
 export default router

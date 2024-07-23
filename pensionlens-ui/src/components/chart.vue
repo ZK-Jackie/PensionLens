@@ -14,7 +14,7 @@ export default {
     detail: {
       type: Array,
       required: true,
-      default: function() {
+      default: () => {
         return []  // 使用工厂函数返回默认值
       }
     },
@@ -73,7 +73,8 @@ export default {
     },
     init2() {
       // step2: transform the data to the option of the chart
-      this.chartOption = toOptions(this.detail);
+      let detailBak = JSON.parse(JSON.stringify(this.detail));
+      this.chartOption = toOptions(detailBak);
     }
   },
   components: {
@@ -98,9 +99,6 @@ export default {
       <component :is="chartType" :options="chartOption" />
     </div>
   </div>
-<!--  <div v-else-if="chartType === 'Error'">-->
-<!--    <component :is="'Error'" :options="chartOption" style="width: 100%; height: 100%;"/>-->
-<!--  </div>-->
     <div v-else>
       <component :is="'Loading'" style="width: 100%; height: 100%;"/>
     </div>

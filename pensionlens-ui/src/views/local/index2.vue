@@ -45,7 +45,7 @@
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="@/assets/icondown.png" height="12">
+                    <img src="../../assets/screen/icondown.png" height="12">
                     4.7%
                   </div>
                 </transition>
@@ -53,7 +53,7 @@
               <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num2 }}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="@/assets/iconup.png" height="12">
+                    <img src="../../assets/screen/iconup.png" height="12">
                     3.5%
                   </div>
                 </transition>
@@ -70,7 +70,7 @@
         <div class="map">
           <!--展示地图的地方-->
           <Guangdong/>
-          <div class="map2"><img src="@/assets/jt.png"/></div>
+          <div class="map2"><img src="../../assets/screen/jt.png"/></div>
         </div>
       </li>
       <li>
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import Guangdong from "@/views/GDProvince/components/Guangdong.vue";
+import Guangdong from "@/views/local/components/Guangdong.vue";
 import Chart from '@/components/chart.vue';
 import {getRegionData} from "@/api/charts";
 
@@ -208,7 +208,7 @@ export default {
     this.$nextTick(() => {
       if (!sessionStorage.getItem('gd2-reloaded')) {
         sessionStorage.setItem('gd2-reloaded', true);
-        location.reload();
+        //location.reload();
       } else {
         sessionStorage.removeItem('gd2-reloaded');
       }

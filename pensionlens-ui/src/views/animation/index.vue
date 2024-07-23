@@ -1,13 +1,13 @@
 <template>
-  <div  id="app">
-    <div id="canvas">
-      <canvas ref="canvas"></canvas>
+  <div class="animation">
+    <div class="animation-canvas">
+      <canvas ref="animationCanvasRef"></canvas>
     </div>
-    <div id="text">智算  古稀</div>
+    <div class="animation-text">智算  古稀</div>
   </div>
 </template>
 
-<script itemscope>
+<script>
 export default {
   data() {
     return {
@@ -21,7 +21,7 @@ export default {
     };
   },
   mounted() {
-    this.c = this.$refs.canvas;
+    this.c = this.$refs.animationCanvasRef;
     this.$ = this.c.getContext('2d');
     this.w = this.c.width = window.innerWidth;
     this.h = this.c.height = window.innerHeight * 1.5;
@@ -96,10 +96,9 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-#app
-{
+.animation {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,8 +111,7 @@ export default {
     overflow: hidden;
 }
 
-#canvas
-{
+.animation-canvas {
   -webkit-filter:brightness(1)  saturate(0.9);
   position:absolute;
   top: 0;
@@ -121,8 +119,7 @@ export default {
   overflow: hidden;
 }
 
-body
-{
+body {
   margin: 0;
   background:#000;
   padding: 0;
@@ -130,14 +127,15 @@ body
   height: 100%;
   overflow: hidden;
 }
+
 @-webkit-keyframes cinematic
 {
   0%{transform:rotateZ(20deg);}
   75%{opacity:1;}
   100%{transform:rotateZ(-20deg);opacity:0;}
 }
-#text
-{
+
+.animation-text {
   color: #fff;
   font-size: 70px;
   letter-spacing: 15px;
@@ -155,6 +153,7 @@ body
   0 0 160px var(--c);
   animation: animate 2s linear infinite;
 }
+
 @-webkit-keyframes zoom
 {
   0%{
@@ -187,7 +186,5 @@ body
     filter: hue-rotate(360deg);
   }
 }
-
-
 </style>
 

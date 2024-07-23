@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">智算古稀注册平台</h3>
+      <h3 class="login-title">智算古稀注册平台</h3>
       <el-form-item prop="username">
         <el-input v-model="registerForm.username" type="text" auto-complete="off" placeholder="账号">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
@@ -152,7 +152,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 
 body{
-  background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("@/assets/homePage.jpg");
+  background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("../../../assets/home/homePage.jpg");
 }
 
 .register {
@@ -161,8 +161,8 @@ body{
   align-items: center;
   height: 100vh;
 }
-.title {
-  margin: 0px auto 30px auto;
+.login-title {
+  margin: 0 auto 30px auto;
   text-align: center;
   color: #707070;
   font-size: 30px;

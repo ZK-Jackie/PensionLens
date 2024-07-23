@@ -17,19 +17,19 @@
           <div class="barbox">
              <!--下述区域属于显示对应收入的区域-->
             <ul class="clearfix">
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{counter1}}
+              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL',serif">{{counter1}}
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                 <div class="icon-color" v-if="showElement">环比
-                  <img src="@/assets/icondown.png" height="12">
+                  <img src="../../assets/screen/icondown.png" alt="icon down" height="12">
                   4.7%
                 </div>
                 </transition>
               </li>
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{counter2}}
+              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL',serif">{{counter2}}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="@/assets/iconup.png" height="12">
+                    <img src="../../assets/screen/iconup.png" alt="icon up" height="12">
                     3.5%
                   </div>
                 </transition>
@@ -47,7 +47,7 @@
         <div class="map">
         <!--展示地图的地方-->
           <Map/>
-          <div class="map2"><img src="@/assets/jt.png"/></div>
+          <div class="map2"><img src="../../assets/screen/jt.png" alt="icon map"/></div>
         </div>
       </li>
 
@@ -64,15 +64,14 @@
 </template>
 
 <script>
-import * as echarts from "echarts";
-import PublicSentiment from "@/views/MainScreen/components/PublicSentiment.vue";
-import Annuity_bar from "@/views/MainScreen/components/Annuity_bar.vue";
-import Guangdong from "@/views/GDProvince/components/Guangdong.vue";
+import PublicSentiment from "@/views/nation/components/PublicSentiment.vue";
+import Annuity_bar from "@/views/nation/components/HorizontalBar.vue";
+import Guangdong from "@/views/local/components/Guangdong.vue";
 import Block from "@/components/block.vue";
-import Map from '@/views/MainScreen/components/Map.vue';
+import Map from '@/views/nation/components/Map.vue';
 import Chart from '@/components/chart.vue';
 import {gaugeData} from "@/api/data/TestDetail2";
-import PictorialBar  from "@/views/MainScreen/components/Pictorial Bar.vue";
+import PictorialBar  from "@/views/nation/components/PictorialBar.vue";
 
 
 export default {
@@ -127,15 +126,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
-.numberStyle{
-  color: #ffeb7b;
-  width: 100%;
-  height:0.5rem;
-  position: absolute;
-  top:0;
-}
+//.numberStyle{
+//  color: #ffeb7b;
+//  width: 100%;
+//  height:0.5rem;
+//  position: absolute;
+//  top:0;
+//}
 
 .fade-enter-active {
   animation: zoomInOut .5s;
@@ -165,8 +164,6 @@ export default {
   position: absolute;
   top:0;
   right:0;
-}
-.main-box > ul {
 }
 
 .main-box > ul > li {
@@ -236,7 +233,7 @@ export default {
   font-size: .7rem;
   color: #ffeb7b;
   padding: .05rem 0;
-  font-family: electronicFont;
+  font-family: electronicFont,serif;
   font-weight: bold;
 }
 

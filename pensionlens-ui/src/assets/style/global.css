@@ -7,19 +7,19 @@
 }
 
 *, body {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     color: #222;
     font-family: "Source Han Sans", "sans-serif";
 }
 
 @font-face {
     font-family: "DS DIGHTAL";
-    src: url(../font/DS-DIGIT.TTF) format("truetype");
+    src: url(../screen/DS-DIGIT.TTF) format("truetype");
 }
 
 body {
-    background: #000d4a url(../pics/bg.jpg) center top;
+    background: #000d4a url(../screen/bg.jpg) center top;
     background-size: cover;
     color: #666;
     font-size: .1rem;
@@ -30,9 +30,9 @@ li {
 }
 
 i {
-    margin: 0px;
-    padding: 0px;
-    text-indent: 0px;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
 }
 
 img {
@@ -71,7 +71,7 @@ a:hover {
     /*背景网格*/
     border: 1px solid rgba(25, 186, 139, .17);
     padding: 0 .2rem .4rem .15rem;
-    background: rgba(255, 255, 255, .04) url(../pics/line.png);
+    background: rgba(255, 255, 255, .04) url(../screen/line.png);
     background-size: 100% auto;
     position: relative;
     margin-bottom: .15rem;

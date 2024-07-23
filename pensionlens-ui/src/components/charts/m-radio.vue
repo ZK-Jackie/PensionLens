@@ -13,7 +13,7 @@
 
 <script>
 
-import selector from "@/views/ParamSetting/selector.vue";
+import selector from "@/views/settings/selector.vue";
 import {UUID} from "@/utils/string";
 
 export default {

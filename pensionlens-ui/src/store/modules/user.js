@@ -3,6 +3,7 @@ import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
     state: {
+        isLogin: false,
         token: getToken(),
         id: '',
         name: '',
@@ -55,7 +56,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 getInfo().then(res => {
                     const user = res.user
-                    const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/profile.webp") : process.env.VUE_APP_BASE_API + user.avatar;
+                    const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/profile/profile.webp") : process.env.VUE_APP_BASE_API + user.avatar;
                     if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
                         commit('SET_ROLES', res.roles)
                         commit('SET_PERMISSIONS', res.permissions)

@@ -14,7 +14,7 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <h1 class="title">{{ title }}</h1>
+    <h1 class="login-title">{{ title }}</h1>
     <div class="right">
       <span class="time" v-html="formattedTime"></span>
     </div>
@@ -95,13 +95,13 @@ export default {
 
 .head {
   height: 1.05rem;
-  background: url(@/assets/head_bg.png) no-repeat center center;
+  background: url(@/assets/screen/head_bg.png) no-repeat center center;
   background-size: 100% 100%;
   position: relative;
   z-index: 100;
 }
 
-.head .title {
+.head .login-title {
   color: #fff;
   text-align: center;
   font-size: .4rem;

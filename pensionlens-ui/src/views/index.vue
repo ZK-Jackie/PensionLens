@@ -1,50 +1,59 @@
 <template>
-  <div id="app">
-    <section class="head">
-      <nav>
-        <div class="nav-brand">
-          <span>智算古稀</span>
-        </div>
-        <div class="nav-link">
-          <ul>
-            <li><router-link to="/nation">全国概述</router-link></li>
-            <li><router-link to="/regin">区域信息</router-link></li>
-            <li><router-link to="/policy">政策资讯</router-link></li>
-            <li><router-link to="/modify">参数调配</router-link></li>
-          </ul>
-        </div>
-      </nav>
-
-      <div class="text-box">
-        <h1>基于测算模型的养老保险可视化平台</h1>
+  <div class="home-page">
+    <section class="home-head">
+      <div class="nav-brand">
+        <span>智算古稀</span>
       </div>
-
-      <div class="container">
-        <div
-            class="box"
-            v-for="(box, index) in boxes"
-            :key="index"
-            :class="{ 'is-flipped':box.isFlipped}">
-          <div class="front">
-            <div class="icon">
-              <i :class="box.icon"></i>
-            </div>
-            <span>{{ box.title }}</span>
-          </div>
-          <div class="back">
-            <p>{{ box.description }}</p>
-          </div>
-        </div>
+      <div class="home-nav">
+        <ul class="nav-link">
+          <li>
+            <router-link to="/nation">全国概述</router-link>
+          </li>
+          <li>
+            <router-link to="/regin">区域信息</router-link>
+          </li>
+          <li>
+            <router-link to="/policy">政策资讯</router-link>
+          </li>
+          <li>
+            <router-link to="/modify">参数调配</router-link>
+          </li>
+        </ul>
       </div>
     </section>
+
+    <div class="home-title">
+      <h1>基于测算模型的养老保险可视化平台</h1>
+    </div>
+
+    <div class="home-body">
+      <div
+          class="intro-box"
+          v-for="(box, index) in boxes"
+          :key="index"
+          :class="{ 'is-flipped':box.isFlipped}">
+        <div class="intro-box-front">
+          <div class="icon">
+            <i :class="box.icon"></i>
+          </div>
+          <span>{{ box.title }}</span>
+        </div>
+        <div class="intro-box-back">
+          <p>{{ box.description }}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {isIntervalOrLogScale} from "echarts/types/src/scale/helper";
+
 export default {
-  name: 'App',
+  name: 'HomePage',
   data() {
     return {
+      loginStatus: false,
       boxes: [
         {
           icon: 'fa fa-apple',
@@ -65,31 +74,35 @@ export default {
           isFlipped: false,
         },
       ],
-      currentBoxIndex:2,
+      currentBoxIndex: 2,
       flipInterval: null,
     };
   },
   methods: {
+    loadNav(){
+      this.loginStatus = this.$store.getters.isLogin
+      if (this.loginStatus) {
+        this.$store.dispatch('GetScreenInfo')
+      }
+    },
     toggleFlip(index) {
       this.boxes[index].isFlipped = !this.boxes[index].isFlipped;
     },
     startFlipping() {
       this.flipInterval = setInterval(() => {
-
         if (this.boxes[this.currentBoxIndex].isFlipped) {
           this.toggleFlip(this.currentBoxIndex);
         }
-
         this.currentBoxIndex = (this.currentBoxIndex + 1) % this.boxes.length;
         this.toggleFlip(this.currentBoxIndex);
       }, 3000);
     },
   },
   mounted() {
+    this.loadNav();
     this.startFlipping();
   },
   beforeDestroy() {
-
     if (this.flipInterval) {
       clearInterval(this.flipInterval);
     }
@@ -97,7 +110,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 * {
   margin: 0;
@@ -105,42 +118,50 @@ export default {
   box-sizing: border-box;
 }
 
-.head {
+.home-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   width: 100%;
-  background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("@/assets/homePage.jpg");
+  background-image: linear-gradient(rgba(4, 9, 30, 0.7), rgba(4, 9, 30, 0.7)), url("../assets/home/homePage.jpg");
   background-position: center;
   background-size: cover;
   position: relative;
 }
 
-nav{
+.home-head {
+  // 内部组件布局
   display: flex;
-  padding: 2% 6%;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  justify-content: space-between; /* 在内部组件之间创建最大间隔 */
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
+  // 自身位置
+  width: 90%;
+  top: 2%;
+  // 与其他组件的位置
+  margin-bottom: 2%;
 }
 
-nav img {
-  width: 150px;
-}
-
-.nav-link {
+.nav-brand {
   flex: 1;
+  text-align: left;
+  font-size: 30px;
+}
+
+.home-nav a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.home-nav ul {
+  flex: 1;
+  display: flex;
   text-align: right;
 }
 
-.nav-link ul li {
+.home-nav ul li {
   list-style: none;
   display: inline-block;
   padding: 8px 12px;
@@ -151,7 +172,7 @@ nav img {
   cursor: pointer;
 }
 
-.nav-link ul li::after {
+.home-nav ul li::after {
   content: '';
   width: 0;
   height: 2px;
@@ -161,41 +182,31 @@ nav img {
   transition: 0.5s;
 }
 
-.nav-link ul li:hover::after {
+.home-nav ul li:hover::after {
   width: 100%;
 }
 
-.nav-brand {
-  flex: 1;
-  text-align: left;
-  font-size: 30px;
-}
-
-.nav-brand span, .text-box h1 {
+.nav-brand span, .home-title h1 {
   color: #FFFFFF;
 }
 
-.text-box {
+.home-title {
   width: 90%;
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%,-50%);
   text-align: center;
 }
 
-.text-box h1 {
+.home-title h1 {
   font-size: 62px;
 }
 
-.container {
+.home-body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 80px;
 }
 
-.box {
+.intro-box {
   width: 350px;
   margin: 30px;
   text-align: center;
@@ -204,62 +215,62 @@ nav img {
   perspective: 3000px;
 }
 
-.box .front {
+.intro-box .intro-box-front {
   background-color: #fff;
   width: 100%;
   height: 220px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   transition: 0.5s ease;
 }
 
-.box:nth-child(1) .front {
-  background-image: url('@/assets/flipBoxImg01.png');
+.intro-box:nth-child(1) .intro-box-front {
+  background-image: url('@/assets/home/flipBoxImg01.png');
 }
 
-.box:nth-child(2) .front {
-  background-image: url('@/assets/flipBoxImg02.png');
+.intro-box:nth-child(2) .intro-box-front {
+  background-image: url('@/assets/home/flipBoxImg02.png');
 }
 
-.box:nth-child(3) .front {
-  background-image: url('@/assets/flipBoxImg03.png');
+.intro-box:nth-child(3) .intro-box-front {
+  background-image: url('@/assets/home/flipBoxImg03.png');
 }
 
 
-.box .front .icon {
+.intro-box .intro-box-front .icon {
   height: 80px;
 }
 
 
-.box .front .icon i,
-.box .front span {
-  background: linear-gradient(220deg,#982727,#FFFFFF);
+.intro-box .intro-box-front .icon i,
+.intro-box .intro-box-front span {
+  background: linear-gradient(220deg, #982727, #FFFFFF);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.box .front .icon i {
+.intro-box .intro-box-front .icon i {
   font-size: 65px;
   font-weight: 900;
 }
 
-.box .front span,
-.box .back span {
+.intro-box .intro-box-front span,
+.intro-box .intro-box-back span {
   font-size: 22px;
   font-weight: 600;
   text-transform: uppercase;
 }
 
-.box .back {
+.intro-box .intro-box-back {
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
   width: 100%;
   height: 220px;
-  background: linear-gradient(220deg,#02dbb0,#007adf);
+  background: linear-gradient(220deg, #02dbb0, #007adf);
   padding: 30px;
   color: #fff;
   opacity: 0;
@@ -267,7 +278,7 @@ nav img {
   transition: 0.5s ease;
 }
 
-.box .back p {
+.intro-box .intro-box-back p {
   margin-top: auto;
   text-align: center;
   font-size: 17px;
@@ -275,27 +286,27 @@ nav img {
 
 }
 
-.box:hover .front {
+.intro-box:hover .intro-box-front {
   opacity: 0;
   transform: translateY(-110px) rotateX(90deg);
 }
 
-.box:hover .back {
+.intro-box:hover .intro-box-back {
   opacity: 1;
   transform: translateY(0) rotateX(0);
 }
 
-.box .front .title {
+.intro-box .intro-box-front .login-title {
   font-size: 24px;
   text-align: center;
 }
 
-.is-flipped .front {
+.is-flipped .intro-box-front {
   opacity: 0;
   transform: translateY(-110px) rotateX(90deg);
 }
 
-.is-flipped .back {
+.is-flipped .intro-box-back {
   opacity: 1;
   transform: translateY(0) rotateX(0);
 }

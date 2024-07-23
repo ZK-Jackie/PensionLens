@@ -4,13 +4,10 @@
       <li>
         <Block height="3.4rem" title="不同生育模式下不同年龄的人数预测情况">
           <ul class="select-ul2">
-            <ul class="select-ul2">
               <li :class="{ active: activeItem3 === 1}" style="font-size: 12px" @click="activeItem3 = 1">男</li>
               <li :class="{ active: activeItem3 === 2}" style="font-size: 12px" @click="activeItem3 = 2">女</li>
-            </ul>
           </ul>
           <ul class="select-ul">
-            <ul class="select-ul">
               <li :class="{ active: activeItem2 === 1}" style="font-size: 12px" @click="handleItemClick2(1)">
                 高生育模式
               </li>
@@ -20,7 +17,6 @@
               <li :class="{ active: activeItem2 === 3}" style="font-size: 12px" @click="handleItemClick2(3)">
                 低生育模式
               </li>
-            </ul>
           </ul>
           <Chart v-if="activeItem3===1 && activeItem2===1" type="ring" :detail="population11"/>
           <Chart v-else-if="activeItem3===1 && activeItem2===2" type="ring" :detail="population12"/>
@@ -45,7 +41,7 @@
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="@/assets/icondown.png" height="12">
+                    <img src="../../assets/screen/icondown.png" height="12">
                     4.7%
                   </div>
                 </transition>
@@ -53,7 +49,7 @@
               <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num2 }}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="@/assets/iconup.png" height="12">
+                    <img src="../../assets/screen/iconup.png" height="12">
                     3.5%
                   </div>
                 </transition>
@@ -70,7 +66,7 @@
         <div class="map">
           <!--展示地图的地方-->
           <Guangdong/>
-          <div class="map2"><img src="@/assets/jt.png"/></div>
+          <div class="map2"><img src="../../assets/screen/jt.png"/></div>
         </div>
       </li>
       <li>
@@ -100,15 +96,16 @@
 <script>
 import * as echarts from "echarts";
 import Block from "@/components/block.vue";
-import Guangdong from "@/views/GDProvince/components/Guangdong.vue";
+import Guangdong from "@/views/local/components/Guangdong.vue";
 import Chart from '@/components/chart.vue';
-import BasicPension from "@/views/GDProvince/components/BasicPension.vue";
+import BasicPension from "@/views/local/components/BasicPension.vue";
 import {getRegionData} from "@/api/charts";
 
 export default {
   components: {Chart, Block, Guangdong, BasicPension},
   data() {
     return {
+      nowScreenId: 2,
       activeItem2: [],
       activeItem: [],
       activeItem3: [],
@@ -204,17 +201,17 @@ export default {
       setTimeout(() => {
         this.showElement = true;
       }, 500);
-    }
+    },
+    loadData(){
+      this.$store.dispatch('GetScreenDetail', this.nowScreenId).then(res => {
+
+      }).catch(err => {
+        console.log(err)
+      });
+    },
   },
   mounted() {
-    this.$nextTick(() => {
-      if (!sessionStorage.getItem('gd1-reloaded')) {
-        sessionStorage.setItem('gd1-reloaded', true);
-        location.reload();
-      } else {
-        sessionStorage.removeItem('gd1-reloaded');
-      }
-    });
+    this.loadData();
     this.load();
     this.startCounter();
   },
@@ -301,10 +298,7 @@ export default {
 }
 
 .main-box {
-  padding: .1rem .1rem 0rem .1rem;
-}
-
-.main-box > ul {
+  padding: .1rem .1rem 0 .1rem;
 }
 
 .main-box > ul > li {

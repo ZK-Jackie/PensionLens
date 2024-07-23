@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import china from '@/assets/中华人民共和国.json';
+import china from '../../../assets/map/中华人民共和国.json';
 
 //展示有关广东养老保险相关的数据
 export default {
@@ -15,12 +15,11 @@ export default {
   },
   methods: {
     map() {
-      var that = this;
       // 基于准备好的dom，初始化echarts实例
-      var myChart = this.$echarts.init(document.getElementById('china-map'));
+      let myChart = this.$echarts.init(document.getElementById('china-map'));
       this.$echarts.registerMap('china', china);
       this.myChart = myChart;
-      var option = {
+      let option = {
         baseOption: {
           timeline: {
             axisType: 'category',
@@ -67,13 +66,6 @@ export default {
                 '#0066cc',
                 '#003366'  // 深蓝色
               ]
-              // color: [
-              //   '#e0f7fa',
-              //   '#b2ebf2',
-              //   '#80deea',
-              //   '#4dd0e1',
-              //   '#26c6da'
-              // ]
             },
             text: ['High', 'Low'],
             textStyle: {
@@ -102,6 +94,8 @@ export default {
                 },
                 tooltip: {
                   trigger: 'item',
+                  alwaysShowContent: true,
+                  triggerOn: 'mousemove',
                   formatter: '{b}<br/>{c} (亿元)',
                   showDelay: 0,
                   transitionDuration: 2,
@@ -204,6 +198,8 @@ export default {
                   }
                 },
                 tooltip: {
+                  alwaysShowContent: true,
+                  triggerOn: 'mousemove',
                   trigger: 'item',
                   formatter: '{b}<br/>{c} (亿元)',
                   showDelay: 0,
@@ -307,6 +303,8 @@ export default {
                   }
                 },
                 tooltip: {
+                  alwaysShowContent: true,
+                  triggerOn: 'mousemove',
                   trigger: 'item',
                   formatter: '{b}<br/>{c} (亿元)',
                   showDelay: 0,
@@ -410,6 +408,8 @@ export default {
                   }
                 },
                 tooltip: {
+                  alwaysShowContent: true,
+                  triggerOn: 'mousemove',
                   trigger: 'item',
                   formatter: '{b}<br/>{c} (亿元)',
                   showDelay: 0,
@@ -513,6 +513,8 @@ export default {
                   }
                 },
                 tooltip: {
+                  alwaysShowContent: true,
+                  triggerOn: 'mousemove',
                   trigger: 'item',
                   formatter: '{b}<br/>{c} (亿元)',
                   showDelay: 0,
@@ -611,7 +613,7 @@ export default {
       })
     },
     handleChartClick(params) {
-      var data = params.data;//获取用户点击的对象信息
+      let data = params.data;//获取用户点击的对象信息
       if (data.name ==='广东省') {
         this.$router.push('/regin')
       }
@@ -668,12 +670,5 @@ export default {
   width: 100%;
   z-index: 10;
 }
-.ApprovalNum{
-  font-size: 18px;
-  color: red;
-  position: absolute;
-  top: 0;
-  letf:10;
-  z-index: 999;
-}
+
 </style>

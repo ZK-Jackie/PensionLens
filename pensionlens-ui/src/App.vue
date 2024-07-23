@@ -25,11 +25,11 @@ export default {
   },
   watch: {
     '$route': function(to, from) {
-      this.showHeadAndBackground = to.meta.headHidden;
+      this.showHeadAndBackground = to.meta.showNav;
     }
   },
   created() {
-    this.showHeadAndBackground = this.$route.meta.headHidden;
+    this.showHeadAndBackground = this.$route.meta.showNav;
   },
   methods: {
     resizeFont() {
@@ -40,7 +40,6 @@ export default {
   mounted() {
     this.resizeFont();
     window.addEventListener('resize', this.resizeFont);
-    console.log(this.$route)
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.resizeFont);
@@ -50,7 +49,7 @@ export default {
 
 <style>
 .main-box {
-  padding: .1rem .1rem 0rem .1rem;
+  padding: .1rem .1rem 0 .1rem;
 }
 
 .background {

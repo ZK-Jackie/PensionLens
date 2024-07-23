@@ -6,6 +6,7 @@ import store from './store'
 import $ from 'jquery'  //jquery
 import * as echarts from 'echarts'
 import ElementUI from 'element-ui';
+import './assets/style/global.css'
 import 'element-ui/lib/theme-chalk/index.css';
 // Global components
 import Block from './components/block.vue'

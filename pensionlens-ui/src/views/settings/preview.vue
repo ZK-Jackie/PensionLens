@@ -142,7 +142,7 @@
 
 <script>
 import Chart from "@/components/chart.vue";
-import BasicPension from "@/views/GDProvince/components/BasicPension.vue";
+import BasicPension from "@/views/local/components/BasicPension.vue";
 import {getCalPreview, getNowPreview} from "@/api/charts";
 
 export default {

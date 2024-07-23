@@ -37,9 +37,9 @@
           </div>
         </div>
         <div class="map">
-          <div class="map1"><img src="../assets/lbx.png"/></div>
-          <div class="map2"><img src="../assets/jt.png"/></div>
-          <div class="map3"><img src="../assets/map.png"/></div>
+          <div class="map1"><img src="../assets/screen/lbx.png"/></div>
+          <div class="map2"><img src="../assets/screen/jt.png"/></div>
+          <div class="map3"><img src="../assets/screen/map.png"/></div>
           <div class="map4" id="map_1"></div>
         </div>
       </li>

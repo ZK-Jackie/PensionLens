@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">智算古稀登录平台</h3>
+      <h3 class="login-title">智算古稀登录平台</h3>
       <el-form-item prop="username">
         <el-input
             v-model="loginForm.username"
@@ -31,10 +31,10 @@
         >
         </el-input>
         <div class="login-code">
-          <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+          <img :src="codeUrl" alt="validation code" @click="getCode" class="login-code-img"/>
         </div>
       </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
+      <el-checkbox v-model="loginForm.rememberMe" style="margin:0 0 25px 0;">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
         <el-button
             :loading="loading"
@@ -62,8 +62,8 @@
 </template>
 
 <script>
-import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
+import { getCodeImg } from "@/api/login";
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 
 
@@ -159,7 +159,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 
 body{
-  background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("@/assets/homePage.jpg");
+  background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url("../../../assets/home/homePage.jpg");
 }
 
 .login {
@@ -168,7 +168,7 @@ body{
   align-items: center;
   height: 100vh;
 }
-.title {
+.login-title {
   margin: 0px auto 30px auto;
   text-align: center;
   color: #707070;
