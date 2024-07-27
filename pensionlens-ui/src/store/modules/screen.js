@@ -1,5 +1,5 @@
 import {getScreenDetails, getScreenInfo} from "@/api/v2/screen";
-
+import {screenInfo} from "@/api/v2/data/screen_local";
 
 const screen = {
   state: {
@@ -11,8 +11,8 @@ const screen = {
     SET_SCREEN_INFO: (state, template) => {
       state.template = template;
     },
-    SET_DETAIL: (state, detail) => {
-      state.detail = detail;
+    SET_SCREEN_DETAIL: (state, screenId, details) => {
+      state[screenId] = details;
     },
     SET_DETAIL_DATA: (state, data) => {
       state.detail[0].data[0].chatOption = data[0];
@@ -29,15 +29,19 @@ const screen = {
       }).catch(error => {
         throw error;
       });
-    }
-  },
-  GetScreenDetail({commit}, detailId) {
-    return getScreenDetails(detailId).then(response => {
-      commit('SET_DETAIL', response.data);
-      return response.data;
-    }).catch(error => {
-      throw error;
-    });
+    },
+    GetScreenDetail({commit}, screenId) {
+      commit('SET_SCREEN_DETAIL', screenId, screenInfo.screenDetails);
+      return new Promise((resolve, reject) => {
+        resolve(screenInfo.screenDetails);
+      })
+      return getScreenDetails(screenId).then(response => {
+        commit('SET_DETAIL', response.data);
+        return response.data;
+      }).catch(error => {
+        throw error;
+      });
+    },
   },
 }
 

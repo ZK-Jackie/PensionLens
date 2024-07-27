@@ -1,105 +1,86 @@
 <script>
 import {Bar, Gauge, Linear, Ring, Rose, Error, Mlinear, Mslider, Mradio, Loading} from "./charts"
 import Radar from "@/components/charts/radar.vue";
-import {removeNonLetters, capitalizeFirstLetter} from "@/utils/string";
+import {removeNonLetters, capitalizeFirstLetter, UUID} from "@/utils/string";
 import {toOptions} from "@/utils/chart"
+
+const supportedTypes =
+    ['bar', 'gauge', 'linear', 'ring', 'rose',
+      'mlinear', 'mslider', "mradio", "radar",
+      'error'
+    ];
 
 export default {
   name: "chart-component",
   props: {
-    /**
-     * The data of the chart, need an array with JSON element.
-     * In dev mode, detail is not required.
-     */
-    detail: {
+    data: {
       type: Array,
       required: true,
       default: () => {
         return []  // 使用工厂函数返回默认值
       }
     },
-    /**
-     * the type of the chart,
-     * chosen from ['bar', 'gauge', 'line', 'ring', 'rose', 'mlinear', 'mslider']
-     */
     type: {
       type: String,
       required: true,
-      default: "error"
+      default: () => {
+        return "error";
+      }
     },
-    /**
-     * the name of the chart,
-     * will be the class name and vue name of the chart,
-     * default is uuid
-     */
     name: {
       type: String,
       required: false,
-      default: ''
-    },
-  },
-  computed: {
-    isPropsLoaded() {
-      if (typeof this.detail === 'undefined' || this.detail.length === 0 && this.checkRefresh === false) {
-        return false;
-      } else {
-        this.init();
-        return true;
+      default: () => {
+        return "chart";
       }
     },
   },
   mounted() {
-
+    this.componentUUID = UUID();
+    this.$nextTick(() => {
+      this.loadTick = true;
+      console.log(this.data);
+      this.componentData = this.data;
+      this.init();
+    });
   },
   errorCaptured(err, vm, info) {
     console.log(err);
     console.log(vm);
     console.log(info);
-    this.chartType = 'Error';
+    this.chartType = 'error';
   },
   methods: {
     init() {
-      this.init1();
-      this.init2();
+      this.chartType = removeNonLetters(this.type.toLowerCase());
+      this.startLoad = true;
     },
-    init1() {
-      // step1: get and formatter the type of the chart
-      const chosenType = removeNonLetters(this.type.toLowerCase());
-      if (['bar', 'gauge', 'linear', 'ring', 'rose', 'mlinear', 'mslider', "mradio","radar"].includes(chosenType)) {
-        this.chartType = capitalizeFirstLetter(chosenType);
-      } else {
-        this.chartType = 'Error';
-      }
-    },
-    init2() {
-      // step2: transform the data to the option of the chart
-      let detailBak = JSON.parse(JSON.stringify(this.detail));
-      this.chartOption = toOptions(detailBak);
-    }
   },
   components: {
     Bar, Gauge, Linear, Ring, Rose, Error, Mlinear, Mslider, Mradio, Loading, Radar
   },
   data() {
     return {
-      checkRefresh: false,
-      chartData: '',
-      chartOption: [],
-      chartType: '',     /** 1. switching test type */
-      countdown: 0,
-      intervalId: 0,
+      // 等待 Dom 加载完成
+      loadTick: false,
+      // 当前组件的 UUID
+      componentUUID: '',
+      // 当前组件的数据
+      componentData: [],
+      // 当前组件的类型
+      chartType: '', /** 1. switching test type */
+      // 当前组件可否加载
+      startLoad: false,
     }
   },
 }
 </script>
 
 <template>
-  <div v-if="isPropsLoaded" style="width: 100%; height: 100%;">
-    <div style="width: 100%; height: 100%;">
-      <component :is="chartType" :options="chartOption" />
-    </div>
+  <div v-if="loadTick && startLoad" style="width: 100%; height: 100%;">
+      <component :is="chartType" :data="componentData" :key="componentUUID"/>
   </div>
-    <div v-else>
-      <component :is="'Loading'" style="width: 100%; height: 100%;"/>
-    </div>
+  <div v-else-if="loadTick">
+    <component is="Loading" style="width: 100%; height: 100%;"/>
+  </div>
 </template>

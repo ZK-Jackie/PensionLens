@@ -1,35 +1,29 @@
 <template>
   <div class="main-box">
-    <ul class="clearfix">
+    <ul class="clearfix" v-if="isLoadable">
       <li>
         <Block height="3.4rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul2">
-              <li :class="{ active: activeItem3 === 1}" style="font-size: 12px" @click="activeItem3 = 1">男</li>
-              <li :class="{ active: activeItem3 === 2}" style="font-size: 12px" @click="activeItem3 = 2">女</li>
+          <ul class="select-ul2" v-if="buttonIndex1[0] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[0]"
+                :key="index"
+                :class="{ active: buttonActive1[0] === name }"
+                class="button-list"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(0, name, 1)">{{ name }}</li>
           </ul>
-          <ul class="select-ul">
-              <li :class="{ active: activeItem2 === 1}" style="font-size: 12px" @click="handleItemClick2(1)">
-                高生育模式
-              </li>
-              <li :class="{ active: activeItem2 === 2}" style="font-size: 12px" @click="handleItemClick2(2)">
-                中生育模式
-              </li>
-              <li :class="{ active: activeItem2 === 3}" style="font-size: 12px" @click="handleItemClick2(3)">
-                低生育模式
-              </li>
+          <ul class="select-ul" v-if="buttonIndex2[0] !== undefined">
+            <li v-for="(name, index) in buttonIndex2[0]"
+                :key="index" :class="{ active: buttonActive2[0] === name }"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(0, name, 2)">{{ name }}</li>
           </ul>
-          <Chart v-if="activeItem3===1 && activeItem2===1" type="ring" :detail="population11"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===2" type="ring" :detail="population12"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===3" type="ring" :detail="population13"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===1" type="ring" :detail="population21"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===2" type="ring" :detail="population22"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===3" type="ring" :detail="population23"/>
+          <Chart type="ring" :data="nowData[0]" :key="nowData[0][0].dataId"/>
         </Block>
         <Block height="3.2rem" title="广东省城镇养老保险未来收入和支出">
-          <Chart type="bar" :detail="income_and_expense" />
+          <Chart type="bar" :data="nowData[1]" :key="nowData[1][0].dataId"/>
         </Block>
         <Block height="3.4rem" title="广东省城镇职工的参保人数">
-          <Chart type="linear" :detail="participants"/>
+          <Chart type="linear" :data="nowData[2]" :key="nowData[2][0].dataId"/>
         </Block>
       </li>
       <li>
@@ -41,7 +35,7 @@
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="../../assets/screen/icondown.png" height="12">
+                    <img src="../../assets/screen/icondown.png" alt="icon-down" height="12">
                     4.7%
                   </div>
                 </transition>
@@ -49,7 +43,7 @@
               <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num2 }}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
-                    <img src="../../assets/screen/iconup.png" height="12">
+                    <img src="../../assets/screen/iconup.png" alt="icon-down" height="12">
                     3.5%
                   </div>
                 </transition>
@@ -71,7 +65,7 @@
       </li>
       <li>
         <Block title="人均基本养老金情况" height="3.4rem">
-          <BasicPension/>
+<!--          <BasicPension/>-->
         </Block>
         <Block title="人均个人养老金情况" height="3.2rem">
           <ul class="select-ul">
@@ -81,12 +75,12 @@
               <li :class="{ active: activeItem === 3}" style="font-size: 12px" @click="handleItemClick(3)">新人</li>
             </ul>
           </ul>
-          <Chart v-if="activeItem===1" type="rose" :detail="pieData_pension01"/>
-          <Chart v-else-if="activeItem===2" type="rose" :detail="pieData_pension02"/>
-          <Chart v-else-if="activeItem===3" type="rose" :detail="pieData_pension03"/>
+<!--          <Chart v-if="activeItem===1" type="rose" :detail="pieData_pension01"/>-->
+<!--          <Chart v-else-if="activeItem===2" type="rose" :detail="pieData_pension02"/>-->
+<!--          <Chart v-else-if="activeItem===3" type="rose" :detail="pieData_pension03"/>-->
         </Block>
         <Block title="人均过渡养老金情况" height="3.4rem">
-          <Chart type="radar" :detail="RadarData"/>
+<!--          <Chart type="radar" :detail="RadarData"/>-->
         </Block>
       </li>
     </ul>
@@ -94,7 +88,7 @@
 </template>
 
 <script>
-import * as echarts from "echarts";
+import {UUID} from "@/utils/string";
 import Block from "@/components/block.vue";
 import Guangdong from "@/views/local/components/Guangdong.vue";
 import Chart from '@/components/chart.vue';
@@ -105,7 +99,23 @@ export default {
   components: {Chart, Block, Guangdong, BasicPension},
   data() {
     return {
+      // 当前是否可被显示
+      isLoadable: false,
+      // 当前屏本身参数
       nowScreenId: 2,
+      // 当前屏的所有详情
+      totalDetails: [],
+      totalData: {},
+      // 当前屏所有按键状况
+      buttonActive1: [],
+      buttonActive2: [],
+      buttonDataMap: {},
+      buttonIndex1: [],
+      buttonIndex2: [],
+      // 当前屏的显示数据
+      nowData: [],
+
+
       activeItem2: [],
       activeItem: [],
       activeItem3: [],
@@ -138,33 +148,41 @@ export default {
       tempArr23: [],
     }
   },
+  watch:{
+    buttonActive1:{
+      deep: true,
+      handler: function () {
+
+      },
+    }
+  },
   created() {
     getRegionData().then(res => {
-      this.activeItem2 = 1;//默认激活的项是'1'
-      this.activeItem = 3;//默认激活的项是'3'
-      this.activeItem3 = 1;//默认激活的项是'1'
-      this.participants = res.data.participants01;
-      this.RadarData = res.data.RadarData1;
-      this.pieData = res.data.pieData;
-      this.barData = res.data.barData;
-      this.lineData = res.data.lineData;
-      this.pieData_pension01 = res.data.pieData_pension01;
-      this.pieData_pension02 = res.data.pieData_pension02;
-      this.pieData_pension03 = res.data.pieData_pension03;
-      this.population11.push(res.data.H_population101[0]);
-      this.population12.push(res.data.M_population102[0]);
-      this.population13.push(res.data.L_population103[0]);
-      this.population21.push(res.data.H_population101[1]);
-      this.population22.push(res.data.M_population102[2]);
-      this.population23.push(res.data.L_population103[3]);
-      this.income_and_expense = res.data.income_and_expense01;
-
-      this.tempArr11.push(res.data.H_population101[0]);
-      this.tempArr12.push(res.data.M_population102[0]);
-      this.tempArr13.push(res.data.L_population103[0]);
-      this.tempArr21.push(res.data.H_population101[1]);
-      this.tempArr22.push(res.data.M_population102[2]);
-      this.tempArr23.push(res.data.L_population103[3]);
+      // this.activeItem2 = 1;//默认激活的项是'1'
+      // this.activeItem = 3;//默认激活的项是'3'
+      // this.activeItem3 = 1;//默认激活的项是'1'
+      // this.participants = res.data.participants01;
+      // this.RadarData = res.data.RadarData1;
+      // this.pieData = res.data.pieData;
+      // this.barData = res.data.barData;
+      // this.lineData = res.data.lineData;
+      // this.pieData_pension01 = res.data.pieData_pension01;
+      // this.pieData_pension02 = res.data.pieData_pension02;
+      // this.pieData_pension03 = res.data.pieData_pension03;
+      // this.population11.push(res.data.H_population101[0]);
+      // this.population12.push(res.data.M_population102[0]);
+      // this.population13.push(res.data.L_population103[0]);
+      // this.population21.push(res.data.H_population101[1]);
+      // this.population22.push(res.data.M_population102[2]);
+      // this.population23.push(res.data.L_population103[3]);
+      // this.income_and_expense = res.data.income_and_expense01;
+      //
+      // this.tempArr11.push(res.data.H_population101[0]);
+      // this.tempArr12.push(res.data.M_population102[0]);
+      // this.tempArr13.push(res.data.L_population103[0]);
+      // this.tempArr21.push(res.data.H_population101[1]);
+      // this.tempArr22.push(res.data.M_population102[2]);
+      // this.tempArr23.push(res.data.L_population103[3]);
     })
   },
   methods: {
@@ -204,16 +222,100 @@ export default {
     },
     loadData(){
       this.$store.dispatch('GetScreenDetail', this.nowScreenId).then(res => {
-
+        this.totalDetails = JSON.parse(JSON.stringify(res));
+        this.preProcessDetail();
+        this.isLoadable = true;
       }).catch(err => {
-        console.log(err)
+        console.error(err)
       });
     },
+    getDataFromDetail(detailId, dataId){
+      this.totalDetails.forEach(item => {
+        if (item.detailId === detailId) {
+          item.detailData.forEach(detail => {
+            if (detail.dataId === dataId) {
+              return detail;
+            }
+          });
+        }
+      });
+    },
+    handleButtonClick(blockSpot, name, indexId){
+      // 若按键没有变化，不进行任何操作
+      if (indexId === 1 && this.buttonActive1[blockSpot] === name) {
+        return;
+      }else if (indexId === 2 && this.buttonActive2[blockSpot] === name) {
+        return;
+      }
+      // 按键点击事件
+      if (indexId === 1) {
+        this.$set(this.buttonActive1, blockSpot, name);
+      } else {
+        this.$set(this.buttonActive2, blockSpot, name);
+      }
+      this.$nextTick(() => {
+        let button_x = this.buttonActive1[blockSpot];
+        let button_y = this.buttonActive2[blockSpot];
+        let pickDataId = this.buttonDataMap[blockSpot][button_x][button_y];
+        for (let i = 0; i < this.totalDetails[blockSpot].minDataUnit; i++) {
+          this.$set(this.nowData[blockSpot], i, this.totalData[pickDataId]);
+        }
+      });
+    },
+    preProcessDetail(){
+      // 准备渲染面板。即将初始化的内容有：
+      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，
+      // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
+      console.log(this.totalDetails);
+      // 1. 检查是否有按键面板
+      this.totalDetails.forEach(item => {
+        // 若有按键面板，构造按键、数据映射表，构造默认激活按键表
+        if(item.isMultiOption){
+          // 初始化按键索引——确定两个按键组每个按键叫什么名字；初始化按键、数据映射二维表——确定两个按键对应一个数据；
+          this.buttonDataMap[item.detailId] = {};
+          item.detailData.forEach(detail => {
+            // 初始化当前 detail 按键索引1，值为dataName
+            if (this.buttonIndex1[item.detailId] === undefined) {
+              this.$set(this.buttonIndex1, item.detailId, []);
+            }
+            if (!this.buttonIndex1[item.detailId].includes(detail.dataName[0])) {
+              this.buttonIndex1[item.detailId].push(detail.dataName[0]);
+            }
+            // 初始化当前 detail 按键索引2，值为dataName
+            if (this.buttonIndex2[item.detailId] === undefined) {
+              this.$set(this.buttonIndex2, item.detailId, []);
+            }
+            if (!this.buttonIndex2[item.detailId].includes(detail.dataName[1])) {
+              this.buttonIndex2[item.detailId].push(detail.dataName[1]);
+            }
+            // 二位表的横纵坐标分别为dataName的第一个参数和第二个参数，值为dataId
+            if (!(detail.dataName[0] in this.buttonDataMap[item.detailId])) {
+              this.$set(this.buttonDataMap[item.detailId], detail.dataName[0], {});
+            }
+            this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
+          });
+          // 默认激活按键表，第一个值为buttonIndex1的第一个值，第二个值为buttonIndex2的第一个值，值为dataName
+          this.buttonActive1[item.detailId] = this.buttonIndex1[item.detailId][0];
+          this.buttonActive2[item.detailId] = this.buttonIndex2[item.detailId][0];
+        }
+        // 2. 将当前detail应当展示的数据加载到nowData中
+        let tempArr = [];
+        for (let i = 0; i < item.minDataUnit; i++) {
+          tempArr.push(item.detailData[i]);
+        }
+        this.nowData[item.detailId] = JSON.parse(JSON.stringify(tempArr));
+        // 3. 将当前detail的所有数据根据 dataId 加载到totalData中
+        item.detailData.forEach(data => {
+          this.totalData[data.dataId] = data;
+        });
+      });
+    }
   },
   mounted() {
     this.loadData();
     this.load();
     this.startCounter();
+    console.log(this.nowData);
   },
 }
 </script>
@@ -223,8 +325,8 @@ export default {
 .select-ul {
   position: absolute;
   width: 1rem;
-  top: 1rem;
   right: 0;
+  bottom: 0.2rem;
   z-index: 999;
 }
 

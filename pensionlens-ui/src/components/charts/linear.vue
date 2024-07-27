@@ -4,37 +4,25 @@ import {formatNumber} from "@/utils/number";
 
 export default {
   name: 'LinearChart',
-  data(){
-    return {
-      id: UUID()
-    }
-  },
   props: {
-    /**
-     * the specific data and style of the chart
-     * @type {Array} Need an array consists of max to two JSON elements
-     */
-    options: {
+    data: {
       type: Array,
       required: true
-    }
-  },
-  watch: {
-    options: {
-      handler: function (newVal) {
-        if (newVal) {
-          this.loadChartData();
-        }
-      },
-      deep: true
+    },
+    id: {
+      type: String,
+      required: false,
+      default: ()=>{
+        return UUID();
+      }
     }
   },
   mounted() {
     this.loadChartData();
-    this.id = UUID();
   },
   methods: {
     loadChartData() {
+      console.log(this.data);
       this.loadChart();
     },
     loadChart() {
@@ -114,27 +102,27 @@ export default {
       // 填充数据
       /***************纵坐标轴***************/
       // 单位
-      option.yAxis[0].axisLabel.formatter += that.options[0].valueUnit
+      option.yAxis[0].axisLabel.formatter += that.data[0].valueUnit
       // 最值
-      option.yAxis[0].min = that.options[0].minValue;
-      option.yAxis[0].max = that.options[0].maxValue;
+      option.yAxis[0].min = that.data[0].minValue;
+      option.yAxis[0].max = that.data[0].maxValue;
       /*************纵坐标轴结束*************/
 
       /***************横坐标轴***************/
       // 标签
-      option.xAxis[0].data = that.options[0].xAxisTags;
+      option.xAxis[0].data = that.data[0].data[0];
       /*************横坐标轴结束*************/
 
       /************数据提示悬浮框************/
       option.tooltip.formatter =  function (params) {
-        let res = params[0].name + that.options[0].keyUnit + '<br/>';
+        let res = params[0].name + that.data[0].keyUnit + '<br/>';
         for (let i = 0, l = params.length; i < l; i++) {
           let seriesName = params[i].seriesName.split('预测')[0];
           let isPredict = params[i].seriesName.includes('预测');
           // 1. 有该系列且当前还要新增该系列的预测，不允许，跳过；
           if(res.includes(seriesName) && isPredict) continue;
           // 2. 从第2,3个参数中获取精度和单位
-          res += params[i].marker + params[i].seriesName + ' : <b>' + formatNumber(params[i].value[1], params[i].value[2]) + params[i].value[3] + '</b><br/>';
+          res += params[i].marker + params[i].seriesName + ' : <b>' + formatNumber(params[i].value, that.data[0].numPrecision) + that.data[0].valueUnit + '</b><br/>';
         }
         return res;
       }
@@ -144,17 +132,18 @@ export default {
       option.series = [];
       /**************数据系列1**************/
       // 1. 系列名字
-      option.legend.data.push(that.options[0].dataName);
+      option.legend.data[0] = that.data[0].dataName[0];
       // 2. 系列样式及数据
       option.series.push({
-        name: that.options[0].dataName,
+        name: that.data[0].dataName[0],
+        data: that.data[0].data[1],
         type: 'line',
         smooth: true,
         symbol: 'circle',
         symbolSize: 5,
         showSymbol: false,
         lineStyle: {
-          color: that.options[0].dataColor[0],
+          color: that.data[0].dataColor[0],
           width: 2
         },
         areaStyle: {
@@ -169,38 +158,39 @@ export default {
           shadowColor: 'rgba(0, 0, 0, 0.1)',
         },
         itemStyle: {
-          color: that.options[0].dataColor[0],
+          color: that.data[0].dataColor[0],
           borderColor: 'rgba(221,220,107,.1)',
           borderWidth: 12
         },
-        data: that.options[0].data.slice()  // copy list instead of reference
       });
       // 3. 若为预测数据，则设置虚线样式
-      if (that.options[0].isPredict) {
+      if (that.data[0].isPredict) {
+        // 3.1 横坐标标签
+        option.xAxis[0].data = option.xAxis[0].data.concat(that.data[0].predictData[0]);
         // 3.1 系列名字
-        option.legend.data.push(that.options[0].dataName + "预测");
+        option.legend.data.push(that.data[0].dataName[0] + "预测");
         // 3.2 系列样式及数据
         let tempArr = [];
-        for (let i = 0; i < that.options[0].data.length - 1; i++) {
+        for (let i = 0; i < that.data[0].data[0].length - 1; i++) {
           tempArr.push(null);
         }
-        tempArr.push(that.options[0].data[that.options[0].data.length - 1]);
-        tempArr = tempArr.concat(that.options[0].predictData);
+        tempArr.push(that.data[0].data[1][that.data[0].data[1].length - 1]);  // 拼接最后一个真实数据
+        tempArr = tempArr.concat(that.data[0].predictData[1]); // 拼接预测数据
         option.series.push({
-          name: that.options[0].dataName + '预测',
+          name: that.data[0].dataName + '预测',
+          data: tempArr,
           type: 'line',
           smooth: true,
           symbol: 'circle',
           symbolSize: 5,
           showSymbol: false,
           lineStyle: {
-            color: that.options[0].dataColor[0],
+            color: that.data[0].dataColor[0],
             width: 2,
             type: 'dotted'
           },
-          data: tempArr,
           itemStyle: {
-            color: that.options[0].dataColor[0],
+            color: that.data[0].dataColor[0],
             width: 2
           }
         })
@@ -208,19 +198,20 @@ export default {
       /************数据系列1结束************/
 
       /*************数据系列2*************/
-      if (that.options.length > 1) {
+      if (that.data.length > 1) {
         // 1. 系列名字
-        option.legend.data.push(that.options[1].dataName);
+        option.legend.data.push(that.data[1].dataName);
         // 2. 系列样式及数据
         option.series.push({
-          name: that.options[1].dataName,
+          name: that.data[1].dataName,
+          data: that.data[1].data[1],
           type: 'line',
           smooth: true,
           symbol: 'circle',
           symbolSize: 5,
           showSymbol: false,
           lineStyle: {
-            color: that.options[1].dataColor[0],
+            color: that.data[1].dataColor[0],
             width: 2
           },
           areaStyle: {
@@ -235,38 +226,37 @@ export default {
             shadowColor: 'rgba(0, 0, 0, 0.1)',
           },
           itemStyle: {
-            color: that.options[1].dataColor[0],
+            color: that.data[1].dataColor[0],
             borderColor: 'rgba(221,220,107,.1)',
             borderWidth: 12
           },
-          data: that.options[1].data.slice()  // copy list instead of reference
         });
         // 3. 若为预测数据，则设置虚线样式
-        if (that.options[1].isPredict) {
+        if (that.data[1].isPredict) {
           // 3.1 系列名字
-          option.legend.data.push(that.options[1].dataName + "预测");
+          option.legend.data.push(that.data[1].dataName[0] + "预测");
           // 3.2 系列样式及数据
           let tempArr = [];
-          for (let i = 0; i < that.options[1].data.length - 1; i++) {
+          for (let i = 0; i < that.data[1].data[0].length - 1; i++) {
             tempArr.push(null);
           }
-          tempArr.push(that.options[1].data[that.options[1].data.length - 1]);
-          tempArr = tempArr.concat(that.options[1].predictData);
+          tempArr.push(that.data[1].data[0][that.data[1].data[0].length - 1]);  // 拼接最后一个真实数据
+          tempArr = tempArr.concat(that.data[1].predictData[1]); // 拼接预测数据
           option.series.push({
-            name: that.options[1].dataName + '预测',
+            name: that.data[1].dataName + '预测',
+            data: tempArr,
             type: 'line',
             smooth: true,
             symbol: 'circle',
             symbolSize: 5,
             showSymbol: false,
             lineStyle: {
-              color: that.options[1].dataColor[0],
+              color: that.data[1].dataColor[0],
               width: 2,
               type: 'dotted'
             },
-            data: tempArr,
             itemStyle: {
-              color: that.options[1].dataColor[0],
+              color: that.data[1].dataColor[0],
               width: 2
             }
           })
@@ -274,7 +264,6 @@ export default {
       }
       /************数据系列2结束************/
 
-      console.log(option)
       chart && chart.setOption(option);
       setInterval(() => {
         chart.clear(); // 清除当前图表

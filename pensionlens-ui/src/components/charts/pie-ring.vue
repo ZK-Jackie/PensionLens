@@ -8,25 +8,13 @@ export default {
     id: {
       type: String,
       required: false,
-      default: UUID()
+      default: () => {
+        return UUID();
+      }
     },
-    /**
-     * the specific data and style of the chart
-     * @type {Array} Need an array consists of max to two JSON elements
-     */
-    options: {
+    data: {
       type: Array,
       required: true
-    }
-  },
-  watch: {
-    options: {
-      handler: function (newVal) {
-        if (newVal) {
-          this.loadChartData();
-        }
-      },
-      deep: true
     }
   },
   mounted() {
@@ -51,7 +39,6 @@ export default {
           top: '0%',
           // itemWidth: 10,
           // itemHeight: 10,
-          data: [],               /**设置项2：图例**/
           inactiveColor: 'rgba(255,255,255,.2)',  // 未激活时的颜色
           textStyle: {
             color: "rgba(255,255,255,.6)",  // 激活时的颜色
@@ -71,21 +58,28 @@ export default {
 
       /**************数据系列**************/
       let tempArr = [];
-      for (let i = 0; i < that.options[0].data.length; i++) {
-        option.legend.data.push(that.options[0].xAxisTags[that.options[0].data[i][0]]+"");
+      for (let i = 0; i < that.data[0].data[0].length; i++) {
         tempArr.push({
-          value: that.options[0].data[i][1],
-          name: that.options[0].xAxisTags[that.options[0].data[i][0]],
-          numPrecision: that.options[0].numPrecision,
-          valueUnit: that.options[0].valueUnit
+          value: that.data[0].data[1][i],
+          name: that.data[0].data[0][i],
+          numPrecision: that.data[0].numPrecision,
+          valueUnit: that.data[0].valueUnit
+        });
+      }
+      for (let i = 0; i < that.data[0].predictData[0].length; i++) {
+        tempArr.push({
+          value: that.data[0].predictData[1][i],
+          name: that.data[0].predictData[0][i] + "预测",
+          numPrecision: that.data[0].numPrecision,
+          valueUnit: that.data[0].valueUnit
         });
       }
       option.series.push({
-        name: that.options[0].dataName,
+        name: that.data[0].dataName.toString(),
         type: 'pie',
         center: ['50%', '55%'],
         radius: ['40%', '65%'],
-        color: that.options[0].dataColor,
+        color: that.data[0].dataColor,
         label: {
           show: false
         },
@@ -100,6 +94,7 @@ export default {
       });
       /**************数据系列**************/
 
+      /**************自动刷新**************/
       chart && chart.setOption(option);
       setInterval(() => {
         chart.clear(); // 清除当前图表
