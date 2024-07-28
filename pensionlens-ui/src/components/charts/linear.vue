@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     loadChartData() {
-      console.log(this.data);
       this.loadChart();
     },
     loadChart() {

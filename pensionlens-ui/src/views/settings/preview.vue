@@ -16,11 +16,11 @@
       <!--        </Block>-->
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul2">
+          <ul class="select-ul-1st">
             <li :class="{ active: activeItem3 === 1}" style="font-size: 12px" @click="activeItem3 = 1">男</li>
             <li :class="{ active: activeItem3 === 2}" style="font-size: 12px" @click="activeItem3 = 2">女</li>
           </ul>
-          <ul class="select-ul">
+          <ul class="select-ul-2nd">
             <li :class="{ active: activeItem2 === 1}" style="font-size: 12px" @click="handleItemClick2(1)">
               高生育模式
             </li>
@@ -56,7 +56,7 @@
       </li>
       <li>
         <Block class="preview-charts" title="人均个人养老金情况" height="4rem" width="4.182rem">
-          <ul class="select-ul">
+          <ul class="select-ul-2nd">
             <li :class="{ active: activeItem === 1}" style="font-size: 12px" @click="handleItemClick(1)">老中人</li>
             <li :class="{ active: activeItem === 2}" style="font-size: 12px" @click="handleItemClick(2)">新中人</li>
             <li :class="{ active: activeItem === 3}" style="font-size: 12px" @click="handleItemClick(3)">新人</li>
@@ -80,11 +80,11 @@
     <ul v-if="stage === 3">
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul2">
+          <ul class="select-ul-1st">
             <li :class="{ active: activeItem3 === 1}" style="font-size: 12px">男</li>
             <li :class="{ active: activeItem3 === 2}" style="font-size: 12px">女</li>
           </ul>
-          <ul class="select-ul">
+          <ul class="select-ul-2nd">
             <li :class="{ active: activeItem2 === 1}" style="font-size: 12px">
               高生育模式
             </li>
@@ -120,7 +120,7 @@
       </li>
       <li>
         <Block class="preview-charts" title="人均个人养老金情况" height="4rem" width="4.182rem">
-          <ul class="select-ul">
+          <ul class="select-ul-2nd">
             <li :class="{ active: activeItem === 1}" style="font-size: 12px">老中人</li>
             <li :class="{ active: activeItem === 2}" style="font-size: 12px">新中人</li>
             <li :class="{ active: activeItem === 3}" style="font-size: 12px">新人</li>
@@ -298,7 +298,7 @@ export default {
   margin: 0.1rem;
 }
 
-.select-ul {
+.select-ul-2nd {
   position: absolute;
   width: 1rem;
   top: 1rem;
@@ -306,7 +306,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul > li {
+.select-ul-2nd > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -316,12 +316,12 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul > li.active {
+.select-ul-2nd > li.active {
   color: white;
   background: #0e94eb;
 }
 
-.select-ul2 {
+.select-ul-1st {
   position: absolute;
   width: 1rem;
   bottom: 0.2rem;
@@ -329,7 +329,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul2 > li {
+.select-ul-1st > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -339,7 +339,7 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul2 > li.active {
+.select-ul-1st > li.active {
   color: white;
   background: #0e94eb;
 }

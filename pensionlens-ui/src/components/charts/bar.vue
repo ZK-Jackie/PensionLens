@@ -22,7 +22,6 @@ export default {
   },
   methods: {
     loadChartData() {
-      console.log(this.data);
       this.loadChart();
     },
     loadChart() {
@@ -44,7 +43,7 @@ export default {
           containLabel: true
         },
         legend: {
-          data: [], /**设置项2：图例**/
+          data: [],             /**设置项2：图例**/
           inactiveColor: 'rgba(255,255,255,.2)',  // 未激活时的颜色
           textStyle: {
             color: "rgba(255,255,255,.6)"  // 激活时的颜色
@@ -53,7 +52,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: [], /**设置项3：横坐标轴标签**/
+          data: [],             /**设置项3：横坐标轴标签**/
           axisLine: {
             show: true,
             lineStyle: {
@@ -75,7 +74,7 @@ export default {
         }],
         yAxis: [{
           type: 'value',
-          min: -1, /**设置项4：y轴最值*/
+          min: -1,                /**设置项4：y轴最值*/
           max: -1,
           axisLabel: {
             formatter: '{value}', /**设置项5：y轴数据单位**/

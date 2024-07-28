@@ -18,7 +18,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.data);
     this.loadChartData();
   },
   methods: {
@@ -284,7 +283,6 @@ export default {
             tempArr.push(null);
           }
           tempArr.push(that.data[1].data[1][that.data[1].data[0].length - 1]);  // 拼接最后一个真实数据
-          console.log(tempArr);
           tempArr = tempArr.concat(that.data[1].predictData[1]); // 拼接预测数据
           option.series.push({
             name: that.data[1].dataName + '预测',

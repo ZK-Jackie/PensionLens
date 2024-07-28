@@ -44,8 +44,8 @@ export default {
     });
   },
   errorCaptured(err, vm, info) {
-    console.log(err);
-    console.log(vm);
+    console.warn(err);
+    console.error(vm);
     console.log(info);
     this.chartType = 'error';
   },

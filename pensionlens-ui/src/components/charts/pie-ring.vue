@@ -37,8 +37,6 @@ export default {
         },
         legend: {
           top: '0%',
-          // itemWidth: 10,
-          // itemHeight: 10,
           inactiveColor: 'rgba(255,255,255,.2)',  // 未激活时的颜色
           textStyle: {
             color: "rgba(255,255,255,.6)",  // 激活时的颜色
@@ -92,7 +90,7 @@ export default {
         },
         data: tempArr
       });
-      /**************数据系列**************/
+      /************数据系列结束************/
 
       /**************自动刷新**************/
       chart && chart.setOption(option);

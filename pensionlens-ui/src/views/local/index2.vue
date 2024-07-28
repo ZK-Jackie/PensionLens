@@ -3,14 +3,14 @@
     <ul class="clearfix">
       <li>
         <Block height="3.4rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul2">
-            <ul class="select-ul2">
+          <ul class="select-ul-1st">
+            <ul class="select-ul-1st">
               <li :class="{ active: activeItem3 === 1}" style="font-size: 12px" @click="activeItem3 = 1">男</li>
               <li :class="{ active: activeItem3 === 2}" style="font-size: 12px" @click="activeItem3 = 2">女</li>
             </ul>
           </ul>
-          <ul class="select-ul">
-            <ul class="select-ul">
+          <ul class="select-ul-2nd">
+            <ul class="select-ul-2nd">
               <li :class="{ active: activeItem2 === 1}" style="font-size: 12px" @click="handleItemClick2(1)">
                 高生育模式
               </li>
@@ -41,7 +41,7 @@
           <div class="barbox">
             <!--下述区域属于显示对应收入的区域-->
             <ul class="clearfix">
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num1 }}
+              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ digitNum1 }}
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
@@ -50,7 +50,7 @@
                   </div>
                 </transition>
               </li>
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num2 }}
+              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ digitNum2 }}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
                     <img src="../../assets/screen/iconup.png" height="12">
@@ -78,7 +78,7 @@
           <Chart type="linear" :detail="lineData_basic01" :key="2"/>
         </Block>
         <Block title="人均个人养老金情况" height="3.2rem">
-          <ul class="select-ul">
+          <ul class="select-ul-2nd">
             <li :class="{ active: activeItem === 1}" style="font-size: 12px" @click="handleItemClick(1)">老中人</li>
             <li :class="{ active: activeItem === 2}" style="font-size: 12px" @click="handleItemClick(2)">新中人</li>
             <li :class="{ active: activeItem === 3}" style="font-size: 12px" @click="handleItemClick(3)">新人</li>
@@ -221,7 +221,7 @@ export default {
 
 <style scoped>
 
-.select-ul {
+.select-ul-2nd {
   position: absolute;
   width: 1rem;
   top: 1rem;
@@ -229,7 +229,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul > li {
+.select-ul-2nd > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -239,12 +239,12 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul > li.active {
+.select-ul-2nd > li.active {
   color: white;
   background: #0e94eb;
 }
 
-.select-ul2 {
+.select-ul-1st {
   position: absolute;
   width: 1rem;
   bottom: 0.2rem;
@@ -252,7 +252,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul2 > li {
+.select-ul-1st > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -262,7 +262,7 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul2 > li.active {
+.select-ul-1st > li.active {
   color: white;
   background: #0e94eb;
 }

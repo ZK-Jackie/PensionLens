@@ -31,20 +31,20 @@
           <div class="barbox">
             <!--下述区域属于显示对应收入的区域-->
             <ul class="clearfix">
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num1 }}
+              <li class="pulll_left counter" style="font-family: 'DS-DIGIT', serif">{{ digitNum1 }}
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
-                  <div class="icon-color" v-if="showElement">环比
+                  <div class="icon-color" v-if="showDigit">环比
                     <img src="../../assets/screen/icondown.png" alt="icon-down" height="12">
-                    4.7%
+                    {{ '4.7 %' }}
                   </div>
                 </transition>
               </li>
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL'">{{ num2 }}
+              <li class="pulll_left counter" style="font-family: 'DS-DIGIT', serif">{{ digitNum2 }}
                 <transition name="fade">
-                  <div class="icon-color" v-if="showElement">环比
+                  <div class="icon-color" v-if="showDigit">环比
                     <img src="../../assets/screen/iconup.png" alt="icon-down" height="12">
-                    3.5%
+                    {{ '3.5 %' }}
                   </div>
                 </transition>
               </li>
@@ -58,9 +58,8 @@
           </div>
         </div>
         <div class="map">
-          <!--展示地图的地方-->
           <Guangdong/>
-          <div class="map2"><img src="../../assets/screen/jt.png"/></div>
+          <div class="map2"><img alt="map background" src="../../assets/screen/jt.png"/></div>
         </div>
       </li>
       <li>
@@ -79,7 +78,7 @@
           <Chart type="rose" :data="nowData[4]" :key="nowData[4][0].dataId"/>
         </Block>
         <Block title="人均过渡养老金情况" height="3.4rem">
-          <Chart type="rader" :data="nowData[5]" :key="nowData[4][0].dataId"/>
+          <Chart type="rader" :data="nowData[5]" :key="nowData[5][0].dataId"/>
         </Block>
       </li>
     </ul>
@@ -92,7 +91,6 @@ import Block from "@/components/block.vue";
 import Guangdong from "@/views/local/components/Guangdong.vue";
 import Chart from '@/components/chart.vue';
 import BasicPension from "@/views/local/components/BasicPension.vue";
-import {getRegionData} from "@/api/charts";
 
 export default {
   components: {Chart, Block, Guangdong, BasicPension},
@@ -113,130 +111,50 @@ export default {
       buttonIndex2: [],
       // 当前屏的显示数据
       nowData: [],
-
-
-      activeItem2: [],
-      activeItem: [],
-      activeItem3: [],
-      participants: [],
-      RadarData: [],
-      pieData: [],
-      barData: [],
-      lineData: [],
-      pieData_pension01: [],
-      pieData_pension02: [],
-      pieData_pension03: [],
-      population11: [],
-      population12: [],
-      population13: [],
-      population21: [],
-      population22: [],
-      population23: [],
-      num1: 0,
-      num2: 0,
-      maxNum1: 38581413,//有关最终养老金收入和支出的情况
-      maxNum2: 33136439,//有关最终养老金收入和支出的情况
-      showElement: false,
-      income_and_expense: [],
-
-      tempArr11: [],
-      tempArr12: [],
-      tempArr13: [],
-      tempArr21: [],
-      tempArr22: [],
-      tempArr23: [],
+      // 当前屏幕中央大数字
+      digitNum1: 0,
+      digitNum2: 0,
+      digitMaxNum1: 38581413,//有关最终养老金收入和支出的情况
+      digitMaxNum2: 33136439,//有关最终养老金收入和支出的情况
+      showDigit: false,
     }
-  },
-  watch:{
-    buttonActive1:{
-      deep: true,
-      handler: function () {
-
-      },
-    }
-  },
-  created() {
-    getRegionData().then(res => {
-      // this.activeItem2 = 1;//默认激活的项是'1'
-      // this.activeItem = 3;//默认激活的项是'3'
-      // this.activeItem3 = 1;//默认激活的项是'1'
-      // this.participants = res.data.participants01;
-      // this.RadarData = res.data.RadarData1;
-      // this.pieData = res.data.pieData;
-      // this.barData = res.data.barData;
-      // this.lineData = res.data.lineData;
-      // this.pieData_pension01 = res.data.pieData_pension01;
-      // this.pieData_pension02 = res.data.pieData_pension02;
-      // this.pieData_pension03 = res.data.pieData_pension03;
-      // this.population11.push(res.data.H_population101[0]);
-      // this.population12.push(res.data.M_population102[0]);
-      // this.population13.push(res.data.L_population103[0]);
-      // this.population21.push(res.data.H_population101[1]);
-      // this.population22.push(res.data.M_population102[2]);
-      // this.population23.push(res.data.L_population103[3]);
-      // this.income_and_expense = res.data.income_and_expense01;
-      //
-      // this.tempArr11.push(res.data.H_population101[0]);
-      // this.tempArr12.push(res.data.M_population102[0]);
-      // this.tempArr13.push(res.data.L_population103[0]);
-      // this.tempArr21.push(res.data.H_population101[1]);
-      // this.tempArr22.push(res.data.M_population102[2]);
-      // this.tempArr23.push(res.data.L_population103[3]);
-    })
   },
   methods: {
-    handleItemClick(index) {
-      this.activeItem = index; // 将 activeItem 设置为被点击的项目的索引
-    },
-    handleItemClick2(index) {
-      this.activeItem2 = index; // 将 activeItem 设置为被点击的项目的索引
-    },
     startCounter() {
       let time = 0;
       setInterval(() => {
         time += 13;
-        if (this.num1 < this.maxNum1) {
+        if (this.digitNum1 < this.digitMaxNum1) {
           const increment = time * time; // 使用二次函数来计算增量
-          if (this.maxNum1 - this.num1 < increment) { // 如果接近最大值
-            this.num1 = this.maxNum1; // 直接设置为最大值
+          if (this.digitMaxNum1 - this.digitNum1 < increment) { // 如果接近最大值
+            this.digitNum1 = this.digitMaxNum1; // 直接设置为最大值
           } else {
-            this.num1 += increment;
+            this.digitNum1 += increment;
           }
         }
-        if (this.num2 < this.maxNum2) {
+        if (this.digitNum2 < this.digitMaxNum2) {
           const increment = time * time; // 使用二次函数来计算增量
-          if (this.maxNum2 - this.num2 < increment) { // 如果接近最大值
-            this.num2 = this.maxNum2; // 直接设置为最大值
+          if (this.digitMaxNum2 - this.digitNum2 < increment) { // 如果接近最大值
+            this.digitNum2 = this.digitMaxNum2; // 直接设置为最大值
           } else {
-            this.num2 += increment;
+            this.digitNum2 += increment;
           }
         }
       }, 100) // 注意这里的时间间隔已经改为100毫秒，因为我们现在是以0.1秒为单位增加时间
     },
-    load() {
+    loadDigitAnimation() {
       // 延迟初始化图表，直到可以确定DOM元素已经有了正确的大小
       setTimeout(() => {
-        this.showElement = true;
+        this.showDigit = true;
       }, 500);
     },
-    loadData(){
+    reqData(){
       this.$store.dispatch('GetScreenDetail', this.nowScreenId).then(res => {
         this.totalDetails = JSON.parse(JSON.stringify(res));
         this.preProcessDetail();
         this.isLoadable = true;
       }).catch(err => {
         console.error(err)
-      });
-    },
-    getDataFromDetail(detailId, dataId){
-      this.totalDetails.forEach(item => {
-        if (item.detailId === detailId) {
-          item.detailData.forEach(detail => {
-            if (detail.dataId === dataId) {
-              return detail;
-            }
-          });
-        }
       });
     },
     handleButtonClick(blockSpot, name, indexId){
@@ -322,15 +240,14 @@ export default {
     }
   },
   mounted() {
-    this.loadData();
-    this.load();
+    this.reqData();
+    this.loadDigitAnimation();
     this.startCounter();
   },
 }
 </script>
 
 <style scoped>
-
 .select-ul-2nd {
   position: absolute;
   width: 1rem;
@@ -479,7 +396,7 @@ export default {
   font-size: .7rem;
   color: #ffeb7b;
   padding: .05rem 0;
-  font-family: electronicFont;
+  font-family: electronicFont, serif;
   font-weight: bold;
 }
 
@@ -495,42 +412,13 @@ export default {
   z-index: 9;
 }
 
-.map4 {
-  width: 200%;
-  height: 7rem;
-  position: relative;
-  left: -50%;
-  top: 4%;
-  margin-top: .2rem;
-  z-index: 5;
-}
-
-.map1, .map2, .map3 {
-  position: absolute;
-  opacity: .5
-}
-
-.map1 {
-  width: 6.43rem;
-  z-index: 2;
-  top: .45rem;
-  left: .7rem;
-  animation: myfirst2 15s infinite linear;
-}
-
 .map2 {
+  position: absolute;
   width: 5.66rem;
   top: .85rem;
   left: 1.2rem;
   z-index: 3;
   opacity: 0.2;
   animation: myfirst 10s infinite linear;
-}
-
-.map3 {
-  width: 5.18rem;
-  top: 1.07rem;
-  left: 1.4rem;
-  z-index: 1;
 }
 </style>
