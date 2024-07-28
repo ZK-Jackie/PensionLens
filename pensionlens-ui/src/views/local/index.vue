@@ -64,8 +64,8 @@
         </div>
       </li>
       <li>
-        <Block title="人均基本养老金情况" height="3.4rem">
-<!--          <BasicPension/>-->
+        <Block title="人均基本养老金变化" height="3.4rem">
+          <Chart type="climb" :data="nowData[3]" :key="nowData[3][0].dataId"/>
         </Block>
         <Block title="人均个人养老金情况" height="3.2rem">
           <ul class="select-ul">

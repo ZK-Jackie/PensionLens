@@ -8,6 +8,7 @@ target/
 *.iws
 *.iml
 *.ipr
+web/
 
 ### Eclipse ###
 .apt_generated
@@ -33,3 +34,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### temp ###
+**/temp/*

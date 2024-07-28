@@ -1,5 +1,6 @@
 export { default as Bar } from './bar'
 export { default as Linear } from './linear'
+export { default as Climb } from './linear-climb'
 export { default as Rose } from './pie-rose'
 export { default as Ring } from './pie-ring'
 export { default as Gauge } from './gauge'
