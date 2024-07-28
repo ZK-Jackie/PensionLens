@@ -1,8 +1,8 @@
 // 当前用户可访问的大屏信息
 // 0-全国大屏，1-政策大屏，2-区域大屏，3-配置大屏
-export const screenInfo = {
+export const local_screen_info = {
   screenId: 2,
-  screenName: '全国大屏',
+  screenName: '区域大屏',
   isPredict: false,
   isActive: true,
   screenPlan: [{
