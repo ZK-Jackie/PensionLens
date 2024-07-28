@@ -1,5 +1,5 @@
 <script>
-import {Bar, Gauge, Linear, Ring, Rose, Error, Mlinear, Mslider, Mradio, Loading, Climb} from "./charts"
+import {Bar, Gauge, Linear, Ring, Rose, Error, Mlinear, Mslider, Mradio, Loading, Climb, Rader} from "./charts"
 import Radar from "@/components/charts/radar.vue";
 import {removeNonLetters, capitalizeFirstLetter, UUID} from "@/utils/string";
 import {toOptions} from "@/utils/chart"
@@ -7,7 +7,7 @@ import {toOptions} from "@/utils/chart"
 const supportedTypes =
     ['bar', 'gauge', 'linear', 'ring', 'rose',
       'mlinear', 'mslider', "mradio", "radar",
-      'error', 'climb'
+      'error', 'climb', "rader"
     ];
 
 export default {
@@ -39,7 +39,6 @@ export default {
     this.componentUUID = UUID();
     this.$nextTick(() => {
       this.loadTick = true;
-      console.log(this.data);
       this.componentData = this.data;
       this.init();
     });
@@ -57,7 +56,9 @@ export default {
     },
   },
   components: {
-    Bar, Gauge, Linear, Ring, Rose, Error, Mlinear, Mslider, Mradio, Loading, Radar, Climb
+    Bar, Gauge, Linear, Ring, Rose, Error,
+    Mlinear, Mslider, Mradio, Loading, Radar,
+    Climb, Rader
   },
   data() {
     return {

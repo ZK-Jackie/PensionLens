@@ -420,7 +420,7 @@ export const RadarData1 = [//第一套每年人均过度养老金的数据
       dataName: "老中人",
       displayableMode: ["radar"],
       numPrecision: '100.00',
-      maxValue: 40000,
+      maxValue: 20000,
       minValue: 0,
       dataColor: ['#2f89cf'],
       isPredict: true,

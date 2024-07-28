@@ -3,7 +3,7 @@
     <ul class="clearfix" v-if="isLoadable">
       <li>
         <Block height="3.4rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul2" v-if="buttonIndex1[0] !== undefined">
+          <ul class="select-ul-1st" v-if="buttonIndex1[0] !== undefined">
             <li v-for="(name, index) in buttonIndex1[0]"
                 :key="index"
                 :class="{ active: buttonActive1[0] === name }"
@@ -11,7 +11,7 @@
                 style="font-size: 0.15rem"
                 @click="handleButtonClick(0, name, 1)">{{ name }}</li>
           </ul>
-          <ul class="select-ul" v-if="buttonIndex2[0] !== undefined">
+          <ul class="select-ul-2nd" v-if="buttonIndex2[0] !== undefined">
             <li v-for="(name, index) in buttonIndex2[0]"
                 :key="index" :class="{ active: buttonActive2[0] === name }"
                 style="font-size: 0.15rem"
@@ -68,19 +68,18 @@
           <Chart type="climb" :data="nowData[3]" :key="nowData[3][0].dataId"/>
         </Block>
         <Block title="人均个人养老金情况" height="3.2rem">
-          <ul class="select-ul">
-            <ul class="select-ul">
-              <li :class="{ active: activeItem === 1}" style="font-size: 12px" @click="handleItemClick(1)">老中人</li>
-              <li :class="{ active: activeItem === 2}" style="font-size: 12px" @click="handleItemClick(2)">新中人</li>
-              <li :class="{ active: activeItem === 3}" style="font-size: 12px" @click="handleItemClick(3)">新人</li>
-            </ul>
+          <ul class="select-ul-1st" v-if="buttonIndex1[4] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[4]"
+                :key="index"
+                :class="{ active: buttonActive1[4] === name }"
+                class="button-list"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(4, name, 1)">{{ name }}</li>
           </ul>
-<!--          <Chart v-if="activeItem===1" type="rose" :detail="pieData_pension01"/>-->
-<!--          <Chart v-else-if="activeItem===2" type="rose" :detail="pieData_pension02"/>-->
-<!--          <Chart v-else-if="activeItem===3" type="rose" :detail="pieData_pension03"/>-->
+          <Chart type="rose" :data="nowData[4]" :key="nowData[4][0].dataId"/>
         </Block>
         <Block title="人均过渡养老金情况" height="3.4rem">
-<!--          <Chart type="radar" :detail="RadarData"/>-->
+          <Chart type="rader" :data="nowData[5]" :key="nowData[4][0].dataId"/>
         </Block>
       </li>
     </ul>
@@ -256,7 +255,14 @@ export default {
       this.$nextTick(() => {
         let button_x = this.buttonActive1[blockSpot];
         let button_y = this.buttonActive2[blockSpot];
-        let pickDataId = this.buttonDataMap[blockSpot][button_x][button_y];
+        // 如果有第二个按钮才是两级寻 id，一级的话使用一个 x 即可
+        let pickDataId
+        if (button_y !== undefined){
+          pickDataId = this.buttonDataMap[blockSpot][button_x][button_y];
+        } else {
+          pickDataId = this.buttonDataMap[blockSpot][button_x];
+        }
+        // 根据需求取数据
         for (let i = 0; i < this.totalDetails[blockSpot].minDataUnit; i++) {
           this.$set(this.nowData[blockSpot], i, this.totalData[pickDataId]);
         }
@@ -266,7 +272,6 @@ export default {
       // 准备渲染面板。即将初始化的内容有：
       // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，
       // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
-      console.log(this.totalDetails);
       // 1. 检查是否有按键面板
       this.totalDetails.forEach(item => {
         // 若有按键面板，构造按键、数据映射表，构造默认激活按键表
@@ -292,7 +297,12 @@ export default {
             if (!(detail.dataName[0] in this.buttonDataMap[item.detailId])) {
               this.$set(this.buttonDataMap[item.detailId], detail.dataName[0], {});
             }
-            this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
+            // 如果有第二个 dataName 就两层 button
+            if (detail.dataName[1] !== undefined){
+              this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
+            }else{
+              this.buttonDataMap[item.detailId][detail.dataName[0]] = detail.dataId;
+            }
           });
           // 默认激活按键表，第一个值为buttonIndex1的第一个值，第二个值为buttonIndex2的第一个值，值为dataName
           this.buttonActive1[item.detailId] = this.buttonIndex1[item.detailId][0];
@@ -315,14 +325,13 @@ export default {
     this.loadData();
     this.load();
     this.startCounter();
-    console.log(this.nowData);
   },
 }
 </script>
 
 <style scoped>
 
-.select-ul {
+.select-ul-2nd {
   position: absolute;
   width: 1rem;
   right: 0;
@@ -330,7 +339,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul > li {
+.select-ul-2nd > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -340,12 +349,12 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul > li.active {
+.select-ul-2nd > li.active {
   color: white;
   background: #0e94eb;
 }
 
-.select-ul2 {
+.select-ul-1st {
   position: absolute;
   width: 1rem;
   bottom: 0.2rem;
@@ -353,7 +362,7 @@ export default {
   z-index: 999;
 }
 
-.select-ul2 > li {
+.select-ul-1st > li {
   height: 0.4rem;
   line-height: 0.4rem;
   padding-left: 10px;
@@ -363,7 +372,7 @@ export default {
   color: #cdddf7;
 }
 
-.select-ul2 > li.active {
+.select-ul-1st > li.active {
   color: white;
   background: #0e94eb;
 }
