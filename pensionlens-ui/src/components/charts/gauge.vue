@@ -8,26 +8,13 @@ export default {
     id: {
       type: String,
       required: false,
-      default: UUID()
+      default: () => {
+        return UUID();
+      }
     },
-    /**
-     * the specific data and style of the chart
-     * @type {Array} Need an array consists of max to two JSON elements
-     */
-    options: {
+    data: {
       type: Array,
       required: true,
-      default: []
-    }
-  },
-  watch: {
-    options: {
-      handler: function (newVal) {
-        if (newVal) {
-          this.loadChartData();
-        }
-      },
-      deep: true
     }
   },
   mounted() {
@@ -38,7 +25,6 @@ export default {
       this.loadChart();
     },
     loadChart() {
-      // alert()
       const that = this;
       const chart = this.$echarts.init(document.getElementById('chart-item-gauge-' + that.id));
       const option = {
@@ -114,37 +100,37 @@ export default {
       // 填充数据
       /**********色系***********/
       option.series[0].axisLine.lineStyle.color = [
-        [0.25, that.options[0].dataColor[0]],
-        [0.5, that.options[0].dataColor[1]],
-        [0.75, that.options[0].dataColor[2]],
-        [1, that.options[0].dataColor[3]]
+        [0.25, that.data[0].dataColor[0]],
+        [0.5, that.data[0].dataColor[1]],
+        [0.75, that.data[0].dataColor[2]],
+        [1, that.data[0].dataColor[3]]
       ];
       /*********刻度标签*********/
       option.series[0].axisLabel.formatter = function (value) {
         if (value === 0.875) {
-          return that.options[0].xAxisTags[3];
+          return that.data[0].data[0][3];
         } else if (value === 0.625) {
-          return that.options[0].xAxisTags[2];
+          return that.data[0].data[0][2];
         } else if (value === 0.375) {
-          return that.options[0].xAxisTags[1];
+          return that.data[0].data[0][1];
         } else if (value === 0.125) {
-          return that.options[0].xAxisTags[0];
+          return that.data[0].data[0][0];
         }
         return '';
       }
       /*********数据*********/
       option.series[0].data = [
         {
-          value: formatNumber(that.options[0].data[1], that.options[0].numPrecision),
-          name: that.options[0].data[0]　
+          value: formatNumber(that.data[0].data[1][0], that.data[0].numPrecision),
+          name: that.data[0].dataName[0]　
         }
       ];
       // 使用刚指定的配置项和数据显示图表
       chart.setOption(option);
       setInterval(() => {
         chart.clear(); // 清除当前图表
-        //并改变对应的安全系数的值
-        option.series[0].data[0].value = formatNumber(Math.random(), that.options[0].numPrecision)
+        // 并改变对应的安全系数的值
+        option.series[0].data[0].value = formatNumber(Math.random(), that.data[0].numPrecision)
         chart.setOption(option);
       }, 5000); // 每5秒刷新一次图表
       window.addEventListener("resize", function () {

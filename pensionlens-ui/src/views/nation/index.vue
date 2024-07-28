@@ -1,15 +1,14 @@
 <template>
-  <div class="main-box">
+  <div class="main-box" v-if="isLoadable">
     <ul class="clearfix">
       <li>
           <Block height="5.1rem" title="政策关键词词频统计图">
             <div @click="handleClick">
               <PictorialBar/>
             </div>
-
           </Block>
         <Block height="4.3rem" title="养老基金安全指数">
-          <Chart type="gauge" :detail="gaugeData" />
+          <Chart type="gauge" :data="nowData.detailData" :key="'gaugegauge'"/>
         </Block>
       </li>
       <li>
@@ -70,7 +69,7 @@ import Guangdong from "@/views/local/components/Guangdong.vue";
 import Block from "@/components/block.vue";
 import Map from '@/views/nation/components/Map.vue';
 import Chart from '@/components/chart.vue';
-import {gaugeData} from "@/api/data/TestDetail2";
+import {gaugeData} from "@/api/v2/data/screen_nation";
 import PictorialBar  from "@/views/nation/components/PictorialBar.vue";
 
 
@@ -78,7 +77,13 @@ export default {
   components: {Chart,Map,Block,Guangdong, Annuity_bar, PublicSentiment,PictorialBar},
   data()　{
     return {
-      gaugeData: gaugeData,
+      // 当前屏幕是否可以开始加载
+      isLoadable: false,
+      // 当前屏幕 Id
+      nowScreenId: 0,
+      // 当前屏幕数据
+      totalDetails: [],
+      nowData: [],
       counter1: 0,
       counter2: 0,
       maxCounter1: 125811899,//有关最终养老金收入和支出的情况
@@ -117,9 +122,19 @@ export default {
         setTimeout(() => {
           this.showElement = true;
         }, 500);
-    }
+    },
+    reqData(){
+      this.$store.dispatch('GetScreenDetail', this.nowScreenId).then(res => {
+        this.totalDetails = JSON.parse(JSON.stringify(res));
+        this.nowData = this.totalDetails[0]
+        this.isLoadable = true;
+      }).catch(err => {
+        console.error(err)
+      });
+    },
   },
   mounted() {
+    this.reqData();
     this.load();
     this.startCounter();
   }

@@ -1,5 +1,6 @@
 import {getScreenDetails, getScreenInfo} from "@/api/v2/screen";
-import {screenInfo} from "@/api/v2/data/screen_local";
+import {nation_screen_info} from "@/api/v2/data/screen_nation";
+import {local_screen_info} from "@/api/v2/data/screen_local";
 
 const screen = {
   state: {
@@ -31,10 +32,17 @@ const screen = {
       });
     },
     GetScreenDetail({commit}, screenId) {
-      commit('SET_SCREEN_DETAIL', screenId, screenInfo.screenDetails);
-      return new Promise((resolve, reject) => {
-        resolve(screenInfo.screenDetails);
-      })
+      if (screenId === 0){
+        commit('SET_SCREEN_DETAIL', screenId, nation_screen_info.screenDetails);
+        return new Promise((resolve, reject) => {
+          resolve(nation_screen_info.screenDetails);
+        })
+      }else if (screenId === 2){
+        commit('SET_SCREEN_DETAIL', screenId, local_screen_info.screenDetails);
+        return new Promise((resolve, reject) => {
+          resolve(local_screen_info.screenDetails);
+        })
+      }
       return getScreenDetails(screenId).then(response => {
         commit('SET_DETAIL', response.data);
         return response.data;
