@@ -247,7 +247,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .select-ul-2nd {
   position: absolute;
   width: 1rem;
