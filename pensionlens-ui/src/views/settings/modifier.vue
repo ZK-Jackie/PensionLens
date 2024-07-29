@@ -1,142 +1,181 @@
 <template>
-  <div>
+  <div v-if="isLoadable1 && isLoadable2">
     <div class="modifier-top">
-      <el-select v-model="selectorValue"
-                 @change="selectorChange"
-                 :disabled="selectorOptions.length <= 1"
+      <!-- TODO spot 和 detail 的关系映射 -->
+      <el-select v-model="buttonActive1[detailList[select]]"
+                 @change="handleSelectorChange"
+                 :disabled="buttonActive1[detailList[select]] === undefined"
                  placeholder="请选择">
         <el-option
-            v-for="item in selectorOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+            v-for="item in buttonIndex1[detailList[select]]"
+            :key="item+'-button'"
+            :label="item"
+            :value="item">
         </el-option>
       </el-select>
       <el-button type="primary"
                  plain
-                 @click="reset"
+                 @click="reqData(mdetails)"
                  style="margin-left: 0.1rem">
         重置
       </el-button>
       <el-button type="success" plain
-                 @click="confirm">
+                 @click="confirm()">
         保存
       </el-button>
     </div>
     <Chart class="modifier-mid"
-           :type="chartType"
-           :detail="chartDetail"
-           :key="refreshKey"
+           :type="nowData[detailList[select]][0].displayMode[0]"
+           :data="nowData[detailList[select]]"
+           :key="nowData[detailList[select]][0].dataId"
            style="height: 1.7rem"/>
   </div>
 </template>
 <script>
 import Chart from "@/components/chart.vue";
-import {toDetail} from "@/utils/chart";
 
 export default {
-  watch: {
-    '$store.getters.tempOption': {
-      handler(newVal, oldVal) {
-        // deep copy
-        let copy = JSON.parse(JSON.stringify(newVal));
-        let temp = toDetail(copy);
-        if (temp) {
-          this.concatDetailById(temp);
-        }
-      },
-      deep: true
+  name: "Modifier",
+  components: { Chart },
+  props: {
+    select: {
+      type: Number
     },
-    '$store.getters.tempButton': {
-      handler(newVal, oldVal) {
-        this.activeButton = newVal;
-      },
-      deep: true
+    mdetails: {
+      type: Array,
+      default: () => []
     },
-    activeButton() {
-      this.refreshKey ++;
-      this.loadParam();
+    loading: {
+      type: Boolean,
+      default: true
     }
+  },
+  watch: {
+    loading: {
+      handler: function (val) {
+        this.isLoadable1 = !val;
+      },
+      immediate: true,
+      deep: true
+    },
+    mdetails: {
+      handler: function (val) {
+        this.isLoadable2 = false;
+        this.reqData(val);
+      },
+      immediate: true,
+      deep: true
+    },
+
   },
   data() {
     return {
-      //bak
-      paramDetailsBak: [],
-      // outside-button
-      activeButton: 0,
-      // inside-selector
-      selectorValue: '',
-      selectorOptions: [],
-      // chart
-      chartDetail: [],
-      chartType: '',
-      //operation
-      confirmDetails: [],
-      //refresh
-      refreshKey: 0
-    };
+      // 当前大屏显示状况
+      isLoadable1: false,
+      isLoadable2: false,
+      // 当前屏参数
+      nowScreenId: 4,
+      // 当前屏的所有详情
+      totalDetails: [],
+      totalData: {},
+      // 当前屏所有选择器状况
+      buttonActive1: [],
+      buttonActive2: [],
+      buttonDataMap: {},
+      buttonIndex1: [],
+      buttonIndex2: [],
+      // 当前屏的显示数据
+      detailList: [],     // 当前屏幕有哪些 detailId
+      nowData: [],        // 当前屏幕展示的数据
+    }
   },
   methods: {
-    async init(){
-      try{
-        await this.$store.dispatch('GetParamDetails');
-        //copy a bak
-        this.paramDetailsBak = this.$store.getters.paramDetails.slice();
-        // 1. 默认起始选值
-        this.selectorValue = 0;
-        // 2. 加载数据
-        this.loadParam();
-      }catch (e) {
-        console.log(e);
-      }
+    handleSelectorChange(){
+      // 当前选中的目标的 id
+      let nowSelectDetailId = this.detailList[this.select];
+      // 当前选中的选项
+      let aimOption = this.buttonActive1[nowSelectDetailId];
+      // 目标选项的数据 id
+      let aimDataId = this.buttonDataMap[nowSelectDetailId][aimOption];
+      // 将目标数据 id 的数据加载到 nowData 中
+      this.nowData[nowSelectDetailId] = [this.totalData[aimDataId]];
+      console.log(this.nowData[nowSelectDetailId]);
     },
-    loadParam(){
-      // 1. 更新选项
-      let tempArr = [];
-      this.$store.getters.paramDetails[this.activeButton].forEach((item) => {
-        tempArr.push({
-          value: tempArr.length,
-          label: item.chartOption.defaultIndex
+    confirm(){
+      // this.$emit('confirm', this.nowData);
+      this.$message({
+        message: '保存成功',
+        type: 'success',
+        duration: 1000
+      });
+      console.log(this.nowData);
+    },
+    reqData(res){
+      this.isLoadable2 = false;
+      this.totalDetails = JSON.parse(JSON.stringify(res));
+      this.preProcessDetail();
+      setTimeout(() => {
+        this.isLoadable2 = true;
+      }, 500)
+      console.log(this.nowData)
+    },
+    preProcessDetail(){
+      // 准备渲染面板。即将初始化的内容有：
+      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，this.detailList，
+      // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
+      // 1. 检查是否有按键面板
+      this.totalDetails.forEach(item => {
+        // 填充 detailList
+        this.detailList.push(item.detailId);
+        // 若有按键面板，构造按键、数据映射表，构造默认激活按键表
+        if(item.isMultiOption){
+          // 初始化按键索引——确定两个按键组每个按键叫什么名字；初始化按键、数据映射二维表——确定两个按键对应一个数据；
+          this.buttonDataMap[item.detailId] = {};
+          item.detailData.forEach(detail => {
+            // 初始化当前 detail 按键索引1，值为dataName
+            if (this.buttonIndex1[item.detailId] === undefined) {
+              this.$set(this.buttonIndex1, item.detailId, []);
+            }
+            if (!this.buttonIndex1[item.detailId].includes(detail.dataName[0])) {
+              this.buttonIndex1[item.detailId].push(detail.dataName[0]);
+            }
+            // 初始化当前 detail 按键索引2，值为dataName
+            if (this.buttonIndex2[item.detailId] === undefined) {
+              this.$set(this.buttonIndex2, item.detailId, []);
+            }
+            if (!this.buttonIndex2[item.detailId].includes(detail.dataName[1])) {
+              this.buttonIndex2[item.detailId].push(detail.dataName[1]);
+            }
+            // 二位表的横纵坐标分别为dataName的第一个参数和第二个参数，值为dataId
+            if (!(detail.dataName[0] in this.buttonDataMap[item.detailId])) {
+              this.$set(this.buttonDataMap[item.detailId], detail.dataName[0], {});
+            }
+            // 如果有第二个 dataName 就两层 button
+            if (detail.dataName[1] !== undefined){
+              this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
+            }else{
+              this.buttonDataMap[item.detailId][detail.dataName[0]] = detail.dataId;
+            }
+          });
+          // 默认激活按键表，第一个值为buttonIndex1的第一个值，第二个值为buttonIndex2的第一个值，值为dataName
+          this.buttonActive1[item.detailId] = this.buttonIndex1[item.detailId][0];
+          this.buttonActive2[item.detailId] = this.buttonIndex2[item.detailId][0];
+        }
+        // 2. 将当前detail应当展示的数据加载到nowData中
+        let tempArr = [];
+        for (let i = 0; i < item.minDataUnit; i++) {
+          tempArr.push(item.detailData[i]);
+        }
+        this.nowData[item.detailId] = JSON.parse(JSON.stringify(tempArr));
+        // 3. 将当前detail的所有数据根据 dataId 加载到totalData中
+        item.detailData.forEach(data => {
+          this.totalData[data.dataId] = data;
         });
       });
-      this.selectorOptions = [];
-      this.selectorOptions = tempArr.slice();
-      // 2. 更新起始图表
-      this.chartType = this.$store.getters.paramDetails[this.activeButton][this.selectorValue].displayMode;
-      // 3. 更新chart detail数据
-      this.chartDetail[0] = this.$store.getters.paramDetails[this.activeButton][this.selectorValue];
-    },
-    selectorChange() {
-      this.chartType = this.$store.getters.paramDetails[this.activeButton][this.selectorValue].displayMode;
-      this.chartDetail = [];
-      this.chartDetail[0] = this.$store.getters.paramDetails[this.activeButton][this.selectorValue];
-    },
-    concatDetailById(newDetail){
-      // deep copy
-      let temp = JSON.parse(JSON.stringify(this.$store.getters.paramDetails));
-      temp.forEach((detail) => {
-        detail.forEach((item) => {
-          if(item.dataId === newDetail.dataId){
-            item.chartOption = newDetail;
-          }
-        });
-      });
-      this.$store.commit('SET_PARAM_DETAILS', temp);
-      console.log(this.$store.getters.paramDetails);
-    },
-    confirm() {
-
-    },
-    reset() {
-
     }
   },
   mounted() {
-    this.init();
-  },
-  name: "Modifier",
-  components: {
-    Chart,
+
   },
 }
 </script>

@@ -1,20 +1,15 @@
 <template>
   <div class="button-table">
-    <ul v-if="buttons !== [].slice()">
-      <!--        <div class="underline" v-show="activeButtonIndex !== -1" :style="underlineStyle"></div>-->
-      <!--按钮列表-->
+    <ul v-if="isLoadable">
       <li v-for="(buttonItem, index) in buttonList"
           :key="index"
           :class="activeButtonIndex === index ? 'button-active' : 'button-non-active'"
-          @click="activeButtonIndex = index"
+          @click="handleButtonClick(index)"
           ref="buttons"
       >
         <span class="button-word">{{ buttonItem }}</span>
       </li>
     </ul>
-    <div v-else>
-
-    </div>
   </div>
 </template>
 
@@ -29,42 +24,26 @@ export default {
   },
   data() {
     return {
+      // 当前页面是否可被加载
+      isLoadable: false,
       activeButtonIndex: -1,
-      underlineStyle: '',
-      buttons: []
-    }
-  },
-  watch: {
-    activeButtonIndex() {
-      this.$store.commit('SET_TEMP_BUTTON', this.activeButtonIndex);
-      this.moveUnderline(this.activeButtonIndex);
-    },
-    paramList() {
-      return this.$store.getters.paramScreenDetailList;
     }
   },
   methods: {
-    async init(){
-      try{
-        await this.$store.dispatch('GetParamScreenDetailList');
-      }catch (e) {
-        console.log(e);
-      }
-    },
-    moveUnderline(index) {
+   load(){
+     // 等待页面完全渲染完成
+     setTimeout(() => {
+       this.$set(this, 'activeButtonIndex', 0);
+       this.isLoadable = true;
+     }, 100)
+   },
+    handleButtonClick(index){
       this.activeButtonIndex = index;
-      const button = this.$refs.buttons[index];
-      const rect = button.getBoundingClientRect();
-      const docTop = window.scrollY || document.documentElement.scrollTop;
-      const docLeft = window.scrollX || document.documentElement.scrollLeft;
-      this.underlineStyle = {
-        transform: `translate(${rect.left - docLeft}px, ${rect.top - docTop}px)`,
-        width: `${rect.width}px`
-      };
+      this.$emit('select', index);
     }
   },
   mounted() {
-    this.init();
+    this.load();
   }
 }
 </script>
@@ -96,7 +75,7 @@ export default {
 
 .button-active {
   margin: .2rem .16rem;
-  border-bottom: .06rem solid #4b8df8;
+  border-bottom: .08rem solid #4b8df8;
   box-shadow: -0.1rem 0rem 0.15rem #034c6a inset,
   0rem -0.1rem 0.15rem #034c6a inset,
   0.1rem 0rem 0.15rem #034c6a inset,

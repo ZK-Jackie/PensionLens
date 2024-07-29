@@ -2,7 +2,7 @@
 // 0-全国大屏，1-政策大屏，2-区域大屏，3-配置大屏
 export const local_screen_info = {
   screenId: 2,
-  screenName: '区域大屏',
+  screenName: '广东省区域大屏信息',
   isPredict: false,
   isActive: true,
   screenPlan: [{
@@ -31,6 +31,7 @@ export const local_screen_info = {
           maxValue: 65000000,
           minValue: 55000000,
           dataColor: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab', '#06b4ab', '#06c8ab', '#06dcab', '#06f0ab'],
+          isPredict: true,
           isInfo: false,
           data: [
             [2022, 2023],
@@ -251,7 +252,7 @@ export const local_screen_info = {
       screenId: 2,
       detailId: 3,
       detailSpot: 3,
-      detailName: '广东省人均基本养老金',
+      detailName: '人均基本养老金变化',
       minDataUnit: 2,
       isMultiOption: false,
       detailData: [
@@ -280,7 +281,7 @@ export const local_screen_info = {
         },
         {
           dataId: 10,
-          dataName: ["青年人"],
+          dataName: ["新人"],
           displayableMode: ["linear-climb"],
           keyLabel: "x",
           keyUnit: "年",
@@ -307,7 +308,7 @@ export const local_screen_info = {
       screenId: 2,
       detailId: 4,
       detailSpot: 4,
-      detailName: '广东省人均基本养老金',
+      detailName: '人均个人养老金情况',
       minDataUnit: 1,
       isMultiOption: true,
       detailData: [
@@ -386,7 +387,7 @@ export const local_screen_info = {
       screenId: 2,
       detailId: 5,
       detailSpot: 5,
-      detailName: '广东省人均基本养老金',
+      detailName: '人均过渡养老金情况',
       minDataUnit: 2,
       isMultiOption: false,
       detailData: [

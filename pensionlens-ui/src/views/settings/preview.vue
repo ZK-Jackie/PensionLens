@@ -1,279 +1,222 @@
 <template>
   <div class="preview-views">
-    <ul v-if="stage === 1">
-      <!--      <li v-for="(item, index) in chartDetails"-->
-      <!--          :key="index"-->
-      <!--      >-->
-      <!--        <Block class="preview-charts"-->
-      <!--               height="4rem"-->
-      <!--               width="4.182rem"-->
-      <!--               :title="index.toString()"-->
-      <!--        >-->
-      <!--          <Chart :detail="item"-->
-      <!--                 :type="item[0].displayMode"-->
-      <!--          >-->
-      <!--          </Chart>-->
-      <!--        </Block>-->
+    <ul v-if="isLoadable1 && isLoadable2">
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul-1st">
-            <li :class="{ active: activeItem3 === 1}" style="font-size: 12px" @click="activeItem3 = 1">男</li>
-            <li :class="{ active: activeItem3 === 2}" style="font-size: 12px" @click="activeItem3 = 2">女</li>
-          </ul>
-          <ul class="select-ul-2nd">
-            <li :class="{ active: activeItem2 === 1}" style="font-size: 12px" @click="handleItemClick2(1)">
-              高生育模式
-            </li>
-            <li :class="{ active: activeItem2 === 2}" style="font-size: 12px" @click="handleItemClick2(2)">
-              中生育模式
-            </li>
-            <li :class="{ active: activeItem2 === 3}" style="font-size: 12px" @click="handleItemClick2(3)">
-              低生育模式
+          <ul class="select-ul-1st" v-if="buttonIndex1[0] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[0]"
+                :key="index"
+                :class="{ active: buttonActive1[0] === name }"
+                class="button-list"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(0, name, 1)">{{ name }}
             </li>
           </ul>
-          <Chart v-if="activeItem3===1 && activeItem2===1" type="ring" :detail="population11"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===2" type="ring" :detail="population12"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===3" type="ring" :detail="population13"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===1" type="ring" :detail="population21"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===2" type="ring" :detail="population22"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===3" type="ring" :detail="population23"/>
+          <ul class="select-ul-2nd" v-if="buttonIndex2[0] !== undefined">
+            <li v-for="(name, index) in buttonIndex2[0]"
+                :key="index" :class="{ active: buttonActive2[0] === name }"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(0, name, 2)">{{ name }}
+            </li>
+          </ul>
+          <Chart type="ring" :data="nowData[0]" :key="nowData[0][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇养老保险未来收入和支出">
-          <Chart type="bar" :detail="income_and_expense"/>
+          <Chart type="bar" :data="nowData[1]" :key="nowData[1][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇职工的参保人数">
-          <Chart type="linear" :detail="participants"/>
+          <Chart type="linear" :data="nowData[2]" :key="nowData[2][0].dataId"/>
         </Block>
       </li>
       <li>
-        <Block class="preview-charts" title="人均基本养老金情况" height="4rem" width="4.182rem">
-          <BasicPension/>
+        <Block class="preview-charts" height="4rem" width="4.182rem" title="人均基本养老金变化">
+          <Chart type="climb" :data="nowData[3]" :key="nowData[3][0].dataId"/>
         </Block>
       </li>
       <li>
-        <Block class="preview-charts" title="人均个人养老金情况" height="4rem" width="4.182rem">
-          <ul class="select-ul-2nd">
-            <li :class="{ active: activeItem === 1}" style="font-size: 12px" @click="handleItemClick(1)">老中人</li>
-            <li :class="{ active: activeItem === 2}" style="font-size: 12px" @click="handleItemClick(2)">新中人</li>
-            <li :class="{ active: activeItem === 3}" style="font-size: 12px" @click="handleItemClick(3)">新人</li>
+        <Block class="preview-charts" height="4rem" width="4.182rem" title="人均个人养老金情况">
+          <ul class="select-ul-1st" v-if="buttonIndex1[4] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[4]"
+                :key="index"
+                :class="{ active: buttonActive1[4] === name }"
+                class="button-list"
+                style="font-size: 0.15rem"
+                @click="handleButtonClick(4, name, 1)">{{ name }}
+            </li>
           </ul>
-          <Chart v-if="activeItem===1" type="rose" :detail="pieData_pension01"/>
-          <Chart v-else-if="activeItem===2" type="rose" :detail="pieData_pension02"/>
-          <Chart v-else-if="activeItem===3" type="rose" :detail="pieData_pension03"/>
+          <Chart type="rose" :data="nowData[4]" :key="nowData[4][0].dataId"/>
         </Block>
       </li>
       <li>
-        <Block class="preview-charts" title="人均过渡养老金情况" height="4rem" width="4.182rem">
-          <Chart type="radar" :detail="RadarData"/>
+        <Block class="preview-charts" height="4rem" width="4.182rem" title="人均过渡养老金情况">
+          <Chart type="rader" :data="nowData[5]" :key="nowData[5][0].dataId"/>
         </Block>
       </li>
     </ul>
 
-    <div v-else-if="stage === 2" style="height: auto; width: 15rem; margin-top: 2rem">
-      <Chart type="loading" detail=""></Chart>
+    <div v-else>
+      <Chart width="12rem" height="5rem" type="loading" :data=[]></Chart>
     </div>
-
-    <ul v-if="stage === 3">
-      <li>
-        <Block class="preview-charts" height="4rem" width="4.182rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul-1st">
-            <li :class="{ active: activeItem3 === 1}" style="font-size: 12px">男</li>
-            <li :class="{ active: activeItem3 === 2}" style="font-size: 12px">女</li>
-          </ul>
-          <ul class="select-ul-2nd">
-            <li :class="{ active: activeItem2 === 1}" style="font-size: 12px">
-              高生育模式
-            </li>
-            <li :class="{ active: activeItem2 === 2}" style="font-size: 12px">
-              中生育模式
-            </li>
-            <li :class="{ active: activeItem2 === 3}" style="font-size: 12px">
-              低生育模式
-            </li>
-          </ul>
-          <Chart v-if="activeItem3===1 && activeItem2===1" type="ring" :detail="population31"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===2" type="ring" :detail="population32"/>
-          <Chart v-else-if="activeItem3===1 && activeItem2===3" type="ring" :detail="population33"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===1" type="ring" :detail="population41"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===2" type="ring" :detail="population42"/>
-          <Chart v-else-if="activeItem3===2 && activeItem2===3" type="ring" :detail="population43"/>
-        </Block>
-      </li>
-      <li>
-        <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇养老保险未来收入和支出">
-          <Chart type="bar" :detail="income_and_expense2"/>
-        </Block>
-      </li>
-      <li>
-        <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇职工的参保人数">
-          <Chart type="linear" :detail="participants2" :key="1"/>
-        </Block>
-      </li>
-      <li>
-        <Block class="preview-charts" title="人均基本养老金情况" height="4rem" width="4.182rem">
-          <Chart type="linear" :detail="lineData_basic01" :key="2"/>
-        </Block>
-      </li>
-      <li>
-        <Block class="preview-charts" title="人均个人养老金情况" height="4rem" width="4.182rem">
-          <ul class="select-ul-2nd">
-            <li :class="{ active: activeItem === 1}" style="font-size: 12px">老中人</li>
-            <li :class="{ active: activeItem === 2}" style="font-size: 12px">新中人</li>
-            <li :class="{ active: activeItem === 3}" style="font-size: 12px">新人</li>
-          </ul>
-          <Chart v-if="activeItem===1" type="rose" :detail="pieData_pension04"/>
-          <Chart v-else-if="activeItem===2" type="rose" :detail="pieData_pension05"/>
-          <Chart v-else-if="activeItem===3" type="rose" :detail="pieData_pension06"/>
-        </Block>
-      </li>
-      <li>
-        <Block class="preview-charts" title="人均过渡养老金情况" height="4rem" width="4.182rem">
-          <Chart type="radar" :detail="RadarData2"/>
-        </Block>
-      </li>
-    </ul>
 
   </div>
 </template>
 
 <script>
 import Chart from "@/components/chart.vue";
-import BasicPension from "@/views/local/components/BasicPension.vue";
-import {getCalPreview, getNowPreview} from "@/api/charts";
 
 export default {
-  components: {
-    BasicPension,
-    Chart
+  components: { Chart },
+  props: {
+    loading: {
+      type: Boolean,
+      default: true
+    },
+    sdetails: {
+      type: Array,
+      default: () => {
+        return []
+      }
+    }
+  },
+  watch: {
+    loading: {
+      handler: function (val) {
+        this.isLoadable1 = !val;
+      },
+      immediate: true,
+      deep: true
+    },
+    sdetails: {
+      handler: function (val) {
+        this.isLoadable2 = false;
+        this.reqData(val);
+      },
+      immediate: true,
+      deep: true
+    }
   },
   data() {
     return {
-      stage: 1,
-      chartDetails: [],
-      activeButtonIndex: 0,
-      activeItem2: [],
-      activeItem: [],
-      activeItem3: [],
-      participants: [],
-      RadarData: [],
-      RadarData2: [],
-      pieData_pension01: [],
-      pieData_pension02: [],
-      pieData_pension03: [],
-      population11: [],
-      population12: [],
-      population13: [],
-      population21: [],
-      population22: [],
-      population23: [],
-      income_and_expense: [],
-      population31: [],
-      population32: [],
-      population33: [],
-      population41: [],
-      population42: [],
-      population43: [],
-      income_and_expense2: [],
-      participants2: [],
-      pieData_pension04: [],
-      pieData_pension05: [],
-      pieData_pension06: [],
-      lineData_basic01: [],
-
-      tempArr11: [],
-      tempArr12: [],
-      tempArr13: [],
-      tempArr21: [],
-      tempArr22: [],
-      tempArr23: [],
-      tempArr31: [],
-      tempArr32: [],
-      tempArr33: [],
-      tempArr41: [],
-      tempArr42: [],
-      tempArr43: [],
+      // 当前是否可被显示  外部+内部共同决定
+      isLoadable1: false,
+      isLoadable2: false,
+      // 当前屏本身参数
+      nowScreenId: 2,
+      // 当前屏的所有详情
+      totalDetails: [],
+      totalData: {},
+      // 当前屏所有按键状况
+      buttonActive1: [],
+      buttonActive2: [],
+      buttonDataMap: {},
+      buttonIndex1: [],
+      buttonIndex2: [],
+      // 当前屏的显示数据
+      nowData: [],
     }
   },
-  created() {
-    getCalPreview().then(res => {
-      this.tempArr11.push(res.data.H_population101[0]);
-      this.tempArr12.push(res.data.M_population102[0]);
-      this.tempArr13.push(res.data.L_population103[0]);
-      this.tempArr21.push(res.data.H_population101[1]);
-      this.tempArr22.push(res.data.M_population102[2]);
-      this.tempArr23.push(res.data.L_population103[3]);
-      this.tempArr31.push(res.data.H_population201[0]);
-      this.tempArr32.push(res.data.M_population202[0]);
-      this.tempArr33.push(res.data.L_population203[0]);
-      this.tempArr41.push(res.data.H_population201[1]);
-      this.tempArr42.push(res.data.M_population202[2]);
-      this.tempArr43.push(res.data.L_population203[3]);
-
-      this.activeItem2 = 1;//默认激活的项是'1'
-      this.activeItem = 3;//默认激活的项是'3'
-      this.activeItem3 = 1;//默认激活的项是'1'
-      this.population11.push(res.data.H_population101[0]);
-      this.population12.push(res.data.M_population102[0]);
-      this.population13.push(res.data.L_population103[0]);
-      this.population21.push(res.data.H_population101[1]);
-      this.population22.push(res.data.M_population102[2]);
-      this.population23.push(res.data.L_population103[3]);
-      this.population31.push(res.data.H_population201[0]);
-      this.population32.push(res.data.M_population202[0]);
-      this.population33.push(res.data.L_population203[0]);
-      this.population41.push(res.data.H_population201[1]);
-      this.population42.push(res.data.M_population202[2]);
-      this.population43.push(res.data.L_population203[3]);
-
-      this.income_and_expense = res.data.income_and_expense01;
-      this.participants = res.data.participants01;
-      this.pieData_pension01 = res.data.pieData_pension01;
-      this.pieData_pension02 = res.data.pieData_pension02;
-      this.pieData_pension03 = res.data.pieData_pension03;
-
-      this.RadarData = res.data.RadarData1;
-      this.RadarData2 = res.data.RadarData2;
-      this.income_and_expense2 = res.data.income_and_expense02;
-      this.participants2 = res.data.participants02;
-      this.pieData_pension04 = res.data.pieData_pension201;
-      this.pieData_pension05 = res.data.pieData_pension202;
-      this.pieData_pension06 = res.data.pieData_pension203;
-      this.lineData_basic01 = res.data.lineData_basic01;
-    });
-  },
   methods: {
-    handleItemClick(index) {
-      this.activeItem = index; // 将 activeItem 设置为被点击的项目的索引
+    reqData(res){
+      this.totalDetails = JSON.parse(JSON.stringify(res));
+      this.preProcessDetail();
+      this.isLoadable2 = true;
     },
-    handleItemClick2(index) {
-      this.activeItem2 = index; // 将 activeItem 设置为被点击的项目的索引
+    handleButtonClick(blockSpot, name, indexId){
+      // 若按键没有变化，不进行任何操作
+      if (indexId === 1 && this.buttonActive1[blockSpot] === name) {
+        return;
+      }else if (indexId === 2 && this.buttonActive2[blockSpot] === name) {
+        return;
+      }
+      // 按键点击事件
+      if (indexId === 1) {
+        this.$set(this.buttonActive1, blockSpot, name);
+      } else {
+        this.$set(this.buttonActive2, blockSpot, name);
+      }
+      this.$nextTick(() => {
+        let button_x = this.buttonActive1[blockSpot];
+        let button_y = this.buttonActive2[blockSpot];
+        // 如果有第二个按钮才是两级寻 id，一级的话使用一个 x 即可
+        let pickDataId
+        if (button_y !== undefined){
+          pickDataId = this.buttonDataMap[blockSpot][button_x][button_y];
+        } else {
+          pickDataId = this.buttonDataMap[blockSpot][button_x];
+        }
+        // 根据需求取数据
+        for (let i = 0; i < this.totalDetails[blockSpot].minDataUnit; i++) {
+          this.$set(this.nowData[blockSpot], i, this.totalData[pickDataId]);
+        }
+      });
     },
+    preProcessDetail(){
+      // 准备渲染面板。即将初始化的内容有：
+      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，
+      // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
+      // 1. 检查是否有按键面板
+      this.totalDetails.forEach(item => {
+        // 若有按键面板，构造按键、数据映射表，构造默认激活按键表
+        if(item.isMultiOption){
+          // 初始化按键索引——确定两个按键组每个按键叫什么名字；初始化按键、数据映射二维表——确定两个按键对应一个数据；
+          this.buttonDataMap[item.detailId] = {};
+          item.detailData.forEach(detail => {
+            // 初始化当前 detail 按键索引1，值为dataName
+            if (this.buttonIndex1[item.detailId] === undefined) {
+              this.$set(this.buttonIndex1, item.detailId, []);
+            }
+            if (!this.buttonIndex1[item.detailId].includes(detail.dataName[0])) {
+              this.buttonIndex1[item.detailId].push(detail.dataName[0]);
+            }
+            // 初始化当前 detail 按键索引2，值为dataName
+            if (this.buttonIndex2[item.detailId] === undefined) {
+              this.$set(this.buttonIndex2, item.detailId, []);
+            }
+            if (!this.buttonIndex2[item.detailId].includes(detail.dataName[1])) {
+              this.buttonIndex2[item.detailId].push(detail.dataName[1]);
+            }
+            // 二位表的横纵坐标分别为dataName的第一个参数和第二个参数，值为dataId
+            if (!(detail.dataName[0] in this.buttonDataMap[item.detailId])) {
+              this.$set(this.buttonDataMap[item.detailId], detail.dataName[0], {});
+            }
+            // 如果有第二个 dataName 就两层 button
+            if (detail.dataName[1] !== undefined){
+              this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
+            }else{
+              this.buttonDataMap[item.detailId][detail.dataName[0]] = detail.dataId;
+            }
+          });
+          // 默认激活按键表，第一个值为buttonIndex1的第一个值，第二个值为buttonIndex2的第一个值，值为dataName
+          this.buttonActive1[item.detailId] = this.buttonIndex1[item.detailId][0];
+          this.buttonActive2[item.detailId] = this.buttonIndex2[item.detailId][0];
+        }
+        // 2. 将当前detail应当展示的数据加载到nowData中
+        let tempArr = [];
+        for (let i = 0; i < item.minDataUnit; i++) {
+          tempArr.push(item.detailData[i]);
+        }
+        this.nowData[item.detailId] = JSON.parse(JSON.stringify(tempArr));
+        // 3. 将当前detail的所有数据根据 dataId 加载到totalData中
+        item.detailData.forEach(data => {
+          this.totalData[data.dataId] = data;
+        });
+      });
+    }
   },
-  mounted() {
-    getNowPreview().then(res => {
-      this.chartDetails = res.data;
-    });
-    setTimeout(() => {
-      this.stage = 2;
-    }, 27000);//8秒后进入加载状态
-    setTimeout(() => {
-      this.stage = 3;
-    }, 34000);//加载5秒进入新页面
-  }
 }
 </script>
 
 <style scoped lang="scss">
+/********中央预览面板********/
 .preview-views {
   display: flex;
   justify-content: center;
   align-items: center;
-  //灵活换行
-  flex-wrap: wrap;
+  flex-wrap: wrap;  //灵活换行
 }
 
 .preview-views > ul {
@@ -298,11 +241,12 @@ export default {
   margin: 0.1rem;
 }
 
+/*******选择按键*******/
 .select-ul-2nd {
   position: absolute;
   width: 1rem;
-  top: 1rem;
   right: 0;
+  bottom: 0.2rem;
   z-index: 999;
 }
 

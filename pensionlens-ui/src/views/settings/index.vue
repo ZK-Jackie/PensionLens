@@ -8,12 +8,17 @@
     </li>
     <li>
       <Block height="6rem" width="100%" title="计划预览">
-        <Preview/>
+        <Preview :loading="isPreviewLoading" :sdetails="previewScreenDetails"/>
       </Block>
       <ul style="display: flex">
         <li style="width: 100%; margin-right: .15rem">
           <Block height="2.85rem" title="参数调配">
-            <Modifier class="modifier"/>
+            <Modifier class="modifier"
+                      :loading="false"
+                      :select="selectIndex"
+                      :mdetails="modifierScreenDetails"
+                      @confirm="handleConfirm"
+            />
           </Block>
         </li>
 <!--        <li style="width: 30%">-->
@@ -38,25 +43,55 @@ export default {
   },
   data() {
     return {
+      // 当前大屏
+      nowScreenId: 3,
+      // 按钮面板
       buttonList: ['退休年龄', '参保率', '个人缴费率', '企业缴费率', '收缴率', '在岗平均工资',
         '个账记账利率', '过渡系数', '养老金增长率', '城镇化率', '就业率', '总和生育率'],
       chooseIndex: 0,
+      // 预览面板
+      localScreenId: 2,
+      selectIndex: 0,
+      isPreviewLoading: true,
+      previewScreenDetails: [],
+      // 调参面板
+      modifierScreenId: 4,
+      isModifierLoading: true,
+      modifierScreenDetails: [],
     }
   },
   methods: {
-    handleSelection(index) {
-      // console.log(index)
+    reqData(){
+      // 预览面板
+      this.$store.dispatch('GetScreenDetail', this.localScreenId).then(res => {
+        console.log(res);
+        this.previewScreenDetails = JSON.parse(JSON.stringify(res));
+        // 给预览面板传递数据
+        this.isPreviewLoading = false;
+      }).catch(err => {
+        console.error(err)
+      });
+
+      // 调参面板
+      this.$store.dispatch('GetScreenDetail', this.modifierScreenId).then(res => {
+        console.log(res);
+        this.modifierScreenDetails = JSON.parse(JSON.stringify(res));
+        // 给调参面板传递数据
+        this.isModifierLoading = false;
+      }).catch(err => {
+        console.error(err)
+      });
+    },
+    handleSelection(index){
+      this.selectIndex = index;
+    },
+    handleConfirm(val){
+      console.log('confirm');
+      console.log(val);
     }
   },
   mounted() {
-    this.$nextTick(() => {
-      if (!sessionStorage.getItem('modifier-reloaded')) {
-        sessionStorage.setItem('modifier-reloaded', true);
-        location.reload();
-      } else {
-        sessionStorage.removeItem('modifier-reloaded');
-      }
-    });
+    this.reqData()
   },
 }
 </script>
