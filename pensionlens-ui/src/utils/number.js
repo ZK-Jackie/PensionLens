@@ -1,9 +1,11 @@
+import {toNumber} from "@/utils/string";
 /**
-* @param {number} value 原始数值
-* @param {string} format 后端返回的数值
-* @returns {string} 格式化后的数值
-* */
-export function formatNumber(value, format) {
+ * @param {number} value 原始数值
+ * @param {string} format 后端返回的数值
+ * @param num_format
+ * @returns {number} 格式化后的数值
+ * */
+export function formatNumber(value, format, num_format=false) {
   // 检查后端返回的数值是否为负数
   let isNegative = format.startsWith('-');
   // 计算后端返回的数值的小数位数
@@ -19,6 +21,9 @@ export function formatNumber(value, format) {
   // 如果后端返回的数值为负数，将结果转为负数
   if (isNegative) {
     value = '-' + value;
+  }
+  if (num_format){
+    return toNumber(value);
   }
   return value;
 }

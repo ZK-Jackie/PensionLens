@@ -46,3 +46,10 @@ export function parseBoolean(str){
     return false;
   }
 }
+
+
+
+export function toNumber(str){
+  const num = parseFloat(str);
+  return isNaN(num) ? null : num;
+}

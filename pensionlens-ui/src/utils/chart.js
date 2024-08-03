@@ -1,5 +1,4 @@
 import {formatNumber} from "@/utils/number";
-import temp from "@/store/modules/temp";
 
 export function toOptions(details) {
   // 0. check if the data is basically valid
