@@ -21,12 +21,8 @@
   </div>
 </template>
 <script>
-import VueSeamlessScroll from 'vue-seamless-scroll';
 
 export default {
-  components:{
-    VueSeamlessScroll
-  },
   data() {
     return{
       listData: [
