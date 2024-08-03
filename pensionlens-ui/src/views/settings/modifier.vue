@@ -20,7 +20,7 @@
         重置
       </el-button>
       <el-button type="success" plain
-                 @click="confirm()">
+                 @click="commitData()">
         保存
       </el-button>
     </div>
@@ -30,13 +30,16 @@
            :key="nowData[detailList[select]][0].dataId"
            style="height: 1.7rem"/>
   </div>
+  <div v-else>
+    <Chart type="loading" :data="[]"/>
+  </div>
 </template>
 <script>
 import Chart from "@/components/chart.vue";
 
 export default {
   name: "Modifier",
-  components: { Chart },
+  components: {Chart},
   props: {
     select: {
       type: Number
@@ -66,10 +69,11 @@ export default {
       immediate: true,
       deep: true
     },
-
   },
   data() {
     return {
+      // 历史选中的 detailId
+      hisSelect: 0,
       // 当前大屏显示状况
       isLoadable1: false,
       isLoadable2: false,
@@ -82,15 +86,15 @@ export default {
       buttonActive1: [],
       buttonActive2: [],
       buttonDataMap: {},
-      buttonIndex1: [],
-      buttonIndex2: [],
+      buttonIndex1: {},
+      buttonIndex2: {},
       // 当前屏的显示数据
       detailList: [],     // 当前屏幕有哪些 detailId
-      nowData: [],        // 当前屏幕展示的数据
+      nowData: {},        // 当前屏幕展示的数据
     }
   },
   methods: {
-    handleSelectorChange(){
+    handleSelectorChange() {
       // 当前选中的目标的 id
       let nowSelectDetailId = this.detailList[this.select];
       // 当前选中的选项
@@ -98,28 +102,28 @@ export default {
       // 目标选项的数据 id
       let aimDataId = this.buttonDataMap[nowSelectDetailId][aimOption];
       // 将目标数据 id 的数据加载到 nowData 中
-      this.nowData[nowSelectDetailId] = [this.totalData[aimDataId]];
-      console.log(this.nowData[nowSelectDetailId]);
+      this.$set(this.nowData, nowSelectDetailId, [this.totalData[aimDataId]]);
     },
-    confirm(){
-      // this.$emit('confirm', this.nowData);
-      this.$message({
-        message: '保存成功',
-        type: 'success',
-        duration: 1000
-      });
-      console.log(this.nowData);
+    commitData() {
+      // 1. 获取当前选中的 detailId
+      let nowConfirmDetailId = this.detailList[this.select];
+      // 2. 获取当前选中的 detailId 的 dataId
+      let nowConfirmDataId = this.nowData[nowConfirmDetailId][0].dataId;
+      // 3. 保存到 totalData 中
+      this.totalData[nowConfirmDataId].data = this.nowData[nowConfirmDetailId][0].data;
+      // 4. 报告给上一级
+      console.log(this.totalData)
+      this.$emit('commit', this.totalData);
     },
-    reqData(res){
+    reqData(res) {
       this.isLoadable2 = false;
       this.totalDetails = JSON.parse(JSON.stringify(res));
       this.preProcessDetail();
       setTimeout(() => {
         this.isLoadable2 = true;
-      }, 500)
-      console.log(this.nowData)
+      }, 500);
     },
-    preProcessDetail(){
+    preProcessDetail() {
       // 准备渲染面板。即将初始化的内容有：
       // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，this.detailList，
       // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
@@ -128,7 +132,7 @@ export default {
         // 填充 detailList
         this.detailList.push(item.detailId);
         // 若有按键面板，构造按键、数据映射表，构造默认激活按键表
-        if(item.isMultiOption){
+        if (item.isMultiOption) {
           // 初始化按键索引——确定两个按键组每个按键叫什么名字；初始化按键、数据映射二维表——确定两个按键对应一个数据；
           this.buttonDataMap[item.detailId] = {};
           item.detailData.forEach(detail => {
@@ -151,9 +155,9 @@ export default {
               this.$set(this.buttonDataMap[item.detailId], detail.dataName[0], {});
             }
             // 如果有第二个 dataName 就两层 button
-            if (detail.dataName[1] !== undefined){
+            if (detail.dataName[1] !== undefined) {
               this.buttonDataMap[item.detailId][detail.dataName[0]][detail.dataName[1]] = detail.dataId;
-            }else{
+            } else {
               this.buttonDataMap[item.detailId][detail.dataName[0]] = detail.dataId;
             }
           });

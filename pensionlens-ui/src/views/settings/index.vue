@@ -17,7 +17,7 @@
                       :loading="false"
                       :select="selectIndex"
                       :mdetails="modifierScreenDetails"
-                      @confirm="handleConfirm"
+                      @commit="handleCommit"
             />
           </Block>
         </li>
@@ -64,7 +64,6 @@ export default {
     reqData(){
       // 预览面板
       this.$store.dispatch('GetScreenDetail', this.localScreenId).then(res => {
-        console.log(res);
         this.previewScreenDetails = JSON.parse(JSON.stringify(res));
         // 给预览面板传递数据
         this.isPreviewLoading = false;
@@ -74,7 +73,6 @@ export default {
 
       // 调参面板
       this.$store.dispatch('GetScreenDetail', this.modifierScreenId).then(res => {
-        console.log(res);
         this.modifierScreenDetails = JSON.parse(JSON.stringify(res));
         // 给调参面板传递数据
         this.isModifierLoading = false;
@@ -85,9 +83,19 @@ export default {
     handleSelection(index){
       this.selectIndex = index;
     },
-    handleConfirm(val){
-      console.log('confirm');
-      console.log(val);
+    handleCommit(val){
+      this.isPreviewLoading = true;
+      this.$message({
+        message: '同步测算中...',
+        type: 'info',
+        duration: 1000
+      });
+      this.$store.dispatch("CommitModiData", val).then(res => {
+        console.log(res);
+        // 载入数据
+        this.previewScreenDetails = JSON.parse(JSON.stringify(res));
+        this.isPreviewLoading = false;
+      });
     }
   },
   mounted() {

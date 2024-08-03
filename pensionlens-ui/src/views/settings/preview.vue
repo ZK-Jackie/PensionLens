@@ -59,7 +59,7 @@
     </ul>
 
     <div v-else>
-      <Chart width="12rem" height="5rem" type="loading" :data=[]></Chart>
+      <Chart width="20rem" height="5rem" type="loading" :data=[]></Chart>
     </div>
 
   </div>
@@ -121,9 +121,12 @@ export default {
   },
   methods: {
     reqData(res){
-      this.totalDetails = JSON.parse(JSON.stringify(res));
-      this.preProcessDetail();
-      this.isLoadable2 = true;
+      this.isLoadable2 = false;
+      setTimeout(() => {
+        this.totalDetails = JSON.parse(JSON.stringify(res));
+        this.preProcessDetail();
+        this.isLoadable2 = true;
+      }, 5000);
     },
     handleButtonClick(blockSpot, name, indexId){
       // 若按键没有变化，不进行任何操作
