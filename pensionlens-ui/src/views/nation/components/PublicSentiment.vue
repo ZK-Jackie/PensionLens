@@ -6,8 +6,8 @@
             <div class="info">
               <div class="content-title">
                 <div class="login-title">{{item.title}}</div>
-                <span  v-if="item.importance==1" class="mood importance">重要</span>
-                <span v-else-if="item.importance==2" class="mood normal">一般</span>
+                <span v-if="item.importance===1" class="mood importance">重要</span>
+                <span v-else-if="item.importance===2" class="mood normal">一般</span>
                 <span v-else class="mood not_importance">不重要</span>
               </div>
               <div class="details">
@@ -21,8 +21,12 @@
   </div>
 </template>
 <script>
+import VueSeamlessScroll from 'vue-seamless-scroll';
 
 export default {
+  components:{
+    VueSeamlessScroll
+  },
   data() {
     return{
       listData: [

@@ -69,7 +69,6 @@ import Guangdong from "@/views/local/components/Guangdong.vue";
 import Block from "@/components/block.vue";
 import Map from '@/views/nation/components/Map.vue';
 import Chart from '@/components/chart.vue';
-import {gaugeData} from "@/api/v2/data/screen_nation";
 import PictorialBar  from "@/views/nation/components/PictorialBar.vue";
 
 
