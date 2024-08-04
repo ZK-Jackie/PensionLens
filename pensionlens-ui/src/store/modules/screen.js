@@ -2,6 +2,8 @@ import {getScreenDetails, getScreenInfo} from "@/api/v2/screen";
 import {nation_screen_info} from "@/api/v2/data/screen_nation";
 import {local_screen_info} from "@/api/v2/data/screen_local";
 import {default_settings_screen_info} from "@/api/v2/data/screen_settings_default";
+import store from '@/store'
+import {new_local_screen_info} from "@/api/v2/data/screen_new_local";
 
 const screen = {
   state: {
@@ -39,6 +41,14 @@ const screen = {
           resolve(nation_screen_info.screenDetails);
         })
       }else if (screenId === 2){
+        console.log("local req");
+        console.log(store.getters.isChangeSettings);
+        if (store.getters.isChangeSettings){
+          commit('SET_SCREEN_DETAIL', screenId, new_local_screen_info.screenDetails);
+          return new Promise((resolve, reject) => {
+            resolve(new_local_screen_info.screenDetails);
+          })
+        }
         commit('SET_SCREEN_DETAIL', screenId, local_screen_info.screenDetails);
         return new Promise((resolve, reject) => {
           resolve(local_screen_info.screenDetails);

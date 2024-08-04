@@ -1,7 +1,7 @@
 import {getNewPreview} from "@/api/v2/settings";
 import {new_local_screen_info} from "@/api/v2/data/screen_new_local";
 
-const modifierTemp = {
+const settings = {
   state: {
     modiOrigin: {},
     modiDetail: {},
@@ -44,4 +44,4 @@ const modifierTemp = {
 }
 
 
-export default modifierTemp;
+export default settings;
