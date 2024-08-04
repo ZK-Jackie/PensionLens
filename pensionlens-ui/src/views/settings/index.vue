@@ -1,5 +1,5 @@
 <template>
-  <ul class="regin-info-settings">
+  <ul class="regin-info-settings" v-if="isLoadable">
     <li>
       <Block height="9rem" title="参数选择">
         <Selector :button-list="buttonList"
@@ -8,7 +8,7 @@
     </li>
     <li>
       <Block height="6rem" width="100%" title="计划预览">
-        <Preview :loading="isPreviewLoading" :sdetails="previewScreenDetails"/>
+        <Preview :loading="isPreviewLoading" :sdetails="previewScreenDetails" :key="previewRefresh"/>
       </Block>
       <ul style="display: flex">
         <li style="width: 100%; margin-right: .15rem">
@@ -36,6 +36,7 @@ import Selector from "./selector.vue";
 import Preview from "./preview.vue";
 import Plan from "./plan.vue";
 import Modifier from "./modifier.vue";
+import {UUID} from "@/utils/string";
 
 export default {
   components: {
@@ -43,6 +44,8 @@ export default {
   },
   data() {
     return {
+      // 是否载入
+      isLoadable: false,
       // 当前大屏
       nowScreenId: 3,
       // 按钮面板
@@ -53,6 +56,7 @@ export default {
       localScreenId: 2,
       selectIndex: 0,
       isPreviewLoading: true,
+      previewRefresh: "previewRefreshInitVal",
       previewScreenDetails: [],
       // 调参面板
       modifierScreenId: 4,
@@ -88,18 +92,26 @@ export default {
       this.$message({
         message: '同步测算中...',
         type: 'info',
-        duration: 1000
+        duration: 3000
       });
       this.$store.dispatch("CommitModiData", val).then(res => {
-        console.log(res);
         // 载入数据
         this.previewScreenDetails = JSON.parse(JSON.stringify(res));
-        this.isPreviewLoading = false;
+        setTimeout(() => {
+          this.$message({
+            message: '测算执行完成',
+            type: 'success',
+            duration: 3000
+          });
+          this.isPreviewLoading = false;
+          this.previewRefresh = UUID();
+        }, 5000);
       });
     }
   },
   mounted() {
     this.reqData()
+    this.isLoadable = true
   },
 }
 </script>
