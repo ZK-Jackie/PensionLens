@@ -1,7 +1,6 @@
 <template>
   <div v-if="isLoadable1 && isLoadable2">
     <div class="modifier-top">
-      <!-- TODO spot 和 detail 的关系映射 -->
       <el-select v-model="buttonActive1[detailList[select]]"
                  @change="handleSelectorChange"
                  :disabled="buttonActive1[detailList[select]] === undefined"
@@ -112,7 +111,6 @@ export default {
       // 3. 保存到 totalData 中
       this.totalData[nowConfirmDataId].data = this.nowData[nowConfirmDetailId][0].data;
       // 4. 报告给上一级
-      console.log(this.totalData)
       this.$emit('commit', this.totalData);
     },
     reqData(res) {

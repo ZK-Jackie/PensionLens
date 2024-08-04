@@ -3,64 +3,62 @@
     <ul v-if="isLoadable1 && isLoadable2">
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul-1st" v-if="buttonIndex1[0] !== undefined">
-            <li v-for="(name, index) in buttonIndex1[0]"
+          <ul class="select-ul-1st" v-if="buttonIndex1[spotDetailMap[0]] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[spotDetailMap[0]]"
                 :key="index"
-                :class="{ active: buttonActive1[0] === name }"
+                :class="{ active: buttonActive1[spotDetailMap[0]] === name }"
                 class="button-list"
                 style="font-size: 0.15rem"
-                @click="handleButtonClick(0, name, 1)">{{ name }}
+                @click="handleButtonClick(spotDetailMap[0], name, 1)">{{ name }}
             </li>
           </ul>
-          <ul class="select-ul-2nd" v-if="buttonIndex2[0] !== undefined">
-            <li v-for="(name, index) in buttonIndex2[0]"
-                :key="index" :class="{ active: buttonActive2[0] === name }"
+          <ul class="select-ul-2nd" v-if="buttonIndex2[spotDetailMap[0]] !== undefined">
+            <li v-for="(name, index) in buttonIndex2[spotDetailMap[0]]"
+                :key="index" :class="{ active: buttonActive2[spotDetailMap[0]] === name }"
                 style="font-size: 0.15rem"
-                @click="handleButtonClick(0, name, 2)">{{ name }}
+                @click="handleButtonClick(spotDetailMap[0], name, 2)">{{ name }}
             </li>
           </ul>
-          <Chart type="ring" :data="nowData[0]" :key="nowData[0][0].dataId"/>
+          <Chart type="ring" :data="nowData[spotDetailMap[0]]" :key="nowData[spotDetailMap[0]][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇养老保险未来收入和支出">
-          <Chart type="bar" :data="nowData[1]" :key="nowData[1][0].dataId"/>
+          <Chart type="bar" :data="nowData[spotDetailMap[1]]" :key="nowData[spotDetailMap[1]][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="广东省城镇职工的参保人数">
-          <Chart type="linear" :data="nowData[2]" :key="nowData[2][0].dataId"/>
+          <Chart type="linear" :data="nowData[spotDetailMap[2]]" :key="nowData[spotDetailMap[2]][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="人均基本养老金变化">
-          <Chart type="climb" :data="nowData[3]" :key="nowData[3][0].dataId"/>
+          <Chart type="climb" :data="nowData[spotDetailMap[3]]" :key="nowData[spotDetailMap[3]][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="人均个人养老金情况">
-          <ul class="select-ul-1st" v-if="buttonIndex1[4] !== undefined">
-            <li v-for="(name, index) in buttonIndex1[4]"
+          <ul class="select-ul-1st" v-if="buttonIndex1[spotDetailMap[4]] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[spotDetailMap[4]]"
                 :key="index"
-                :class="{ active: buttonActive1[4] === name }"
+                :class="{ active: buttonActive1[spotDetailMap[4]] === name }"
                 class="button-list"
                 style="font-size: 0.15rem"
                 @click="handleButtonClick(4, name, 1)">{{ name }}
             </li>
           </ul>
-          <Chart type="rose" :data="nowData[4]" :key="nowData[4][0].dataId"/>
+          <Chart type="rose" :data="nowData[spotDetailMap[4]]" :key="nowData[spotDetailMap[4]][0].dataId"/>
         </Block>
       </li>
       <li>
         <Block class="preview-charts" height="4rem" width="4.182rem" title="人均过渡养老金情况">
-          <Chart type="rader" :data="nowData[5]" :key="nowData[5][0].dataId"/>
+          <Chart type="rader" :data="nowData[spotDetailMap[5]]" :key="nowData[spotDetailMap[5]][0].dataId"/>
         </Block>
       </li>
     </ul>
 
-    <div v-else>
-      <Chart width="20rem" height="5rem" type="loading" :data=[]></Chart>
-    </div>
+    <Chart v-else width="20rem" height="10rem" type="loading" :data="[]" />
 
   </div>
 </template>
@@ -92,12 +90,23 @@ export default {
     },
     sdetails: {
       handler: function (val) {
-        this.isLoadable2 = false;
-        this.reqData(val);
+        this.$set(this, 'isLoadable2', false);
+        try {
+          this.reqData(val);
+        }catch (e) {
+          this.$message({
+            message: '错误码：02 预览面板数据加载异常！',
+            type: 'error',
+            duration: 3000
+          });
+        }
       },
       immediate: true,
       deep: true
     }
+  },
+  mounted() {
+    console.log('preview load');
   },
   data() {
     return {
@@ -117,16 +126,29 @@ export default {
       buttonIndex2: [],
       // 当前屏的显示数据
       nowData: [],
+      // detail和spot的映射
+      spotDetailMap: []
     }
   },
   methods: {
+    initData(){
+      this.totalDetails = [];
+      this.totalData = {};
+      this.buttonActive1 = {};
+      this.buttonActive2 = {};
+      this.buttonDataMap = {};
+      this.buttonIndex1 = {};
+      this.buttonIndex2 = {};
+      this.nowData = [];
+      this.spotDetailMap = [];
+    },
     reqData(res){
-      this.isLoadable2 = false;
-      setTimeout(() => {
-        this.totalDetails = JSON.parse(JSON.stringify(res));
-        this.preProcessDetail();
-        this.isLoadable2 = true;
-      }, 5000);
+      this.initData();
+      this.totalDetails = JSON.parse(JSON.stringify(res));
+      this.preProcessDetail();
+      this.$nextTick(() => {
+        this.$set(this, 'isLoadable2', true);
+      });
     },
     handleButtonClick(blockSpot, name, indexId){
       // 若按键没有变化，不进行任何操作
@@ -159,7 +181,7 @@ export default {
     },
     preProcessDetail(){
       // 准备渲染面板。即将初始化的内容有：
-      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，
+      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，this.spotDetailMap
       // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
       // 1. 检查是否有按键面板
       this.totalDetails.forEach(item => {
@@ -207,6 +229,8 @@ export default {
         item.detailData.forEach(data => {
           this.totalData[data.dataId] = data;
         });
+        // 4. 将当前detail的所有数据根据 spotId 加载到spotDetailMap中
+        this.spotDetailMap.push(item.detailId);
       });
     }
   },
@@ -216,6 +240,7 @@ export default {
 <style scoped lang="scss">
 /********中央预览面板********/
 .preview-views {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

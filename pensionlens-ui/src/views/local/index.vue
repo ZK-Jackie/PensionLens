@@ -3,27 +3,27 @@
     <ul class="clearfix" v-if="isLoadable">
       <li>
         <Block height="3.4rem" title="不同生育模式下不同年龄的人数预测情况">
-          <ul class="select-ul-1st" v-if="buttonIndex1[0] !== undefined">
-            <li v-for="(name, index) in buttonIndex1[0]"
+          <ul class="select-ul-1st" v-if="buttonIndex1[spotDetailMap[0]] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[spotDetailMap[0]]"
                 :key="index"
-                :class="{ active: buttonActive1[0] === name }"
+                :class="{ active: buttonActive1[spotDetailMap[0]] === name }"
                 class="button-list"
                 style="font-size: 0.15rem"
-                @click="handleButtonClick(0, name, 1)">{{ name }}</li>
+                @click="handleButtonClick(spotDetailMap[0], name, 1)">{{ name }}</li>
           </ul>
-          <ul class="select-ul-2nd" v-if="buttonIndex2[0] !== undefined">
-            <li v-for="(name, index) in buttonIndex2[0]"
-                :key="index" :class="{ active: buttonActive2[0] === name }"
+          <ul class="select-ul-2nd" v-if="buttonIndex2[spotDetailMap[0]] !== undefined">
+            <li v-for="(name, index) in buttonIndex2[spotDetailMap[0]]"
+                :key="index" :class="{ active: buttonActive2[spotDetailMap[0]] === name }"
                 style="font-size: 0.15rem"
                 @click="handleButtonClick(0, name, 2)">{{ name }}</li>
           </ul>
-          <Chart type="ring" :data="nowData[0]" :key="nowData[0][0].dataId"/>
+          <Chart type="ring" :data="nowData[spotDetailMap[0]]" :key="nowData[spotDetailMap[0]][0].dataId"/>
         </Block>
         <Block height="3.2rem" title="广东省城镇养老保险未来收入和支出">
-          <Chart type="bar" :data="nowData[1]" :key="nowData[1][0].dataId"/>
+          <Chart type="bar" :data="nowData[spotDetailMap[1]]" :key="nowData[spotDetailMap[1]][0].dataId"/>
         </Block>
         <Block height="3.4rem" title="广东省城镇职工的参保人数">
-          <Chart type="linear" :data="nowData[2]" :key="nowData[2][0].dataId"/>
+          <Chart type="linear" :data="nowData[spotDetailMap[2]]" :key="nowData[spotDetailMap[2]][0].dataId"/>
         </Block>
       </li>
       <li>
@@ -64,21 +64,21 @@
       </li>
       <li>
         <Block title="人均基本养老金变化" height="3.4rem">
-          <Chart type="climb" :data="nowData[3]" :key="nowData[3][0].dataId"/>
+          <Chart type="climb" :data="nowData[spotDetailMap[3]]" :key="nowData[spotDetailMap[3]][0].dataId"/>
         </Block>
         <Block title="人均个人养老金情况" height="3.2rem">
-          <ul class="select-ul-1st" v-if="buttonIndex1[4] !== undefined">
-            <li v-for="(name, index) in buttonIndex1[4]"
+          <ul class="select-ul-1st" v-if="buttonIndex1[spotDetailMap[4]] !== undefined">
+            <li v-for="(name, index) in buttonIndex1[spotDetailMap[4]]"
                 :key="index"
-                :class="{ active: buttonActive1[4] === name }"
+                :class="{ active: buttonActive1[spotDetailMap[4]] === name }"
                 class="button-list"
                 style="font-size: 0.15rem"
-                @click="handleButtonClick(4, name, 1)">{{ name }}</li>
+                @click="handleButtonClick(spotDetailMap[4], name, 1)">{{ name }}</li>
           </ul>
-          <Chart type="rose" :data="nowData[4]" :key="nowData[4][0].dataId"/>
+          <Chart type="rose" :data="nowData[spotDetailMap[4]]" :key="nowData[spotDetailMap[4]][0].dataId"/>
         </Block>
         <Block title="人均过渡养老金情况" height="3.4rem">
-          <Chart type="rader" :data="nowData[5]" :key="nowData[5][0].dataId"/>
+          <Chart type="rader" :data="nowData[spotDetailMap[5]]" :key="nowData[spotDetailMap[5]][0].dataId"/>
         </Block>
       </li>
     </ul>
@@ -103,6 +103,7 @@ export default {
       // 当前屏的所有详情
       totalDetails: [],
       totalData: {},
+      spotDetailMap: [],  // detail和spot的映射
       // 当前屏所有按键状况
       buttonActive1: [],
       buttonActive2: [],
@@ -188,7 +189,7 @@ export default {
     },
     preProcessDetail(){
       // 准备渲染面板。即将初始化的内容有：
-      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，
+      // this.buttonDataMap，this.buttonIndex1，this.buttonIndex2，this.spotDetailMap
       // this.buttonActive1，this.buttonActive2，this.nowData，this.totalData
       // 1. 检查是否有按键面板
       this.totalDetails.forEach(item => {
@@ -236,6 +237,8 @@ export default {
         item.detailData.forEach(data => {
           this.totalData[data.dataId] = data;
         });
+        // 4. 将当前detail的所有数据根据 spotId 加载到spotDetailMap中
+        this.spotDetailMap.push(item.detailId);
       });
     }
   },
