@@ -16,7 +16,7 @@
           <div class="barbox">
              <!--下述区域属于显示对应收入的区域-->
             <ul class="clearfix">
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL',serif">{{counter1}}
+              <li class="pulll_left counter" style="font-family: 'DS-DIGIT',serif">{{counter1}}
                 <!--嵌套对应的环比的数据-->
                 <transition name="fade">
                 <div class="icon-color" v-if="showElement">环比
@@ -25,7 +25,7 @@
                 </div>
                 </transition>
               </li>
-              <li class="pulll_left counter" style="font-family: 'DS DIGHTAL',serif">{{counter2}}
+              <li class="pulll_left counter" style="font-family: 'DS-DIGIT',serif">{{counter2}}
                 <transition name="fade">
                   <div class="icon-color" v-if="showElement">环比
                     <img src="../../assets/screen/iconup.png" alt="icon up" height="12">
