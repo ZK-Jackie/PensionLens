@@ -77,7 +77,7 @@ export const local_screen_info = {
           maxValue: 65000000,
           minValue: 50000000,
           dataColor: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab', '#06b4ab', '#06c8ab', '#06dcab', '#06f0ab'],
-          isPredict: false,
+          isPredict: true,
           isInfo: false,
           data: [
             [2022, 2023],
@@ -100,7 +100,7 @@ export const local_screen_info = {
           maxValue: 65000000,
           minValue: 50000000,
           dataColor: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab', '#06b4ab', '#06c8ab', '#06dcab', '#06f0ab'],
-          isPredict: false,
+          isPredict: true,
           isInfo: false,
           data: [
             [2022, 2023],
@@ -123,7 +123,7 @@ export const local_screen_info = {
           maxValue: 65000000,
           minValue: 55000000,
           dataColor: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab', '#06b4ab', '#06c8ab', '#06dcab', '#06f0ab'],
-          isPredict: false,
+          isPredict: true,
           isInfo: false,
           data: [
             [2022, 2023],
@@ -146,7 +146,7 @@ export const local_screen_info = {
           maxValue: 65000000,
           minValue: 50000000,
           dataColor: ['#065aab', '#066eab', '#0682ab', '#0696ab', '#06a0ab', '#06b4ab', '#06c8ab', '#06dcab', '#06f0ab'],
-          isPredict: false,
+          isPredict: true,
           isInfo: false,
           data: [
             [2022, 2023],

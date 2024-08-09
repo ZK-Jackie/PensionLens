@@ -1,4 +1,5 @@
 <script>
+import {Message} from "element-ui";
 import {UUID} from "@/utils/string";
 import {formatNumber} from "@/utils/number";
 
@@ -22,16 +23,29 @@ export default {
     }
   },
   mounted() {
+    this.warningCheck();
     this.load();
-    this.syncDataTimer();
+  },
+  watch:{
+    bakData:{
+      handler: function () {
+        this.syncData();
+      },
+      deep: true
+    }
   },
   methods: {
-    syncDataTimer(){
-      setInterval(()=>{
-        console.log('syncDataTimer');
-        console.log(this.bakData);
-        console.log(this.data[0].data)
-      }, 5000)
+    warningCheck(){
+      if (this.data[0].minValue > this.data[0].maxValue){
+        Message.warning('错误码：01 数据取值范围为空集！');
+      }
+    },
+    syncData(){
+      try{
+        this.data[0].data = this.toLensData(this.bakData);
+      }catch (e) {
+        Message.error('错误码：01 数据同步失败！');
+      }
     },
     load(){
       // 数据格式转换
@@ -48,8 +62,11 @@ export default {
     toLensData(echartsArr){
       let temp = [[], []];
       for (let i = 0; i < echartsArr.length; i++){
-        temp[0].push(formatNumber(echartsArr[i][0], this.data[0].numPrecision));
-        temp[1].push(formatNumber(echartsArr[i][1], this.data[0].numPrecision));
+        temp[0].push(echartsArr[i][0]);
+        if (this.data[0].valueUnit !== '%')
+          temp[1].push(formatNumber(echartsArr[i][1], this.data[0].numPrecision, true));
+        else
+          temp[1].push(formatNumber(echartsArr[i][1], '1.0000', true));
       }
       return JSON.parse(JSON.stringify(temp));
     },
@@ -169,7 +186,7 @@ export default {
       option.xAxis[0].min = that.data[0].data[0][0] - 1;
       option.xAxis[0].max = that.data[0].data[0][that.data[0].data[0].length - 1] + 1;
       /*************横坐标轴结束*************/
-//x标签
+      //x标签
       // chartOption.xAxis[0].axisLabel.formatter = function (value) {
       //   return that.options[0].xAxisTags[value] + that.options[0].keyUnit;
       // }
@@ -247,14 +264,15 @@ export default {
       function onPointDragging(dataIndex, pos) {
         // 获取新的坐标
         let newY = chart.convertFromPixel('grid', pos)[1];
-        // 检查新的坐标是否在图表的范围内
-        if (newY < that.data[0].minValue || newY > that.data[0].maxValue) {
-          // 如果不在范围内，就不更新数据点的位置
-          return;
+        // 检查新的坐标是否在图表的范围内，超出极值就直接变成极值
+        if (newY < that.data[0].minValue) {
+          newY = that.data[0].minValue;
+        }else if (newY > that.data[0].maxValue){
+          newY = that.data[0].maxValue;
         }
         // 保持x坐标不变
         const oldX = that.bakData[dataIndex][0];
-        that.bakData[dataIndex] = [oldX, newY];
+        that.$set(that.bakData, dataIndex, [oldX, newY]);
         // 更新同步数据
         chart.setOption({
           series: [{
@@ -278,7 +296,7 @@ export default {
           // 如果不在范围内，就将数据点的位置重置为边界上的位置
           newY = newY < that.data[0].minValue ? that.data[0].minValue : that.data[0].maxValue;
           const oldX = that.bakData[dataIndex][0];
-          that.bakData[dataIndex] = [oldX, newY];
+          that.$set(that.bakData, dataIndex, [oldX, newY]);
           chart.setOption({
             series: [{
               data: that.bakData

@@ -8,7 +8,7 @@ import time
 import logging
 
 # 创建线程池，可以同时执行两个任务：测算+日志记录
-executor = ThreadPoolExecutor(2)
+# executor = ThreadPoolExecutor(2)
 # 创建flask应用实例
 app = Flask(__name__)
 
@@ -54,7 +54,8 @@ def run_jobs():
     - 'branch': 执行测算任务的环境标识符，可以是'gstest'（公司测试）或其他值。
     - 'userId': 提交测算任务的用户的唯一标识符。
     """
-    executor.submit(ylbxcs, request.get_json())
+    # executor.submit(ylbxcs, request.get_json())
+    ylbxcs(request.get_json())
     result = {'status': 200, 'succeed': 'true', 'msg': "响应信息"}
     result = json.dumps(result, ensure_ascii=False)
     # 将相应信息返回至响应体中
@@ -104,4 +105,4 @@ def ylbxcs(data):
 
 # 启动
 if __name__ == '__main__':
-    app.run(host=cfg.host_server, port=cfg.port_server)
+    app.run(host=cfg.host_server, port=cfg.port_server, debug=True)
