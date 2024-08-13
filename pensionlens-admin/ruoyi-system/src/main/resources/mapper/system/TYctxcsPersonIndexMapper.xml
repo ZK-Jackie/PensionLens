@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPersonIndexMapper">
+    
+    <resultMap type="TYctxcsPersonIndex" id="TYctxcsPersonIndexResult">
+        <result property="planArea"    column="plan_area"    />
+        <result property="age"    column="age"    />
+        <result property="mDeathRate"    column="m_death_rate"    />
+        <result property="fDeathRate"    column="f_death_rate"    />
+        <result property="mEmploymentRate"    column="m_employment_rate"    />
+        <result property="fEmploymentRate"    column="f_employment_rate"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPersonIndexVo">
+        select plan_area, age, m_death_rate, f_death_rate, m_employment_rate, f_employment_rate from t_yctxcs_person_index
+    </sql>
+
+    <select id="selectTYctxcsPersonIndexList" parameterType="TYctxcsPersonIndex" resultMap="TYctxcsPersonIndexResult">
+        <include refid="selectTYctxcsPersonIndexVo"/>
+        <where>  
+            <if test="mDeathRate != null "> and m_death_rate = #{mDeathRate}</if>
+            <if test="fDeathRate != null "> and f_death_rate = #{fDeathRate}</if>
+            <if test="mEmploymentRate != null "> and m_employment_rate = #{mEmploymentRate}</if>
+            <if test="fEmploymentRate != null "> and f_employment_rate = #{fEmploymentRate}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPersonIndexByPlanArea" parameterType="Long" resultMap="TYctxcsPersonIndexResult">
+        <include refid="selectTYctxcsPersonIndexVo"/>
+        where plan_area = #{planArea}
+    </select>
+        
+    <insert id="insertTYctxcsPersonIndex" parameterType="TYctxcsPersonIndex">
+        insert into t_yctxcs_person_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">plan_area,</if>
+            <if test="age != null">age,</if>
+            <if test="mDeathRate != null">m_death_rate,</if>
+            <if test="fDeathRate != null">f_death_rate,</if>
+            <if test="mEmploymentRate != null">m_employment_rate,</if>
+            <if test="fEmploymentRate != null">f_employment_rate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">#{planArea},</if>
+            <if test="age != null">#{age},</if>
+            <if test="mDeathRate != null">#{mDeathRate},</if>
+            <if test="fDeathRate != null">#{fDeathRate},</if>
+            <if test="mEmploymentRate != null">#{mEmploymentRate},</if>
+            <if test="fEmploymentRate != null">#{fEmploymentRate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPersonIndex" parameterType="TYctxcsPersonIndex">
+        update t_yctxcs_person_index
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="age != null">age = #{age},</if>
+            <if test="mDeathRate != null">m_death_rate = #{mDeathRate},</if>
+            <if test="fDeathRate != null">f_death_rate = #{fDeathRate},</if>
+            <if test="mEmploymentRate != null">m_employment_rate = #{mEmploymentRate},</if>
+            <if test="fEmploymentRate != null">f_employment_rate = #{fEmploymentRate},</if>
+        </trim>
+        where plan_area = #{planArea}
+    </update>
+
+    <delete id="deleteTYctxcsPersonIndexByPlanArea" parameterType="Long">
+        delete from t_yctxcs_person_index where plan_area = #{planArea}
+    </delete>
+
+    <delete id="deleteTYctxcsPersonIndexByPlanAreas" parameterType="String">
+        delete from t_yctxcs_person_index where plan_area in 
+        <foreach item="planArea" collection="array" open="(" separator="," close=")">
+            #{planArea}
+        </foreach>
+    </delete>
+</mapper>

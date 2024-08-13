@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ScreenPlanMapper">
+    
+    <resultMap type="ScreenPlan" id="ScreenPlanResult">
+        <result property="screenId"    column="screen_id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="priority"    column="priority"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+    </resultMap>
+
+    <sql id="selectScreenPlanVo">
+        select screen_id, plan_id, priority, last_update_user_id, last_update_time from screen_plan
+    </sql>
+
+    <select id="selectScreenPlanList" parameterType="ScreenPlan" resultMap="ScreenPlanResult">
+        <include refid="selectScreenPlanVo"/>
+        <where>  
+            <if test="priority != null "> and priority = #{priority}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectScreenPlanByScreenId" parameterType="Long" resultMap="ScreenPlanResult">
+        <include refid="selectScreenPlanVo"/>
+        where screen_id = #{screenId}
+    </select>
+        
+    <insert id="insertScreenPlan" parameterType="ScreenPlan">
+        insert into screen_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="screenId != null">screen_id,</if>
+            <if test="planId != null">plan_id,</if>
+            <if test="priority != null">priority,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="screenId != null">#{screenId},</if>
+            <if test="planId != null">#{planId},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScreenPlan" parameterType="ScreenPlan">
+        update screen_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+        </trim>
+        where screen_id = #{screenId}
+    </update>
+
+    <delete id="deleteScreenPlanByScreenId" parameterType="Long">
+        delete from screen_plan where screen_id = #{screenId}
+    </delete>
+
+    <delete id="deleteScreenPlanByScreenIds" parameterType="String">
+        delete from screen_plan where screen_id in 
+        <foreach item="screenId" collection="array" open="(" separator="," close=")">
+            #{screenId}
+        </foreach>
+    </delete>
+</mapper>

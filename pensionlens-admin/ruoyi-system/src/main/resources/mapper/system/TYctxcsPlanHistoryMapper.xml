@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPlanHistoryMapper">
+    
+    <resultMap type="TYctxcsPlanHistory" id="TYctxcsPlanHistoryResult">
+        <result property="id"    column="id"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="planName"    column="plan_name"    />
+        <result property="planArea"    column="plan_area"    />
+        <result property="startYear"    column="start_year"    />
+        <result property="endYear"    column="end_year"    />
+        <result property="executeStatus"    column="execute_status"    />
+        <result property="executeTime"    column="execute_time"    />
+        <result property="planVersion"    column="plan_version"    />
+        <result property="lastYearSumSurplus"    column="last_year_sum_surplus"    />
+        <result property="retirePersonTypes"    column="retire_person_types"    />
+        <result property="birthMode"    column="birth_mode"    />
+        <result property="changeType"    column="change_type"    />
+        <result property="changeUserId"    column="change_user_id"    />
+        <result property="changeTime"    column="change_time"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="insertUserId"    column="insert_user_id"    />
+        <result property="insertTime"    column="insert_time"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+        <result property="deleteUserId"    column="delete_user_id"    />
+        <result property="deleteTime"    column="delete_time"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPlanHistoryVo">
+        select id, plan_id, plan_name, plan_area, start_year, end_year, execute_status, execute_time, plan_version, last_year_sum_surplus, retire_person_types, birth_mode, change_type, change_user_id, change_time, is_deleted, insert_user_id, insert_time, last_update_user_id, last_update_time, delete_user_id, delete_time from t_yctxcs_plan_history
+    </sql>
+
+    <select id="selectTYctxcsPlanHistoryList" parameterType="TYctxcsPlanHistory" resultMap="TYctxcsPlanHistoryResult">
+        <include refid="selectTYctxcsPlanHistoryVo"/>
+        <where>  
+            <if test="planId != null "> and plan_id = #{planId}</if>
+            <if test="planName != null  and planName != ''"> and plan_name like concat('%', #{planName}, '%')</if>
+            <if test="planArea != null "> and plan_area = #{planArea}</if>
+            <if test="startYear != null  and startYear != ''"> and start_year = #{startYear}</if>
+            <if test="endYear != null  and endYear != ''"> and end_year = #{endYear}</if>
+            <if test="executeStatus != null  and executeStatus != ''"> and execute_status = #{executeStatus}</if>
+            <if test="executeTime != null "> and execute_time = #{executeTime}</if>
+            <if test="planVersion != null  and planVersion != ''"> and plan_version = #{planVersion}</if>
+            <if test="lastYearSumSurplus != null "> and last_year_sum_surplus = #{lastYearSumSurplus}</if>
+            <if test="retirePersonTypes != null  and retirePersonTypes != ''"> and retire_person_types = #{retirePersonTypes}</if>
+            <if test="birthMode != null  and birthMode != ''"> and birth_mode = #{birthMode}</if>
+            <if test="changeType != null  and changeType != ''"> and change_type = #{changeType}</if>
+            <if test="changeUserId != null "> and change_user_id = #{changeUserId}</if>
+            <if test="changeTime != null "> and change_time = #{changeTime}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="insertUserId != null "> and insert_user_id = #{insertUserId}</if>
+            <if test="insertTime != null "> and insert_time = #{insertTime}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+            <if test="deleteUserId != null "> and delete_user_id = #{deleteUserId}</if>
+            <if test="deleteTime != null "> and delete_time = #{deleteTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPlanHistoryById" parameterType="Long" resultMap="TYctxcsPlanHistoryResult">
+        <include refid="selectTYctxcsPlanHistoryVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYctxcsPlanHistory" parameterType="TYctxcsPlanHistory" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yctxcs_plan_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planId != null">plan_id,</if>
+            <if test="planName != null and planName != ''">plan_name,</if>
+            <if test="planArea != null">plan_area,</if>
+            <if test="startYear != null and startYear != ''">start_year,</if>
+            <if test="endYear != null and endYear != ''">end_year,</if>
+            <if test="executeStatus != null and executeStatus != ''">execute_status,</if>
+            <if test="executeTime != null">execute_time,</if>
+            <if test="planVersion != null and planVersion != ''">plan_version,</if>
+            <if test="lastYearSumSurplus != null">last_year_sum_surplus,</if>
+            <if test="retirePersonTypes != null and retirePersonTypes != ''">retire_person_types,</if>
+            <if test="birthMode != null and birthMode != ''">birth_mode,</if>
+            <if test="changeType != null and changeType != ''">change_type,</if>
+            <if test="changeUserId != null">change_user_id,</if>
+            <if test="changeTime != null">change_time,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="insertUserId != null">insert_user_id,</if>
+            <if test="insertTime != null">insert_time,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+            <if test="deleteUserId != null">delete_user_id,</if>
+            <if test="deleteTime != null">delete_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planId != null">#{planId},</if>
+            <if test="planName != null and planName != ''">#{planName},</if>
+            <if test="planArea != null">#{planArea},</if>
+            <if test="startYear != null and startYear != ''">#{startYear},</if>
+            <if test="endYear != null and endYear != ''">#{endYear},</if>
+            <if test="executeStatus != null and executeStatus != ''">#{executeStatus},</if>
+            <if test="executeTime != null">#{executeTime},</if>
+            <if test="planVersion != null and planVersion != ''">#{planVersion},</if>
+            <if test="lastYearSumSurplus != null">#{lastYearSumSurplus},</if>
+            <if test="retirePersonTypes != null and retirePersonTypes != ''">#{retirePersonTypes},</if>
+            <if test="birthMode != null and birthMode != ''">#{birthMode},</if>
+            <if test="changeType != null and changeType != ''">#{changeType},</if>
+            <if test="changeUserId != null">#{changeUserId},</if>
+            <if test="changeTime != null">#{changeTime},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="insertUserId != null">#{insertUserId},</if>
+            <if test="insertTime != null">#{insertTime},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+            <if test="deleteUserId != null">#{deleteUserId},</if>
+            <if test="deleteTime != null">#{deleteTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPlanHistory" parameterType="TYctxcsPlanHistory">
+        update t_yctxcs_plan_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="planName != null and planName != ''">plan_name = #{planName},</if>
+            <if test="planArea != null">plan_area = #{planArea},</if>
+            <if test="startYear != null and startYear != ''">start_year = #{startYear},</if>
+            <if test="endYear != null and endYear != ''">end_year = #{endYear},</if>
+            <if test="executeStatus != null and executeStatus != ''">execute_status = #{executeStatus},</if>
+            <if test="executeTime != null">execute_time = #{executeTime},</if>
+            <if test="planVersion != null and planVersion != ''">plan_version = #{planVersion},</if>
+            <if test="lastYearSumSurplus != null">last_year_sum_surplus = #{lastYearSumSurplus},</if>
+            <if test="retirePersonTypes != null and retirePersonTypes != ''">retire_person_types = #{retirePersonTypes},</if>
+            <if test="birthMode != null and birthMode != ''">birth_mode = #{birthMode},</if>
+            <if test="changeType != null and changeType != ''">change_type = #{changeType},</if>
+            <if test="changeUserId != null">change_user_id = #{changeUserId},</if>
+            <if test="changeTime != null">change_time = #{changeTime},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="insertUserId != null">insert_user_id = #{insertUserId},</if>
+            <if test="insertTime != null">insert_time = #{insertTime},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+            <if test="deleteUserId != null">delete_user_id = #{deleteUserId},</if>
+            <if test="deleteTime != null">delete_time = #{deleteTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYctxcsPlanHistoryById" parameterType="Long">
+        delete from t_yctxcs_plan_history where id = #{id}
+    </delete>
+
+    <delete id="deleteTYctxcsPlanHistoryByIds" parameterType="String">
+        delete from t_yctxcs_plan_history where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

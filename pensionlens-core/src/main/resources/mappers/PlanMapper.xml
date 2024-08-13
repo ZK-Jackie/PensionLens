@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.gdou.pensionlens.mapper.PlanMapper">
+    <resultMap id="AddPlanResultMap" type="edu.gdou.pensionlens.pojo.Plan">
+        <id property="id" column="id"/>
+        <result property="planName" column="plan_name"/>
+        <result property="planArea" column="plan_area"/>
+        <result property="startYear" column="start_year"/>
+        <result property="endYear" column="end_year"/>
+        <result property="executeStatus" column="execute_status"/>
+        <result property="executeTime" column="execute_time"/>
+        <result property="planVersion" column="plan_version"/>
+        <result property="planDescription" column="plan_description"/>
+        <result property="planPriority" column="plan_priority"/>
+        <result property="planPriority" column="plan_priority"/>
+    </resultMap>
+
+    <insert id="addPlan" parameterType="edu.gdou.pensionlens.pojo.Plan"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_yctxcs_plan(plan_name, plan_area, start_year, end_year, execute_status, execute_time,
+                                  plan_version, last_year_sum_surplus, birth_mode, plan_description, plan_priority,
+                                  insert_user_id, retire_person_types)
+        VALUES (#{planName}, #{planArea}, #{startYear}, #{endYear}, #{executeStatus}, #{executeTime}, #{planVersion},
+                #{lastYearSumSurplus}, #{birthMode}, #{planDescription}, #{planPriority}, #{insertUserId},
+                <!-- 使用 foreach 元素将 List 转换为逗号分隔的字符串 -->
+                <foreach collection="retirePersonTypes" item="item" open="" separator="," close="">
+                    #{item}
+                </foreach>)
+    </insert>
+
+    <insert id="addPlanAge" parameterType="java.util.List">
+        INSERT INTO t_yctxcs_plan_index_age(age, plan_id, m_employment_rate, f_employment_rate, insert_user_id)
+        VALUES
+        <foreach item="item" index="index" collection="list" open="(" separator="),(" close=")">
+            #{item.age}, #{item.planId}, #{item.mEmploymentRate}, #{item.fEmploymentRate}, #{item.insertUserId}
+        </foreach>
+    </insert>
+
+    <insert id="addPlanUrban" parameterType="java.util.List">
+        INSERT INTO t_yctxcs_plan_index_urban(year, age, plan_id, urban_rate, insert_user_id)
+        VALUES
+        <foreach item="item" index="index" collection="list" open="(" separator="),(" close=")">
+            #{item.year}, #{item.age}, #{item.planId}, #{item.urbanRate}, #{item.insertUserId}
+        </foreach>
+    </insert>
+
+    <insert id="addPlanYear" parameterType="java.util.List">
+        INSERT INTO t_yctxcs_plan_index_year(year, plan_id, m_retire, f_retire, fc_retire, insurance_rate,
+                                             individual_rate, enterprise_rate, collect_rate, avg_salary, account_rate,
+                                             transition, growth, insert_user_id)
+        VALUES
+        <foreach item="item" index="index" collection="list" open="(" separator="),(" close=")">
+            #{item.year}, #{item.planId}, #{item.mRetire}, #{item.fRetire}, #{item.fcRetire},
+            #{item.insuranceRate}, #{item.individualRate}, #{item.enterpriseRate}, #{item.collectRate},
+            #{item.avgSalary}, #{item.accountRate}, #{item.transition}, #{item.growth}, #{item.insertUserId}
+        </foreach>
+    </insert>
+
+</mapper>

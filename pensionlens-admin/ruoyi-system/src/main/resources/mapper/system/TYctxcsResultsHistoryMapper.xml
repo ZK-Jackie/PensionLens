@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsResultsHistoryMapper">
+    
+    <resultMap type="TYctxcsResultsHistory" id="TYctxcsResultsHistoryResult">
+        <result property="id"    column="id"    />
+        <result property="planHistoryId"    column="plan_history_id"    />
+        <result property="year"    column="year"    />
+        <result property="expense"    column="expense"    />
+        <result property="income"    column="income"    />
+        <result property="surplus"    column="surplus"    />
+        <result property="lastYearSumSurplus"    column="last_year_sum_surplus"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsResultsHistoryVo">
+        select id, plan_history_id, year, expense, income, surplus, last_year_sum_surplus from t_yctxcs_results_history
+    </sql>
+
+    <select id="selectTYctxcsResultsHistoryList" parameterType="TYctxcsResultsHistory" resultMap="TYctxcsResultsHistoryResult">
+        <include refid="selectTYctxcsResultsHistoryVo"/>
+        <where>  
+            <if test="planHistoryId != null "> and plan_history_id = #{planHistoryId}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="expense != null "> and expense = #{expense}</if>
+            <if test="income != null "> and income = #{income}</if>
+            <if test="surplus != null "> and surplus = #{surplus}</if>
+            <if test="lastYearSumSurplus != null "> and last_year_sum_surplus = #{lastYearSumSurplus}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsResultsHistoryById" parameterType="Long" resultMap="TYctxcsResultsHistoryResult">
+        <include refid="selectTYctxcsResultsHistoryVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYctxcsResultsHistory" parameterType="TYctxcsResultsHistory" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yctxcs_results_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planHistoryId != null">plan_history_id,</if>
+            <if test="year != null">year,</if>
+            <if test="expense != null">expense,</if>
+            <if test="income != null">income,</if>
+            <if test="surplus != null">surplus,</if>
+            <if test="lastYearSumSurplus != null">last_year_sum_surplus,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planHistoryId != null">#{planHistoryId},</if>
+            <if test="year != null">#{year},</if>
+            <if test="expense != null">#{expense},</if>
+            <if test="income != null">#{income},</if>
+            <if test="surplus != null">#{surplus},</if>
+            <if test="lastYearSumSurplus != null">#{lastYearSumSurplus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsResultsHistory" parameterType="TYctxcsResultsHistory">
+        update t_yctxcs_results_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="planHistoryId != null">plan_history_id = #{planHistoryId},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="expense != null">expense = #{expense},</if>
+            <if test="income != null">income = #{income},</if>
+            <if test="surplus != null">surplus = #{surplus},</if>
+            <if test="lastYearSumSurplus != null">last_year_sum_surplus = #{lastYearSumSurplus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYctxcsResultsHistoryById" parameterType="Long">
+        delete from t_yctxcs_results_history where id = #{id}
+    </delete>
+
+    <delete id="deleteTYctxcsResultsHistoryByIds" parameterType="String">
+        delete from t_yctxcs_results_history where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

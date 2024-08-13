@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ScreenDetailDataMapper">
+    
+    <resultMap type="ScreenDetailData" id="ScreenDetailDataResult">
+        <result property="detailId"    column="detail_id"    />
+        <result property="dataId"    column="data_id"    />
+        <result property="displayMode"    column="display_mode"    />
+        <result property="displayableMode"    column="displayable_mode"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="isInfo"    column="is_info"    />
+        <result property="isPredict"    column="is_predict"    />
+        <result property="predictStartTime"    column="predict_start_time"    />
+        <result property="predictEndTime"    column="predict_end_time"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+        <result property="isDefault"    column="is_default"    />
+    </resultMap>
+
+    <sql id="selectScreenDetailDataVo">
+        select detail_id, data_id, display_mode, displayable_mode, start_time, end_time, is_info, is_predict, predict_start_time, predict_end_time, last_update_user_id, last_update_time, is_default from screen_detail_data
+    </sql>
+
+    <select id="selectScreenDetailDataList" parameterType="ScreenDetailData" resultMap="ScreenDetailDataResult">
+        <include refid="selectScreenDetailDataVo"/>
+        <where>  
+            <if test="displayMode != null  and displayMode != ''"> and display_mode = #{displayMode}</if>
+            <if test="displayableMode != null  and displayableMode != ''"> and displayable_mode = #{displayableMode}</if>
+            <if test="startTime != null  and startTime != ''"> and start_time = #{startTime}</if>
+            <if test="endTime != null  and endTime != ''"> and end_time = #{endTime}</if>
+            <if test="isInfo != null  and isInfo != ''"> and is_info = #{isInfo}</if>
+            <if test="isPredict != null  and isPredict != ''"> and is_predict = #{isPredict}</if>
+            <if test="predictStartTime != null  and predictStartTime != ''"> and predict_start_time = #{predictStartTime}</if>
+            <if test="predictEndTime != null  and predictEndTime != ''"> and predict_end_time = #{predictEndTime}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+            <if test="isDefault != null  and isDefault != ''"> and is_default = #{isDefault}</if>
+        </where>
+    </select>
+    
+    <select id="selectScreenDetailDataByDetailId" parameterType="Long" resultMap="ScreenDetailDataResult">
+        <include refid="selectScreenDetailDataVo"/>
+        where detail_id = #{detailId}
+    </select>
+        
+    <insert id="insertScreenDetailData" parameterType="ScreenDetailData">
+        insert into screen_detail_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">detail_id,</if>
+            <if test="dataId != null">data_id,</if>
+            <if test="displayMode != null and displayMode != ''">display_mode,</if>
+            <if test="displayableMode != null and displayableMode != ''">displayable_mode,</if>
+            <if test="startTime != null and startTime != ''">start_time,</if>
+            <if test="endTime != null and endTime != ''">end_time,</if>
+            <if test="isInfo != null and isInfo != ''">is_info,</if>
+            <if test="isPredict != null and isPredict != ''">is_predict,</if>
+            <if test="predictStartTime != null and predictStartTime != ''">predict_start_time,</if>
+            <if test="predictEndTime != null and predictEndTime != ''">predict_end_time,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+            <if test="isDefault != null">is_default,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">#{detailId},</if>
+            <if test="dataId != null">#{dataId},</if>
+            <if test="displayMode != null and displayMode != ''">#{displayMode},</if>
+            <if test="displayableMode != null and displayableMode != ''">#{displayableMode},</if>
+            <if test="startTime != null and startTime != ''">#{startTime},</if>
+            <if test="endTime != null and endTime != ''">#{endTime},</if>
+            <if test="isInfo != null and isInfo != ''">#{isInfo},</if>
+            <if test="isPredict != null and isPredict != ''">#{isPredict},</if>
+            <if test="predictStartTime != null and predictStartTime != ''">#{predictStartTime},</if>
+            <if test="predictEndTime != null and predictEndTime != ''">#{predictEndTime},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+            <if test="isDefault != null">#{isDefault},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScreenDetailData" parameterType="ScreenDetailData">
+        update screen_detail_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataId != null">data_id = #{dataId},</if>
+            <if test="displayMode != null and displayMode != ''">display_mode = #{displayMode},</if>
+            <if test="displayableMode != null and displayableMode != ''">displayable_mode = #{displayableMode},</if>
+            <if test="startTime != null and startTime != ''">start_time = #{startTime},</if>
+            <if test="endTime != null and endTime != ''">end_time = #{endTime},</if>
+            <if test="isInfo != null and isInfo != ''">is_info = #{isInfo},</if>
+            <if test="isPredict != null and isPredict != ''">is_predict = #{isPredict},</if>
+            <if test="predictStartTime != null and predictStartTime != ''">predict_start_time = #{predictStartTime},</if>
+            <if test="predictEndTime != null and predictEndTime != ''">predict_end_time = #{predictEndTime},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+            <if test="isDefault != null">is_default = #{isDefault},</if>
+        </trim>
+        where detail_id = #{detailId}
+    </update>
+
+    <delete id="deleteScreenDetailDataByDetailId" parameterType="Long">
+        delete from screen_detail_data where detail_id = #{detailId}
+    </delete>
+
+    <delete id="deleteScreenDetailDataByDetailIds" parameterType="String">
+        delete from screen_detail_data where detail_id in 
+        <foreach item="detailId" collection="array" open="(" separator="," close=")">
+            #{detailId}
+        </foreach>
+    </delete>
+</mapper>

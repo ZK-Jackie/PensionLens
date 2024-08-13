@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPersonPredictYearMapper">
+    
+    <resultMap type="TYctxcsPersonPredictYear" id="TYctxcsPersonPredictYearResult">
+        <result property="planArea"    column="plan_area"    />
+        <result property="year"    column="year"    />
+        <result property="malePreLife"    column="male_pre_life"    />
+        <result property="femalePreLife"    column="female_pre_life"    />
+        <result property="sexRatioBirth"    column="sex_ratio_birth"    />
+        <result property="maleMigrationNumber"    column="male_migration_number"    />
+        <result property="femaleMigrationNumber"    column="female_migration_number"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPersonPredictYearVo">
+        select plan_area, year, male_pre_life, female_pre_life, sex_ratio_birth, male_migration_number, female_migration_number from t_yctxcs_person_predict_year
+    </sql>
+
+    <select id="selectTYctxcsPersonPredictYearList" parameterType="TYctxcsPersonPredictYear" resultMap="TYctxcsPersonPredictYearResult">
+        <include refid="selectTYctxcsPersonPredictYearVo"/>
+        <where>  
+            <if test="malePreLife != null "> and male_pre_life = #{malePreLife}</if>
+            <if test="femalePreLife != null "> and female_pre_life = #{femalePreLife}</if>
+            <if test="sexRatioBirth != null "> and sex_ratio_birth = #{sexRatioBirth}</if>
+            <if test="maleMigrationNumber != null "> and male_migration_number = #{maleMigrationNumber}</if>
+            <if test="femaleMigrationNumber != null "> and female_migration_number = #{femaleMigrationNumber}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPersonPredictYearByPlanArea" parameterType="Long" resultMap="TYctxcsPersonPredictYearResult">
+        <include refid="selectTYctxcsPersonPredictYearVo"/>
+        where plan_area = #{planArea}
+    </select>
+        
+    <insert id="insertTYctxcsPersonPredictYear" parameterType="TYctxcsPersonPredictYear">
+        insert into t_yctxcs_person_predict_year
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">plan_area,</if>
+            <if test="year != null">year,</if>
+            <if test="malePreLife != null">male_pre_life,</if>
+            <if test="femalePreLife != null">female_pre_life,</if>
+            <if test="sexRatioBirth != null">sex_ratio_birth,</if>
+            <if test="maleMigrationNumber != null">male_migration_number,</if>
+            <if test="femaleMigrationNumber != null">female_migration_number,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">#{planArea},</if>
+            <if test="year != null">#{year},</if>
+            <if test="malePreLife != null">#{malePreLife},</if>
+            <if test="femalePreLife != null">#{femalePreLife},</if>
+            <if test="sexRatioBirth != null">#{sexRatioBirth},</if>
+            <if test="maleMigrationNumber != null">#{maleMigrationNumber},</if>
+            <if test="femaleMigrationNumber != null">#{femaleMigrationNumber},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPersonPredictYear" parameterType="TYctxcsPersonPredictYear">
+        update t_yctxcs_person_predict_year
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="malePreLife != null">male_pre_life = #{malePreLife},</if>
+            <if test="femalePreLife != null">female_pre_life = #{femalePreLife},</if>
+            <if test="sexRatioBirth != null">sex_ratio_birth = #{sexRatioBirth},</if>
+            <if test="maleMigrationNumber != null">male_migration_number = #{maleMigrationNumber},</if>
+            <if test="femaleMigrationNumber != null">female_migration_number = #{femaleMigrationNumber},</if>
+        </trim>
+        where plan_area = #{planArea}
+    </update>
+
+    <delete id="deleteTYctxcsPersonPredictYearByPlanArea" parameterType="Long">
+        delete from t_yctxcs_person_predict_year where plan_area = #{planArea}
+    </delete>
+
+    <delete id="deleteTYctxcsPersonPredictYearByPlanAreas" parameterType="String">
+        delete from t_yctxcs_person_predict_year where plan_area in 
+        <foreach item="planArea" collection="array" open="(" separator="," close=")">
+            #{planArea}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsIndexMapper">
+    
+    <resultMap type="TYctxcsIndex" id="TYctxcsIndexResult">
+        <result property="planArea"    column="plan_area"    />
+        <result property="year"    column="year"    />
+        <result property="mRetire"    column="m_retire"    />
+        <result property="fRetire"    column="f_retire"    />
+        <result property="fcRetire"    column="fc_retire"    />
+        <result property="avgSalary"    column="avg_salary"    />
+        <result property="individualRate"    column="individual_rate"    />
+        <result property="enterpriseRate"    column="enterprise_rate"    />
+        <result property="insuranceRate"    column="insurance_rate"    />
+        <result property="growth"    column="growth"    />
+        <result property="collectRate"    column="collect_rate"    />
+        <result property="transition"    column="transition"    />
+        <result property="accountRate"    column="account_rate"    />
+        <result property="mMonthly"    column="m_monthly"    />
+        <result property="fMonthly"    column="f_monthly"    />
+        <result property="fcMonthly"    column="fc_monthly"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsIndexVo">
+        select plan_area, year, m_retire, f_retire, fc_retire, avg_salary, individual_rate, enterprise_rate, insurance_rate, growth, collect_rate, transition, account_rate, m_monthly, f_monthly, fc_monthly from t_yctxcs_index
+    </sql>
+
+    <select id="selectTYctxcsIndexList" parameterType="TYctxcsIndex" resultMap="TYctxcsIndexResult">
+        <include refid="selectTYctxcsIndexVo"/>
+        <where>  
+            <if test="mRetire != null "> and m_retire = #{mRetire}</if>
+            <if test="fRetire != null "> and f_retire = #{fRetire}</if>
+            <if test="fcRetire != null "> and fc_retire = #{fcRetire}</if>
+            <if test="avgSalary != null "> and avg_salary = #{avgSalary}</if>
+            <if test="individualRate != null "> and individual_rate = #{individualRate}</if>
+            <if test="enterpriseRate != null "> and enterprise_rate = #{enterpriseRate}</if>
+            <if test="insuranceRate != null "> and insurance_rate = #{insuranceRate}</if>
+            <if test="growth != null "> and growth = #{growth}</if>
+            <if test="collectRate != null "> and collect_rate = #{collectRate}</if>
+            <if test="transition != null "> and transition = #{transition}</if>
+            <if test="accountRate != null "> and account_rate = #{accountRate}</if>
+            <if test="mMonthly != null "> and m_monthly = #{mMonthly}</if>
+            <if test="fMonthly != null "> and f_monthly = #{fMonthly}</if>
+            <if test="fcMonthly != null "> and fc_monthly = #{fcMonthly}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsIndexByPlanArea" parameterType="Long" resultMap="TYctxcsIndexResult">
+        <include refid="selectTYctxcsIndexVo"/>
+        where plan_area = #{planArea}
+    </select>
+        
+    <insert id="insertTYctxcsIndex" parameterType="TYctxcsIndex">
+        insert into t_yctxcs_index
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">plan_area,</if>
+            <if test="year != null">year,</if>
+            <if test="mRetire != null">m_retire,</if>
+            <if test="fRetire != null">f_retire,</if>
+            <if test="fcRetire != null">fc_retire,</if>
+            <if test="avgSalary != null">avg_salary,</if>
+            <if test="individualRate != null">individual_rate,</if>
+            <if test="enterpriseRate != null">enterprise_rate,</if>
+            <if test="insuranceRate != null">insurance_rate,</if>
+            <if test="growth != null">growth,</if>
+            <if test="collectRate != null">collect_rate,</if>
+            <if test="transition != null">transition,</if>
+            <if test="accountRate != null">account_rate,</if>
+            <if test="mMonthly != null">m_monthly,</if>
+            <if test="fMonthly != null">f_monthly,</if>
+            <if test="fcMonthly != null">fc_monthly,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">#{planArea},</if>
+            <if test="year != null">#{year},</if>
+            <if test="mRetire != null">#{mRetire},</if>
+            <if test="fRetire != null">#{fRetire},</if>
+            <if test="fcRetire != null">#{fcRetire},</if>
+            <if test="avgSalary != null">#{avgSalary},</if>
+            <if test="individualRate != null">#{individualRate},</if>
+            <if test="enterpriseRate != null">#{enterpriseRate},</if>
+            <if test="insuranceRate != null">#{insuranceRate},</if>
+            <if test="growth != null">#{growth},</if>
+            <if test="collectRate != null">#{collectRate},</if>
+            <if test="transition != null">#{transition},</if>
+            <if test="accountRate != null">#{accountRate},</if>
+            <if test="mMonthly != null">#{mMonthly},</if>
+            <if test="fMonthly != null">#{fMonthly},</if>
+            <if test="fcMonthly != null">#{fcMonthly},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsIndex" parameterType="TYctxcsIndex">
+        update t_yctxcs_index
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="mRetire != null">m_retire = #{mRetire},</if>
+            <if test="fRetire != null">f_retire = #{fRetire},</if>
+            <if test="fcRetire != null">fc_retire = #{fcRetire},</if>
+            <if test="avgSalary != null">avg_salary = #{avgSalary},</if>
+            <if test="individualRate != null">individual_rate = #{individualRate},</if>
+            <if test="enterpriseRate != null">enterprise_rate = #{enterpriseRate},</if>
+            <if test="insuranceRate != null">insurance_rate = #{insuranceRate},</if>
+            <if test="growth != null">growth = #{growth},</if>
+            <if test="collectRate != null">collect_rate = #{collectRate},</if>
+            <if test="transition != null">transition = #{transition},</if>
+            <if test="accountRate != null">account_rate = #{accountRate},</if>
+            <if test="mMonthly != null">m_monthly = #{mMonthly},</if>
+            <if test="fMonthly != null">f_monthly = #{fMonthly},</if>
+            <if test="fcMonthly != null">fc_monthly = #{fcMonthly},</if>
+        </trim>
+        where plan_area = #{planArea}
+    </update>
+
+    <delete id="deleteTYctxcsIndexByPlanArea" parameterType="Long">
+        delete from t_yctxcs_index where plan_area = #{planArea}
+    </delete>
+
+    <delete id="deleteTYctxcsIndexByPlanAreas" parameterType="String">
+        delete from t_yctxcs_index where plan_area in 
+        <foreach item="planArea" collection="array" open="(" separator="," close=")">
+            #{planArea}
+        </foreach>
+    </delete>
+</mapper>

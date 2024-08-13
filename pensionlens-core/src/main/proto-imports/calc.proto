@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option java_multiple_files = false;
+option java_package = "edu.gdou.pensionlens.grpc.calc";
+option java_outer_classname = "CalcProto";
+// option objc_class_prefix = "Hello";
+
+package edu.gdou.pensionlens.grpc.calc;
+
+//定义服务
+service CalcService {
+  //注意：这里是returns 不是return
+  rpc calc (CalcRequest) returns (CalcResponse) {
+  }
+}
+
+//定义请求数据结构
+message CalcRequest {
+  int32 id = 1;
+}
+
+//定义返回数据结构
+message CalcResponse {
+  bool status = 1;
+}

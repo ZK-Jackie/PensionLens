@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsAreaCodeDictMapper">
+    
+    <resultMap type="TYctxcsAreaCodeDict" id="TYctxcsAreaCodeDictResult">
+        <result property="code"    column="code"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="baseYear"    column="base_year"    />
+        <result property="policy1999"    column="policy_1999"    />
+        <result property="policy2005"    column="policy_2005"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsAreaCodeDictVo">
+        select code, area_name, base_year, policy_1999, policy_2005 from t_yctxcs_area_code_dict
+    </sql>
+
+    <select id="selectTYctxcsAreaCodeDictList" parameterType="TYctxcsAreaCodeDict" resultMap="TYctxcsAreaCodeDictResult">
+        <include refid="selectTYctxcsAreaCodeDictVo"/>
+        <where>  
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+            <if test="baseYear != null "> and base_year = #{baseYear}</if>
+            <if test="policy1999 != null "> and policy_1999 = #{policy1999}</if>
+            <if test="policy2005 != null "> and policy_2005 = #{policy2005}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsAreaCodeDictByCode" parameterType="Long" resultMap="TYctxcsAreaCodeDictResult">
+        <include refid="selectTYctxcsAreaCodeDictVo"/>
+        where code = #{code}
+    </select>
+        
+    <insert id="insertTYctxcsAreaCodeDict" parameterType="TYctxcsAreaCodeDict">
+        insert into t_yctxcs_area_code_dict
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="code != null">code,</if>
+            <if test="areaName != null and areaName != ''">area_name,</if>
+            <if test="baseYear != null">base_year,</if>
+            <if test="policy1999 != null">policy_1999,</if>
+            <if test="policy2005 != null">policy_2005,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="code != null">#{code},</if>
+            <if test="areaName != null and areaName != ''">#{areaName},</if>
+            <if test="baseYear != null">#{baseYear},</if>
+            <if test="policy1999 != null">#{policy1999},</if>
+            <if test="policy2005 != null">#{policy2005},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsAreaCodeDict" parameterType="TYctxcsAreaCodeDict">
+        update t_yctxcs_area_code_dict
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="areaName != null and areaName != ''">area_name = #{areaName},</if>
+            <if test="baseYear != null">base_year = #{baseYear},</if>
+            <if test="policy1999 != null">policy_1999 = #{policy1999},</if>
+            <if test="policy2005 != null">policy_2005 = #{policy2005},</if>
+        </trim>
+        where code = #{code}
+    </update>
+
+    <delete id="deleteTYctxcsAreaCodeDictByCode" parameterType="Long">
+        delete from t_yctxcs_area_code_dict where code = #{code}
+    </delete>
+
+    <delete id="deleteTYctxcsAreaCodeDictByCodes" parameterType="String">
+        delete from t_yctxcs_area_code_dict where code in 
+        <foreach item="code" collection="array" open="(" separator="," close=")">
+            #{code}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPlanIndexYearHisMapper">
+    
+    <resultMap type="TYctxcsPlanIndexYearHis" id="TYctxcsPlanIndexYearHisResult">
+        <result property="id"    column="id"    />
+        <result property="year"    column="year"    />
+        <result property="planHistoryId"    column="plan_history_id"    />
+        <result property="mRetire"    column="m_retire"    />
+        <result property="fRetire"    column="f_retire"    />
+        <result property="fcRetire"    column="fc_retire"    />
+        <result property="insuranceRate"    column="insurance_rate"    />
+        <result property="individualRate"    column="individual_rate"    />
+        <result property="enterpriseRate"    column="enterprise_rate"    />
+        <result property="collectRate"    column="collect_rate"    />
+        <result property="avgSalary"    column="avg_salary"    />
+        <result property="accountRate"    column="account_rate"    />
+        <result property="transition"    column="transition"    />
+        <result property="growth"    column="growth"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="insertUserId"    column="insert_user_id"    />
+        <result property="insertTime"    column="insert_time"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+        <result property="deleteUserId"    column="delete_user_id"    />
+        <result property="deleteTime"    column="delete_time"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPlanIndexYearHisVo">
+        select id, year, plan_history_id, m_retire, f_retire, fc_retire, insurance_rate, individual_rate, enterprise_rate, collect_rate, avg_salary, account_rate, transition, growth, is_deleted, insert_user_id, insert_time, last_update_user_id, last_update_time, delete_user_id, delete_time from t_yctxcs_plan_index_year_his
+    </sql>
+
+    <select id="selectTYctxcsPlanIndexYearHisList" parameterType="TYctxcsPlanIndexYearHis" resultMap="TYctxcsPlanIndexYearHisResult">
+        <include refid="selectTYctxcsPlanIndexYearHisVo"/>
+        <where>  
+            <if test="year != null "> and year = #{year}</if>
+            <if test="planHistoryId != null "> and plan_history_id = #{planHistoryId}</if>
+            <if test="mRetire != null "> and m_retire = #{mRetire}</if>
+            <if test="fRetire != null "> and f_retire = #{fRetire}</if>
+            <if test="fcRetire != null "> and fc_retire = #{fcRetire}</if>
+            <if test="insuranceRate != null "> and insurance_rate = #{insuranceRate}</if>
+            <if test="individualRate != null "> and individual_rate = #{individualRate}</if>
+            <if test="enterpriseRate != null "> and enterprise_rate = #{enterpriseRate}</if>
+            <if test="collectRate != null "> and collect_rate = #{collectRate}</if>
+            <if test="avgSalary != null "> and avg_salary = #{avgSalary}</if>
+            <if test="accountRate != null "> and account_rate = #{accountRate}</if>
+            <if test="transition != null "> and transition = #{transition}</if>
+            <if test="growth != null "> and growth = #{growth}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="insertUserId != null "> and insert_user_id = #{insertUserId}</if>
+            <if test="insertTime != null "> and insert_time = #{insertTime}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+            <if test="deleteUserId != null "> and delete_user_id = #{deleteUserId}</if>
+            <if test="deleteTime != null "> and delete_time = #{deleteTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPlanIndexYearHisById" parameterType="Long" resultMap="TYctxcsPlanIndexYearHisResult">
+        <include refid="selectTYctxcsPlanIndexYearHisVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYctxcsPlanIndexYearHis" parameterType="TYctxcsPlanIndexYearHis" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yctxcs_plan_index_year_his
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="planHistoryId != null">plan_history_id,</if>
+            <if test="mRetire != null">m_retire,</if>
+            <if test="fRetire != null">f_retire,</if>
+            <if test="fcRetire != null">fc_retire,</if>
+            <if test="insuranceRate != null">insurance_rate,</if>
+            <if test="individualRate != null">individual_rate,</if>
+            <if test="enterpriseRate != null">enterprise_rate,</if>
+            <if test="collectRate != null">collect_rate,</if>
+            <if test="avgSalary != null">avg_salary,</if>
+            <if test="accountRate != null">account_rate,</if>
+            <if test="transition != null">transition,</if>
+            <if test="growth != null">growth,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="insertUserId != null">insert_user_id,</if>
+            <if test="insertTime != null">insert_time,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+            <if test="deleteUserId != null">delete_user_id,</if>
+            <if test="deleteTime != null">delete_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="planHistoryId != null">#{planHistoryId},</if>
+            <if test="mRetire != null">#{mRetire},</if>
+            <if test="fRetire != null">#{fRetire},</if>
+            <if test="fcRetire != null">#{fcRetire},</if>
+            <if test="insuranceRate != null">#{insuranceRate},</if>
+            <if test="individualRate != null">#{individualRate},</if>
+            <if test="enterpriseRate != null">#{enterpriseRate},</if>
+            <if test="collectRate != null">#{collectRate},</if>
+            <if test="avgSalary != null">#{avgSalary},</if>
+            <if test="accountRate != null">#{accountRate},</if>
+            <if test="transition != null">#{transition},</if>
+            <if test="growth != null">#{growth},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="insertUserId != null">#{insertUserId},</if>
+            <if test="insertTime != null">#{insertTime},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+            <if test="deleteUserId != null">#{deleteUserId},</if>
+            <if test="deleteTime != null">#{deleteTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPlanIndexYearHis" parameterType="TYctxcsPlanIndexYearHis">
+        update t_yctxcs_plan_index_year_his
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="planHistoryId != null">plan_history_id = #{planHistoryId},</if>
+            <if test="mRetire != null">m_retire = #{mRetire},</if>
+            <if test="fRetire != null">f_retire = #{fRetire},</if>
+            <if test="fcRetire != null">fc_retire = #{fcRetire},</if>
+            <if test="insuranceRate != null">insurance_rate = #{insuranceRate},</if>
+            <if test="individualRate != null">individual_rate = #{individualRate},</if>
+            <if test="enterpriseRate != null">enterprise_rate = #{enterpriseRate},</if>
+            <if test="collectRate != null">collect_rate = #{collectRate},</if>
+            <if test="avgSalary != null">avg_salary = #{avgSalary},</if>
+            <if test="accountRate != null">account_rate = #{accountRate},</if>
+            <if test="transition != null">transition = #{transition},</if>
+            <if test="growth != null">growth = #{growth},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="insertUserId != null">insert_user_id = #{insertUserId},</if>
+            <if test="insertTime != null">insert_time = #{insertTime},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+            <if test="deleteUserId != null">delete_user_id = #{deleteUserId},</if>
+            <if test="deleteTime != null">delete_time = #{deleteTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYctxcsPlanIndexYearHisById" parameterType="Long">
+        delete from t_yctxcs_plan_index_year_his where id = #{id}
+    </delete>
+
+    <delete id="deleteTYctxcsPlanIndexYearHisByIds" parameterType="String">
+        delete from t_yctxcs_plan_index_year_his where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

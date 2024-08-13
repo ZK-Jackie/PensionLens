@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ScreenDataMapper">
+    
+    <resultMap type="ScreenData" id="ScreenDataResult">
+        <result property="dataId"    column="data_id"    />
+        <result property="dataName"    column="data_name"    />
+        <result property="dataLocation"    column="data_location"    />
+        <result property="keyLabel"    column="key_label"    />
+        <result property="keyUnit"    column="key_unit"    />
+        <result property="valueLabel"    column="value_label"    />
+        <result property="valueUnit"    column="value_unit"    />
+        <result property="numPrecision"    column="num_precision"    />
+        <result property="maxValue"    column="max_value"    />
+        <result property="minValue"    column="min_value"    />
+        <result property="dataColorId"    column="data_color_id"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+    </resultMap>
+
+    <sql id="selectScreenDataVo">
+        select data_id, data_name, data_location, key_label, key_unit, value_label, value_unit, num_precision, max_value, min_value, data_color_id, last_update_user_id, last_update_time from screen_data
+    </sql>
+
+    <select id="selectScreenDataList" parameterType="ScreenData" resultMap="ScreenDataResult">
+        <include refid="selectScreenDataVo"/>
+        <where>  
+            <if test="dataName != null  and dataName != ''"> and data_name like concat('%', #{dataName}, '%')</if>
+            <if test="dataLocation != null  and dataLocation != ''"> and data_location = #{dataLocation}</if>
+            <if test="keyLabel != null  and keyLabel != ''"> and key_label = #{keyLabel}</if>
+            <if test="keyUnit != null  and keyUnit != ''"> and key_unit = #{keyUnit}</if>
+            <if test="valueLabel != null  and valueLabel != ''"> and value_label = #{valueLabel}</if>
+            <if test="valueUnit != null  and valueUnit != ''"> and value_unit = #{valueUnit}</if>
+            <if test="numPrecision != null  and numPrecision != ''"> and num_precision = #{numPrecision}</if>
+            <if test="maxValue != null "> and max_value = #{maxValue}</if>
+            <if test="minValue != null "> and min_value = #{minValue}</if>
+            <if test="dataColorId != null "> and data_color_id = #{dataColorId}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectScreenDataByDataId" parameterType="Long" resultMap="ScreenDataResult">
+        <include refid="selectScreenDataVo"/>
+        where data_id = #{dataId}
+    </select>
+        
+    <insert id="insertScreenData" parameterType="ScreenData">
+        insert into screen_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">data_id,</if>
+            <if test="dataName != null and dataName != ''">data_name,</if>
+            <if test="dataLocation != null and dataLocation != ''">data_location,</if>
+            <if test="keyLabel != null and keyLabel != ''">key_label,</if>
+            <if test="keyUnit != null and keyUnit != ''">key_unit,</if>
+            <if test="valueLabel != null and valueLabel != ''">value_label,</if>
+            <if test="valueUnit != null and valueUnit != ''">value_unit,</if>
+            <if test="numPrecision != null and numPrecision != ''">num_precision,</if>
+            <if test="maxValue != null">max_value,</if>
+            <if test="minValue != null">min_value,</if>
+            <if test="dataColorId != null">data_color_id,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataId != null">#{dataId},</if>
+            <if test="dataName != null and dataName != ''">#{dataName},</if>
+            <if test="dataLocation != null and dataLocation != ''">#{dataLocation},</if>
+            <if test="keyLabel != null and keyLabel != ''">#{keyLabel},</if>
+            <if test="keyUnit != null and keyUnit != ''">#{keyUnit},</if>
+            <if test="valueLabel != null and valueLabel != ''">#{valueLabel},</if>
+            <if test="valueUnit != null and valueUnit != ''">#{valueUnit},</if>
+            <if test="numPrecision != null and numPrecision != ''">#{numPrecision},</if>
+            <if test="maxValue != null">#{maxValue},</if>
+            <if test="minValue != null">#{minValue},</if>
+            <if test="dataColorId != null">#{dataColorId},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScreenData" parameterType="ScreenData">
+        update screen_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataName != null and dataName != ''">data_name = #{dataName},</if>
+            <if test="dataLocation != null and dataLocation != ''">data_location = #{dataLocation},</if>
+            <if test="keyLabel != null and keyLabel != ''">key_label = #{keyLabel},</if>
+            <if test="keyUnit != null and keyUnit != ''">key_unit = #{keyUnit},</if>
+            <if test="valueLabel != null and valueLabel != ''">value_label = #{valueLabel},</if>
+            <if test="valueUnit != null and valueUnit != ''">value_unit = #{valueUnit},</if>
+            <if test="numPrecision != null and numPrecision != ''">num_precision = #{numPrecision},</if>
+            <if test="maxValue != null">max_value = #{maxValue},</if>
+            <if test="minValue != null">min_value = #{minValue},</if>
+            <if test="dataColorId != null">data_color_id = #{dataColorId},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+        </trim>
+        where data_id = #{dataId}
+    </update>
+
+    <delete id="deleteScreenDataByDataId" parameterType="Long">
+        delete from screen_data where data_id = #{dataId}
+    </delete>
+
+    <delete id="deleteScreenDataByDataIds" parameterType="String">
+        delete from screen_data where data_id in 
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
+    </delete>
+</mapper>

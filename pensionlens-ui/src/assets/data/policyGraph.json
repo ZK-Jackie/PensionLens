@@ -1,0 +1,2048 @@
+﻿[
+  {
+    "n": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    },
+    "r": {
+      "identity": 0,
+      "start": 0,
+      "end": 1,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "m": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    }
+  },
+  {
+    "n": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "r": {
+      "identity": 0,
+      "start": 0,
+      "end": 1,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "m": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    }
+  },
+  {
+    "n": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    },
+    "r": {
+      "identity": 1,
+      "start": 0,
+      "end": 2,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    },
+    "m": {
+      "identity": 2,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "name": "社会养老保障制度",
+        "desc": "第二阶段：1966年到1978年的文化大革命阶段，变成了企业保险，形成了以集体保障为主体的社会养老保障制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    }
+  },
+  {
+    "n": {
+      "identity": 2,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "name": "社会养老保障制度",
+        "desc": "第二阶段：1966年到1978年的文化大革命阶段，变成了企业保险，形成了以集体保障为主体的社会养老保障制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    },
+    "r": {
+      "identity": 1,
+      "start": 0,
+      "end": 2,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    },
+    "m": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    }
+  },
+  {
+    "n": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    },
+    "r": {
+      "identity": 2,
+      "start": 0,
+      "end": 3,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:2",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "m": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    }
+  },
+  {
+    "n": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "r": {
+      "identity": 2,
+      "start": 0,
+      "end": 3,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:2",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "m": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    }
+  },
+  {
+    "n": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    },
+    "r": {
+      "identity": 3,
+      "start": 0,
+      "end": 4,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    },
+    "m": {
+      "identity": 4,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "“统账结合”养老保险模式",
+        "desc": "第四阶段：1993年，《中共中央关于建立社会主义市场经济体制若干问题的决定》，正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    }
+  },
+  {
+    "n": {
+      "identity": 4,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "“统账结合”养老保险模式",
+        "desc": "第四阶段：1993年，《中共中央关于建立社会主义市场经济体制若干问题的决定》，正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    },
+    "r": {
+      "identity": 3,
+      "start": 0,
+      "end": 4,
+      "type": "阶段",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    },
+    "m": {
+      "identity": 0,
+      "labels": [
+        "root"
+      ],
+      "properties": {
+        "name": "养老保险政策",
+        "desc": "政策发展分给四个阶段，每个阶段作为一个起点，衍生出其他的政策"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:0"
+    }
+  },
+  {
+    "n": {
+      "identity": 4,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "“统账结合”养老保险模式",
+        "desc": "第四阶段：1993年，《中共中央关于建立社会主义市场经济体制若干问题的决定》，正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    },
+    "r": {
+      "identity": 4,
+      "start": 4,
+      "end": 5,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:4",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 4,
+      "start": 4,
+      "end": 5,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:4",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "m": {
+      "identity": 4,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "“统账结合”养老保险模式",
+        "desc": "第四阶段：1993年，《中共中央关于建立社会主义市场经济体制若干问题的决定》，正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:4"
+    }
+  },
+  {
+    "n": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "r": {
+      "identity": 5,
+      "start": 1,
+      "end": 6,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:6"
+    },
+    "m": {
+      "identity": 6,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1951,
+        "name": "《中华人民共和国劳动保险条例（草案）》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:6"
+    }
+  },
+  {
+    "n": {
+      "identity": 6,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1951,
+        "name": "《中华人民共和国劳动保险条例（草案）》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:6"
+    },
+    "r": {
+      "identity": 5,
+      "start": 1,
+      "end": 6,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:6"
+    },
+    "m": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    }
+  },
+  {
+    "n": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "r": {
+      "identity": 6,
+      "start": 1,
+      "end": 7,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:6",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:7"
+    },
+    "m": {
+      "identity": 7,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1955,
+        "name": "《国家机关工作人员退休处理暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:7"
+    }
+  },
+  {
+    "n": {
+      "identity": 7,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1955,
+        "name": "《国家机关工作人员退休处理暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:7"
+    },
+    "r": {
+      "identity": 6,
+      "start": 1,
+      "end": 7,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:6",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:7"
+    },
+    "m": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    }
+  },
+  {
+    "n": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    },
+    "r": {
+      "identity": 7,
+      "start": 1,
+      "end": 8,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:7",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:8"
+    },
+    "m": {
+      "identity": 8,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1958,
+        "name": "《关于工人、职员退休处理的暂行规定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:8"
+    }
+  },
+  {
+    "n": {
+      "identity": 8,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "issueYear": 1958,
+        "name": "《关于工人、职员退休处理的暂行规定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:8"
+    },
+    "r": {
+      "identity": 7,
+      "start": 1,
+      "end": 8,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:7",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:8"
+    },
+    "m": {
+      "identity": 1,
+      "labels": [
+        "stage1"
+      ],
+      "properties": {
+        "name": "传统养老保险制度",
+        "desc": "第一阶段：1951年到1984年，我国采用的是传统的养老保险制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:1"
+    }
+  },
+  {
+    "n": {
+      "identity": 2,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "name": "社会养老保障制度",
+        "desc": "第二阶段：1966年到1978年的文化大革命阶段，变成了企业保险，形成了以集体保障为主体的社会养老保障制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    },
+    "r": {
+      "identity": 8,
+      "start": 2,
+      "end": 9,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:8",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:9"
+    },
+    "m": {
+      "identity": 9,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "issueYear": 1969,
+        "issueDep": "财政部",
+        "name": "《关于国营企业财务工作中几项制度的改革意见（草案）》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:9"
+    }
+  },
+  {
+    "n": {
+      "identity": 9,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "issueYear": 1969,
+        "issueDep": "财政部",
+        "name": "《关于国营企业财务工作中几项制度的改革意见（草案）》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:9"
+    },
+    "r": {
+      "identity": 8,
+      "start": 2,
+      "end": 9,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:8",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:9"
+    },
+    "m": {
+      "identity": 2,
+      "labels": [
+        "stage2"
+      ],
+      "properties": {
+        "name": "社会养老保障制度",
+        "desc": "第二阶段：1966年到1978年的文化大革命阶段，变成了企业保险，形成了以集体保障为主体的社会养老保障制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:2"
+    }
+  },
+  {
+    "n": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "r": {
+      "identity": 9,
+      "start": 3,
+      "end": 10,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:9",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:10"
+    },
+    "m": {
+      "identity": 10,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1985,
+        "name": "《关于做好统筹退休基金与退休职工服务管理工作的意见》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:10"
+    }
+  },
+  {
+    "n": {
+      "identity": 10,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1985,
+        "name": "《关于做好统筹退休基金与退休职工服务管理工作的意见》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:10"
+    },
+    "r": {
+      "identity": 9,
+      "start": 3,
+      "end": 10,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:9",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:10"
+    },
+    "m": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    }
+  },
+  {
+    "n": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "r": {
+      "identity": 10,
+      "start": 3,
+      "end": 11,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:10",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:11"
+    },
+    "m": {
+      "identity": 11,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1986,
+        "name": "《国营企业实行劳动合同制暂行规定》",
+        "desc": "实行养老保险个人缴费制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:11"
+    }
+  },
+  {
+    "n": {
+      "identity": 11,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1986,
+        "name": "《国营企业实行劳动合同制暂行规定》",
+        "desc": "实行养老保险个人缴费制度"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:11"
+    },
+    "r": {
+      "identity": 10,
+      "start": 3,
+      "end": 11,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:10",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:11"
+    },
+    "m": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    }
+  },
+  {
+    "n": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    },
+    "r": {
+      "identity": 11,
+      "start": 3,
+      "end": 12,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:11",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    },
+    "m": {
+      "identity": 12,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1991,
+        "issueDep": "国务院",
+        "name": "《关于企业职工养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    }
+  },
+  {
+    "n": {
+      "identity": 12,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1991,
+        "issueDep": "国务院",
+        "name": "《关于企业职工养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    },
+    "r": {
+      "identity": 11,
+      "start": 3,
+      "end": 12,
+      "type": "颁发",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:11",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    },
+    "m": {
+      "identity": 3,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "name": "养老保险社会统筹",
+        "desc": "第三阶段：1984年起，全国开始试点并且全面推行养老保险社会统筹"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:3"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 12,
+      "start": 5,
+      "end": 13,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:12",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "m": {
+      "identity": 13,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1995,
+        "name": "《关于深化企业职工养老保险制度改革的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    }
+  },
+  {
+    "n": {
+      "identity": 13,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1995,
+        "name": "《关于深化企业职工养老保险制度改革的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "r": {
+      "identity": 12,
+      "start": 5,
+      "end": 13,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:12",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 12,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1991,
+        "issueDep": "国务院",
+        "name": "《关于企业职工养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    },
+    "r": {
+      "identity": 13,
+      "start": 12,
+      "end": 13,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:13",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "m": {
+      "identity": 13,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1995,
+        "name": "《关于深化企业职工养老保险制度改革的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    }
+  },
+  {
+    "n": {
+      "identity": 13,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1995,
+        "name": "《关于深化企业职工养老保险制度改革的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "r": {
+      "identity": 13,
+      "start": 12,
+      "end": 13,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:13",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:13"
+    },
+    "m": {
+      "identity": 12,
+      "labels": [
+        "stage3"
+      ],
+      "properties": {
+        "issueYear": 1991,
+        "issueDep": "国务院",
+        "name": "《关于企业职工养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:12"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 14,
+      "start": 5,
+      "end": 14,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:14",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    },
+    "m": {
+      "identity": 14,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1997,
+        "name": "《关于建立统一的企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    }
+  },
+  {
+    "n": {
+      "identity": 14,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1997,
+        "name": "《关于建立统一的企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    },
+    "r": {
+      "identity": 14,
+      "start": 5,
+      "end": 14,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:14",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 15,
+      "start": 5,
+      "end": 15,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:15",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    },
+    "m": {
+      "identity": 15,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国发〔1998〕28号",
+        "issueYear": 1998,
+        "name": "《国务院关于实行企业职工基本养老保险省级统筹和行业统筹移交地方管理有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    }
+  },
+  {
+    "n": {
+      "identity": 15,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国发〔1998〕28号",
+        "issueYear": 1998,
+        "name": "《国务院关于实行企业职工基本养老保险省级统筹和行业统筹移交地方管理有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    },
+    "r": {
+      "identity": 15,
+      "start": 5,
+      "end": 15,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:15",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 16,
+      "start": 5,
+      "end": 16,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:16",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:16"
+    },
+    "m": {
+      "identity": 16,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2000,
+        "name": "《关于完善城镇社会保障体系的试点方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:16"
+    }
+  },
+  {
+    "n": {
+      "identity": 16,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2000,
+        "name": "《关于完善城镇社会保障体系的试点方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:16"
+    },
+    "r": {
+      "identity": 16,
+      "start": 5,
+      "end": 16,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:16",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:16"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 17,
+      "start": 5,
+      "end": 17,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:17",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "m": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    }
+  },
+  {
+    "n": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "r": {
+      "identity": 17,
+      "start": 5,
+      "end": 17,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:17",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 14,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1997,
+        "name": "《关于建立统一的企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    },
+    "r": {
+      "identity": 18,
+      "start": 14,
+      "end": 17,
+      "type": "完善",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:18",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "m": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    }
+  },
+  {
+    "n": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "r": {
+      "identity": 18,
+      "start": 14,
+      "end": 17,
+      "type": "完善",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:18",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "m": {
+      "identity": 14,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 1997,
+        "name": "《关于建立统一的企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:14"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 19,
+      "start": 5,
+      "end": 18,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:19",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "m": {
+      "identity": 18,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国办发〔2009〕66号",
+        "issueYear": 2009,
+        "name": "《城镇企业职工基本养老保险关系转移接续暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    }
+  },
+  {
+    "n": {
+      "identity": 18,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国办发〔2009〕66号",
+        "issueYear": 2009,
+        "name": "《城镇企业职工基本养老保险关系转移接续暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "r": {
+      "identity": 19,
+      "start": 5,
+      "end": 18,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:19",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 20,
+      "start": 5,
+      "end": 19,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:20",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "m": {
+      "identity": 19,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "劳社部发〔2007〕3号",
+        "issueYear": 2007,
+        "name": "《关于推进企业职工基本养老保险省级统筹有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    }
+  },
+  {
+    "n": {
+      "identity": 19,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "劳社部发〔2007〕3号",
+        "issueYear": 2007,
+        "name": "《关于推进企业职工基本养老保险省级统筹有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "r": {
+      "identity": 20,
+      "start": 5,
+      "end": 19,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:20",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 21,
+      "start": 5,
+      "end": 20,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:21",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:20"
+    },
+    "m": {
+      "identity": 20,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "人社部规〔2016〕5号",
+        "issueYear": 2016,
+        "name": "《人力资源社会保障部关于城镇企业职工基本养老保险关系转移接续若干问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:20"
+    }
+  },
+  {
+    "n": {
+      "identity": 20,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "人社部规〔2016〕5号",
+        "issueYear": 2016,
+        "name": "《人力资源社会保障部关于城镇企业职工基本养老保险关系转移接续若干问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:20"
+    },
+    "r": {
+      "identity": 21,
+      "start": 5,
+      "end": 20,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:21",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:20"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 22,
+      "start": 5,
+      "end": 21,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:22",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:21"
+    },
+    "m": {
+      "identity": 21,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2015,
+        "name": "《关于机关事业单位工作人员养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:21"
+    }
+  },
+  {
+    "n": {
+      "identity": 21,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2015,
+        "name": "《关于机关事业单位工作人员养老保险制度改革的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:21"
+    },
+    "r": {
+      "identity": 22,
+      "start": 5,
+      "end": 21,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:22",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:21"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 23,
+      "start": 5,
+      "end": 22,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:23",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    },
+    "m": {
+      "identity": 22,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2016,
+        "issueDep": "人力资源社会保障部与财政部",
+        "name": "《关于阶段性减低社会保险费率的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    }
+  },
+  {
+    "n": {
+      "identity": 22,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2016,
+        "issueDep": "人力资源社会保障部与财政部",
+        "name": "《关于阶段性减低社会保险费率的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    },
+    "r": {
+      "identity": 23,
+      "start": 5,
+      "end": 22,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:23",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    },
+    "r": {
+      "identity": 24,
+      "start": 5,
+      "end": 23,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:24",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "m": {
+      "identity": 23,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueDep": "国务院办公厅",
+        "issueYear": 2019,
+        "name": "《减低社会保险费率综合方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    }
+  },
+  {
+    "n": {
+      "identity": 23,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueDep": "国务院办公厅",
+        "issueYear": 2019,
+        "name": "《减低社会保险费率综合方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "r": {
+      "identity": 24,
+      "start": 5,
+      "end": 23,
+      "type": "衍生",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:24",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "m": {
+      "identity": 5,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "name": "《中共中央关于建立社会主义市场经济体制若干问题的决定》",
+        "desc": "正式提出建立“统账结合”的养老保险模式"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:5"
+    }
+  },
+  {
+    "n": {
+      "identity": 22,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2016,
+        "issueDep": "人力资源社会保障部与财政部",
+        "name": "《关于阶段性减低社会保险费率的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    },
+    "r": {
+      "identity": 25,
+      "start": 22,
+      "end": 23,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:25",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "m": {
+      "identity": 23,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueDep": "国务院办公厅",
+        "issueYear": 2019,
+        "name": "《减低社会保险费率综合方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    }
+  },
+  {
+    "n": {
+      "identity": 23,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueDep": "国务院办公厅",
+        "issueYear": 2019,
+        "name": "《减低社会保险费率综合方案》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "r": {
+      "identity": 25,
+      "start": 22,
+      "end": 23,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:25",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:23"
+    },
+    "m": {
+      "identity": 22,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2016,
+        "issueDep": "人力资源社会保障部与财政部",
+        "name": "《关于阶段性减低社会保险费率的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:22"
+    }
+  },
+  {
+    "n": {
+      "identity": 15,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国发〔1998〕28号",
+        "issueYear": 1998,
+        "name": "《国务院关于实行企业职工基本养老保险省级统筹和行业统筹移交地方管理有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    },
+    "r": {
+      "identity": 26,
+      "start": 15,
+      "end": 19,
+      "type": "实施",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:26",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "m": {
+      "identity": 19,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "劳社部发〔2007〕3号",
+        "issueYear": 2007,
+        "name": "《关于推进企业职工基本养老保险省级统筹有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    }
+  },
+  {
+    "n": {
+      "identity": 19,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "劳社部发〔2007〕3号",
+        "issueYear": 2007,
+        "name": "《关于推进企业职工基本养老保险省级统筹有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "r": {
+      "identity": 26,
+      "start": 15,
+      "end": 19,
+      "type": "实施",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:26",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:19"
+    },
+    "m": {
+      "identity": 15,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国发〔1998〕28号",
+        "issueYear": 1998,
+        "name": "《国务院关于实行企业职工基本养老保险省级统筹和行业统筹移交地方管理有关问题的通知》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:15"
+    }
+  },
+  {
+    "n": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    },
+    "r": {
+      "identity": 27,
+      "start": 17,
+      "end": 18,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:27",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "m": {
+      "identity": 18,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国办发〔2009〕66号",
+        "issueYear": 2009,
+        "name": "《城镇企业职工基本养老保险关系转移接续暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    }
+  },
+  {
+    "n": {
+      "identity": 18,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "docNum": "国办发〔2009〕66号",
+        "issueYear": 2009,
+        "name": "《城镇企业职工基本养老保险关系转移接续暂行办法》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "r": {
+      "identity": 27,
+      "start": 17,
+      "end": 18,
+      "type": "深化",
+      "properties": {
+
+      },
+      "elementId": "5:1ae5bd94-869f-4bf0-849c-6e0964589645:27",
+      "startNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17",
+      "endNodeElementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:18"
+    },
+    "m": {
+      "identity": 17,
+      "labels": [
+        "stage4"
+      ],
+      "properties": {
+        "issueYear": 2005,
+        "name": "《关于完善企业职工基本养老保险制度的决定》"
+      },
+      "elementId": "4:1ae5bd94-869f-4bf0-849c-6e0964589645:17"
+    }
+  }
+]

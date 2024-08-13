@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsUrbanRateMapper">
+    
+    <resultMap type="TYctxcsUrbanRate" id="TYctxcsUrbanRateResult">
+        <result property="planArea"    column="plan_area"    />
+        <result property="year"    column="year"    />
+        <result property="age"    column="age"    />
+        <result property="urbanRate"    column="urban_rate"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsUrbanRateVo">
+        select plan_area, year, age, urban_rate from t_yctxcs_urban_rate
+    </sql>
+
+    <select id="selectTYctxcsUrbanRateList" parameterType="TYctxcsUrbanRate" resultMap="TYctxcsUrbanRateResult">
+        <include refid="selectTYctxcsUrbanRateVo"/>
+        <where>  
+            <if test="urbanRate != null "> and urban_rate = #{urbanRate}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsUrbanRateByPlanArea" parameterType="Long" resultMap="TYctxcsUrbanRateResult">
+        <include refid="selectTYctxcsUrbanRateVo"/>
+        where plan_area = #{planArea}
+    </select>
+        
+    <insert id="insertTYctxcsUrbanRate" parameterType="TYctxcsUrbanRate">
+        insert into t_yctxcs_urban_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">plan_area,</if>
+            <if test="year != null">year,</if>
+            <if test="age != null">age,</if>
+            <if test="urbanRate != null">urban_rate,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">#{planArea},</if>
+            <if test="year != null">#{year},</if>
+            <if test="age != null">#{age},</if>
+            <if test="urbanRate != null">#{urbanRate},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsUrbanRate" parameterType="TYctxcsUrbanRate">
+        update t_yctxcs_urban_rate
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="urbanRate != null">urban_rate = #{urbanRate},</if>
+        </trim>
+        where plan_area = #{planArea}
+    </update>
+
+    <delete id="deleteTYctxcsUrbanRateByPlanArea" parameterType="Long">
+        delete from t_yctxcs_urban_rate where plan_area = #{planArea}
+    </delete>
+
+    <delete id="deleteTYctxcsUrbanRateByPlanAreas" parameterType="String">
+        delete from t_yctxcs_urban_rate where plan_area in 
+        <foreach item="planArea" collection="array" open="(" separator="," close=")">
+            #{planArea}
+        </foreach>
+    </delete>
+</mapper>

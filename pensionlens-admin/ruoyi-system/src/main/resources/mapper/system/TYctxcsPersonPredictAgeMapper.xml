@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPersonPredictAgeMapper">
+    
+    <resultMap type="TYctxcsPersonPredictAge" id="TYctxcsPersonPredictAgeResult">
+        <result property="planArea"    column="plan_area"    />
+        <result property="age"    column="age"    />
+        <result property="male"    column="male"    />
+        <result property="female"    column="female"    />
+        <result property="maleDeathMode"    column="male_death_mode"    />
+        <result property="femaleDeathMode"    column="female_death_mode"    />
+        <result property="birthMode"    column="birth_mode"    />
+        <result property="maleMigrationMode"    column="male_migration_mode"    />
+        <result property="femaleMigrationMode"    column="female_migration_mode"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPersonPredictAgeVo">
+        select plan_area, age, male, female, male_death_mode, female_death_mode, birth_mode, male_migration_mode, female_migration_mode from t_yctxcs_person_predict_age
+    </sql>
+
+    <select id="selectTYctxcsPersonPredictAgeList" parameterType="TYctxcsPersonPredictAge" resultMap="TYctxcsPersonPredictAgeResult">
+        <include refid="selectTYctxcsPersonPredictAgeVo"/>
+        <where>  
+            <if test="male != null "> and male = #{male}</if>
+            <if test="female != null "> and female = #{female}</if>
+            <if test="maleDeathMode != null "> and male_death_mode = #{maleDeathMode}</if>
+            <if test="femaleDeathMode != null "> and female_death_mode = #{femaleDeathMode}</if>
+            <if test="birthMode != null  and birthMode != ''"> and birth_mode = #{birthMode}</if>
+            <if test="maleMigrationMode != null "> and male_migration_mode = #{maleMigrationMode}</if>
+            <if test="femaleMigrationMode != null "> and female_migration_mode = #{femaleMigrationMode}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPersonPredictAgeByPlanArea" parameterType="Long" resultMap="TYctxcsPersonPredictAgeResult">
+        <include refid="selectTYctxcsPersonPredictAgeVo"/>
+        where plan_area = #{planArea}
+    </select>
+        
+    <insert id="insertTYctxcsPersonPredictAge" parameterType="TYctxcsPersonPredictAge">
+        insert into t_yctxcs_person_predict_age
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">plan_area,</if>
+            <if test="age != null">age,</if>
+            <if test="male != null">male,</if>
+            <if test="female != null">female,</if>
+            <if test="maleDeathMode != null">male_death_mode,</if>
+            <if test="femaleDeathMode != null">female_death_mode,</if>
+            <if test="birthMode != null and birthMode != ''">birth_mode,</if>
+            <if test="maleMigrationMode != null">male_migration_mode,</if>
+            <if test="femaleMigrationMode != null">female_migration_mode,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="planArea != null">#{planArea},</if>
+            <if test="age != null">#{age},</if>
+            <if test="male != null">#{male},</if>
+            <if test="female != null">#{female},</if>
+            <if test="maleDeathMode != null">#{maleDeathMode},</if>
+            <if test="femaleDeathMode != null">#{femaleDeathMode},</if>
+            <if test="birthMode != null and birthMode != ''">#{birthMode},</if>
+            <if test="maleMigrationMode != null">#{maleMigrationMode},</if>
+            <if test="femaleMigrationMode != null">#{femaleMigrationMode},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPersonPredictAge" parameterType="TYctxcsPersonPredictAge">
+        update t_yctxcs_person_predict_age
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="age != null">age = #{age},</if>
+            <if test="male != null">male = #{male},</if>
+            <if test="female != null">female = #{female},</if>
+            <if test="maleDeathMode != null">male_death_mode = #{maleDeathMode},</if>
+            <if test="femaleDeathMode != null">female_death_mode = #{femaleDeathMode},</if>
+            <if test="birthMode != null and birthMode != ''">birth_mode = #{birthMode},</if>
+            <if test="maleMigrationMode != null">male_migration_mode = #{maleMigrationMode},</if>
+            <if test="femaleMigrationMode != null">female_migration_mode = #{femaleMigrationMode},</if>
+        </trim>
+        where plan_area = #{planArea}
+    </update>
+
+    <delete id="deleteTYctxcsPersonPredictAgeByPlanArea" parameterType="Long">
+        delete from t_yctxcs_person_predict_age where plan_area = #{planArea}
+    </delete>
+
+    <delete id="deleteTYctxcsPersonPredictAgeByPlanAreas" parameterType="String">
+        delete from t_yctxcs_person_predict_age where plan_area in 
+        <foreach item="planArea" collection="array" open="(" separator="," close=")">
+            #{planArea}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ScreenDetailMapper">
+    
+    <resultMap type="ScreenDetail" id="ScreenDetailResult">
+        <result property="detailId"    column="detail_id"    />
+        <result property="screenId"    column="screen_id"    />
+        <result property="detailSpot"    column="detail_spot"    />
+        <result property="detailName"    column="detail_name"    />
+        <result property="minDataUnit"    column="min_data_unit"    />
+        <result property="isMultiOption"    column="is_multi_option"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+    </resultMap>
+
+    <sql id="selectScreenDetailVo">
+        select detail_id, screen_id, detail_spot, detail_name, min_data_unit, is_multi_option, last_update_user_id, last_update_time from screen_detail
+    </sql>
+
+    <select id="selectScreenDetailList" parameterType="ScreenDetail" resultMap="ScreenDetailResult">
+        <include refid="selectScreenDetailVo"/>
+        <where>  
+            <if test="detailName != null  and detailName != ''"> and detail_name like concat('%', #{detailName}, '%')</if>
+            <if test="minDataUnit != null  and minDataUnit != ''"> and min_data_unit = #{minDataUnit}</if>
+            <if test="isMultiOption != null  and isMultiOption != ''"> and is_multi_option = #{isMultiOption}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectScreenDetailByDetailId" parameterType="Long" resultMap="ScreenDetailResult">
+        <include refid="selectScreenDetailVo"/>
+        where detail_id = #{detailId}
+    </select>
+        
+    <insert id="insertScreenDetail" parameterType="ScreenDetail">
+        insert into screen_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">detail_id,</if>
+            <if test="screenId != null">screen_id,</if>
+            <if test="detailSpot != null">detail_spot,</if>
+            <if test="detailName != null and detailName != ''">detail_name,</if>
+            <if test="minDataUnit != null and minDataUnit != ''">min_data_unit,</if>
+            <if test="isMultiOption != null and isMultiOption != ''">is_multi_option,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="detailId != null">#{detailId},</if>
+            <if test="screenId != null">#{screenId},</if>
+            <if test="detailSpot != null">#{detailSpot},</if>
+            <if test="detailName != null and detailName != ''">#{detailName},</if>
+            <if test="minDataUnit != null and minDataUnit != ''">#{minDataUnit},</if>
+            <if test="isMultiOption != null and isMultiOption != ''">#{isMultiOption},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScreenDetail" parameterType="ScreenDetail">
+        update screen_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="screenId != null">screen_id = #{screenId},</if>
+            <if test="detailSpot != null">detail_spot = #{detailSpot},</if>
+            <if test="detailName != null and detailName != ''">detail_name = #{detailName},</if>
+            <if test="minDataUnit != null and minDataUnit != ''">min_data_unit = #{minDataUnit},</if>
+            <if test="isMultiOption != null and isMultiOption != ''">is_multi_option = #{isMultiOption},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+        </trim>
+        where detail_id = #{detailId}
+    </update>
+
+    <delete id="deleteScreenDetailByDetailId" parameterType="Long">
+        delete from screen_detail where detail_id = #{detailId}
+    </delete>
+
+    <delete id="deleteScreenDetailByDetailIds" parameterType="String">
+        delete from screen_detail where detail_id in 
+        <foreach item="detailId" collection="array" open="(" separator="," close=")">
+            #{detailId}
+        </foreach>
+    </delete>
+</mapper>

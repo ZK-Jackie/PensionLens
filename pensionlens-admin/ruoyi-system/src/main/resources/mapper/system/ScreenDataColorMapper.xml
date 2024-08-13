@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ScreenDataColorMapper">
+    
+    <resultMap type="ScreenDataColor" id="ScreenDataColorResult">
+        <result property="dataColorId"    column="data_color_id"    />
+        <result property="dataId"    column="data_id"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+    </resultMap>
+
+    <sql id="selectScreenDataColorVo">
+        select data_color_id, data_id, last_update_user_id, last_update_time from screen_data_color
+    </sql>
+
+    <select id="selectScreenDataColorList" parameterType="ScreenDataColor" resultMap="ScreenDataColorResult">
+        <include refid="selectScreenDataColorVo"/>
+        <where>  
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectScreenDataColorByDataColorId" parameterType="Long" resultMap="ScreenDataColorResult">
+        <include refid="selectScreenDataColorVo"/>
+        where data_color_id = #{dataColorId}
+    </select>
+        
+    <insert id="insertScreenDataColor" parameterType="ScreenDataColor">
+        insert into screen_data_color
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dataColorId != null">data_color_id,</if>
+            <if test="dataId != null">data_id,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dataColorId != null">#{dataColorId},</if>
+            <if test="dataId != null">#{dataId},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateScreenDataColor" parameterType="ScreenDataColor">
+        update screen_data_color
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dataId != null">data_id = #{dataId},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+        </trim>
+        where data_color_id = #{dataColorId}
+    </update>
+
+    <delete id="deleteScreenDataColorByDataColorId" parameterType="Long">
+        delete from screen_data_color where data_color_id = #{dataColorId}
+    </delete>
+
+    <delete id="deleteScreenDataColorByDataColorIds" parameterType="String">
+        delete from screen_data_color where data_color_id in 
+        <foreach item="dataColorId" collection="array" open="(" separator="," close=")">
+            #{dataColorId}
+        </foreach>
+    </delete>
+</mapper>

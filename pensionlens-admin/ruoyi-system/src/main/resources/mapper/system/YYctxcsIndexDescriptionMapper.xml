@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.YYctxcsIndexDescriptionMapper">
+    
+    <resultMap type="YYctxcsIndexDescription" id="YYctxcsIndexDescriptionResult">
+        <result property="id"    column="id"    />
+        <result property="retireDescription"    column="retire_description"    />
+        <result property="insureDescription"    column="insure_description"    />
+        <result property="individualRateDescription"    column="individual_rate_description"    />
+        <result property="enterpriseRateDescription"    column="enterprise_rate_description"    />
+        <result property="collectRateDescription"    column="collect_rate_description"    />
+        <result property="avgSalaryDescription"    column="avg_salary_description"    />
+        <result property="accountRateDescription"    column="account_rate_description"    />
+        <result property="transitionDescription"    column="transition_description"    />
+        <result property="growthDescription"    column="growth_description"    />
+        <result property="urbanizationDescription"    column="urbanization_description"    />
+        <result property="employmentRateDescription"    column="employment_rate_description"    />
+    </resultMap>
+
+    <sql id="selectYYctxcsIndexDescriptionVo">
+        select id, retire_description, insure_description, individual_rate_description, enterprise_rate_description, collect_rate_description, avg_salary_description, account_rate_description, transition_description, growth_description, urbanization_description, employment_rate_description from y_yctxcs_index_description
+    </sql>
+
+    <select id="selectYYctxcsIndexDescriptionList" parameterType="YYctxcsIndexDescription" resultMap="YYctxcsIndexDescriptionResult">
+        <include refid="selectYYctxcsIndexDescriptionVo"/>
+        <where>  
+            <if test="retireDescription != null  and retireDescription != ''"> and retire_description = #{retireDescription}</if>
+            <if test="insureDescription != null  and insureDescription != ''"> and insure_description = #{insureDescription}</if>
+            <if test="individualRateDescription != null  and individualRateDescription != ''"> and individual_rate_description = #{individualRateDescription}</if>
+            <if test="enterpriseRateDescription != null  and enterpriseRateDescription != ''"> and enterprise_rate_description = #{enterpriseRateDescription}</if>
+            <if test="collectRateDescription != null  and collectRateDescription != ''"> and collect_rate_description = #{collectRateDescription}</if>
+            <if test="avgSalaryDescription != null  and avgSalaryDescription != ''"> and avg_salary_description = #{avgSalaryDescription}</if>
+            <if test="accountRateDescription != null  and accountRateDescription != ''"> and account_rate_description = #{accountRateDescription}</if>
+            <if test="transitionDescription != null  and transitionDescription != ''"> and transition_description = #{transitionDescription}</if>
+            <if test="growthDescription != null  and growthDescription != ''"> and growth_description = #{growthDescription}</if>
+            <if test="urbanizationDescription != null  and urbanizationDescription != ''"> and urbanization_description = #{urbanizationDescription}</if>
+            <if test="employmentRateDescription != null  and employmentRateDescription != ''"> and employment_rate_description = #{employmentRateDescription}</if>
+        </where>
+    </select>
+    
+    <select id="selectYYctxcsIndexDescriptionById" parameterType="Long" resultMap="YYctxcsIndexDescriptionResult">
+        <include refid="selectYYctxcsIndexDescriptionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertYYctxcsIndexDescription" parameterType="YYctxcsIndexDescription" useGeneratedKeys="true" keyProperty="id">
+        insert into y_yctxcs_index_description
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="retireDescription != null and retireDescription != ''">retire_description,</if>
+            <if test="insureDescription != null and insureDescription != ''">insure_description,</if>
+            <if test="individualRateDescription != null and individualRateDescription != ''">individual_rate_description,</if>
+            <if test="enterpriseRateDescription != null and enterpriseRateDescription != ''">enterprise_rate_description,</if>
+            <if test="collectRateDescription != null and collectRateDescription != ''">collect_rate_description,</if>
+            <if test="avgSalaryDescription != null and avgSalaryDescription != ''">avg_salary_description,</if>
+            <if test="accountRateDescription != null and accountRateDescription != ''">account_rate_description,</if>
+            <if test="transitionDescription != null and transitionDescription != ''">transition_description,</if>
+            <if test="growthDescription != null and growthDescription != ''">growth_description,</if>
+            <if test="urbanizationDescription != null and urbanizationDescription != ''">urbanization_description,</if>
+            <if test="employmentRateDescription != null and employmentRateDescription != ''">employment_rate_description,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="retireDescription != null and retireDescription != ''">#{retireDescription},</if>
+            <if test="insureDescription != null and insureDescription != ''">#{insureDescription},</if>
+            <if test="individualRateDescription != null and individualRateDescription != ''">#{individualRateDescription},</if>
+            <if test="enterpriseRateDescription != null and enterpriseRateDescription != ''">#{enterpriseRateDescription},</if>
+            <if test="collectRateDescription != null and collectRateDescription != ''">#{collectRateDescription},</if>
+            <if test="avgSalaryDescription != null and avgSalaryDescription != ''">#{avgSalaryDescription},</if>
+            <if test="accountRateDescription != null and accountRateDescription != ''">#{accountRateDescription},</if>
+            <if test="transitionDescription != null and transitionDescription != ''">#{transitionDescription},</if>
+            <if test="growthDescription != null and growthDescription != ''">#{growthDescription},</if>
+            <if test="urbanizationDescription != null and urbanizationDescription != ''">#{urbanizationDescription},</if>
+            <if test="employmentRateDescription != null and employmentRateDescription != ''">#{employmentRateDescription},</if>
+         </trim>
+    </insert>
+
+    <update id="updateYYctxcsIndexDescription" parameterType="YYctxcsIndexDescription">
+        update y_yctxcs_index_description
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="retireDescription != null and retireDescription != ''">retire_description = #{retireDescription},</if>
+            <if test="insureDescription != null and insureDescription != ''">insure_description = #{insureDescription},</if>
+            <if test="individualRateDescription != null and individualRateDescription != ''">individual_rate_description = #{individualRateDescription},</if>
+            <if test="enterpriseRateDescription != null and enterpriseRateDescription != ''">enterprise_rate_description = #{enterpriseRateDescription},</if>
+            <if test="collectRateDescription != null and collectRateDescription != ''">collect_rate_description = #{collectRateDescription},</if>
+            <if test="avgSalaryDescription != null and avgSalaryDescription != ''">avg_salary_description = #{avgSalaryDescription},</if>
+            <if test="accountRateDescription != null and accountRateDescription != ''">account_rate_description = #{accountRateDescription},</if>
+            <if test="transitionDescription != null and transitionDescription != ''">transition_description = #{transitionDescription},</if>
+            <if test="growthDescription != null and growthDescription != ''">growth_description = #{growthDescription},</if>
+            <if test="urbanizationDescription != null and urbanizationDescription != ''">urbanization_description = #{urbanizationDescription},</if>
+            <if test="employmentRateDescription != null and employmentRateDescription != ''">employment_rate_description = #{employmentRateDescription},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteYYctxcsIndexDescriptionById" parameterType="Long">
+        delete from y_yctxcs_index_description where id = #{id}
+    </delete>
+
+    <delete id="deleteYYctxcsIndexDescriptionByIds" parameterType="String">
+        delete from y_yctxcs_index_description where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

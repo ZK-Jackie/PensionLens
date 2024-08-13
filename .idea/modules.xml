@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/pensionlens-core/pensionlens.iml" filepath="$PROJECT_DIR$/pensionlens-core/pensionlens.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pensionlens-forecast/pensionlens-forecast.iml" filepath="$PROJECT_DIR$/pensionlens-forecast/pensionlens-forecast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pensionlens-sql/pensionlens-sql.iml" filepath="$PROJECT_DIR$/pensionlens-sql/pensionlens-sql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pensionlens-ui/pensionlens-ui.iml" filepath="$PROJECT_DIR$/pensionlens-ui/pensionlens-ui.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.gdou.pensionlens.mapper.DetailMapper">
+    <!-- 获取屏幕残缺了data的详情 -->
+    <select id="getScreenDetails" parameterType="java.lang.Integer" resultType="edu.gdou.pensionlens.pojo.Detail">
+        SELECT detail_id, screen_id, detail_spot, display_mode, detail_name, min_data_unit, is_multi_option
+        FROM screen_detail
+        WHERE screen_id=#{screenId}
+    </select>
+</mapper>

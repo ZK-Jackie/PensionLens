@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.gdou.pensionlens.mapper.DetailDataMapper">
+    <!--疑难杂症记录：这里面有顺序要求的，依次必须是 id result association collection-->
+    <resultMap id="DetailDataResultMap" type="edu.gdou.pensionlens.pojo.DetailData">
+        <id property="dataId" column="data_id"/>
+        <result property="dataName" column="data_name" javaType="java.util.List" jdbcType="VARCHAR"
+                typeHandler="edu.gdou.pensionlens.config.StringListTypeHandler"/>
+        <result property="displayMode" column="display_mode" javaType="java.util.List" jdbcType="VARCHAR"
+                typeHandler="edu.gdou.pensionlens.config.StringListTypeHandler"/>
+        <result property="displayableMode" column="displayable_mode" javaType="java.util.List" jdbcType="VARCHAR"
+                typeHandler="edu.gdou.pensionlens.config.StringListTypeHandler"/>
+        <result property="keyLabel" column="key_label"/>
+        <result property="valueLabel" column="value_label"/>
+        <result property="keyUnit" column="key_unit"/>
+        <result property="valueUnit" column="value_unit"/>
+        <result property="numPrecision" column="num_precision"/>
+        <result property="maxValue" column="max_value"/>
+        <result property="minValue" column="min_value"/>
+        <result property="isPredict" column="is_predict"/>
+        <result property="isInfo" column="is_info"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="dataQuerySql" column="data_query_sql"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <!-- 关联映射 -->
+        <association property="dataColor" javaType="edu.gdou.pensionlens.pojo.DataColor">
+            <id property="dataColorId" column="data_color_id"/>
+            <result property="dataColorName" column="data_color_name"/>
+            <result property="dataColor" column="data_color" javaType="java.util.List" jdbcType="VARCHAR"
+                    typeHandler="edu.gdou.pensionlens.config.StringListTypeHandler"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="TableDataResultMap" type="java.util.HashMap">
+        <result property="key" column="x"/>
+        <result property="value" column="y"/>
+    </resultMap>
+
+    <select id="customDataQuery" resultMap="TableDataResultMap">
+        ${sqlStr}
+    </select>
+
+    <select id="getDetailData" resultMap="DetailDataResultMap">
+        SELECT screen_data.data_id, data_name, display_mode,  displayable_mode, key_label, key_unit,
+               value_label, value_unit, num_precision, max_value, min_value, data_color,
+               is_predict, is_info, is_default, data_query_sql, start_time, end_time,
+               screen_color.data_color_id, screen_color.data_color_name, screen_color.data_color
+        FROM screen_detail_data
+                 LEFT OUTER JOIN screen_data
+                                 ON screen_data.data_id = screen_detail_data.data_id
+                 LEFT OUTER JOIN screen_data_color
+                                 ON screen_data.data_color_id = screen_data_color.data_color_id
+                 LEFT OUTER JOIN screen_color
+                                 ON screen_data_color.data_color_id = screen_color.data_color_id
+        WHERE detail_id = #{detailId}
+    </select>
+    <select id="getDataFromCalc" resultMap="TableDataResultMap">
+        SELECT ${x} as x, ${y} as y
+        FROM ${tableName}
+        WHERE ${colX} &gt;= #{startTime}
+          AND ${colX} &lt;= #{endTime}
+    </select>
+</mapper>

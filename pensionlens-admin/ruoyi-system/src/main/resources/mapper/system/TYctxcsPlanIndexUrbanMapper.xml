@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TYctxcsPlanIndexUrbanMapper">
+    
+    <resultMap type="TYctxcsPlanIndexUrban" id="TYctxcsPlanIndexUrbanResult">
+        <result property="id"    column="id"    />
+        <result property="year"    column="year"    />
+        <result property="age"    column="age"    />
+        <result property="planId"    column="plan_id"    />
+        <result property="urbanRate"    column="urban_rate"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="insertUserId"    column="insert_user_id"    />
+        <result property="insertTime"    column="insert_time"    />
+        <result property="lastUpdateUserId"    column="last_update_user_id"    />
+        <result property="lastUpdateTime"    column="last_update_time"    />
+        <result property="deleteUserId"    column="delete_user_id"    />
+        <result property="deleteTime"    column="delete_time"    />
+    </resultMap>
+
+    <sql id="selectTYctxcsPlanIndexUrbanVo">
+        select id, year, age, plan_id, urban_rate, is_deleted, insert_user_id, insert_time, last_update_user_id, last_update_time, delete_user_id, delete_time from t_yctxcs_plan_index_urban
+    </sql>
+
+    <select id="selectTYctxcsPlanIndexUrbanList" parameterType="TYctxcsPlanIndexUrban" resultMap="TYctxcsPlanIndexUrbanResult">
+        <include refid="selectTYctxcsPlanIndexUrbanVo"/>
+        <where>  
+            <if test="year != null "> and year = #{year}</if>
+            <if test="age != null "> and age = #{age}</if>
+            <if test="planId != null "> and plan_id = #{planId}</if>
+            <if test="urbanRate != null "> and urban_rate = #{urbanRate}</if>
+            <if test="isDeleted != null  and isDeleted != ''"> and is_deleted = #{isDeleted}</if>
+            <if test="insertUserId != null "> and insert_user_id = #{insertUserId}</if>
+            <if test="insertTime != null "> and insert_time = #{insertTime}</if>
+            <if test="lastUpdateUserId != null "> and last_update_user_id = #{lastUpdateUserId}</if>
+            <if test="lastUpdateTime != null "> and last_update_time = #{lastUpdateTime}</if>
+            <if test="deleteUserId != null "> and delete_user_id = #{deleteUserId}</if>
+            <if test="deleteTime != null "> and delete_time = #{deleteTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTYctxcsPlanIndexUrbanById" parameterType="Long" resultMap="TYctxcsPlanIndexUrbanResult">
+        <include refid="selectTYctxcsPlanIndexUrbanVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTYctxcsPlanIndexUrban" parameterType="TYctxcsPlanIndexUrban" useGeneratedKeys="true" keyProperty="id">
+        insert into t_yctxcs_plan_index_urban
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="year != null">year,</if>
+            <if test="age != null">age,</if>
+            <if test="planId != null">plan_id,</if>
+            <if test="urbanRate != null">urban_rate,</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted,</if>
+            <if test="insertUserId != null">insert_user_id,</if>
+            <if test="insertTime != null">insert_time,</if>
+            <if test="lastUpdateUserId != null">last_update_user_id,</if>
+            <if test="lastUpdateTime != null">last_update_time,</if>
+            <if test="deleteUserId != null">delete_user_id,</if>
+            <if test="deleteTime != null">delete_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="year != null">#{year},</if>
+            <if test="age != null">#{age},</if>
+            <if test="planId != null">#{planId},</if>
+            <if test="urbanRate != null">#{urbanRate},</if>
+            <if test="isDeleted != null and isDeleted != ''">#{isDeleted},</if>
+            <if test="insertUserId != null">#{insertUserId},</if>
+            <if test="insertTime != null">#{insertTime},</if>
+            <if test="lastUpdateUserId != null">#{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">#{lastUpdateTime},</if>
+            <if test="deleteUserId != null">#{deleteUserId},</if>
+            <if test="deleteTime != null">#{deleteTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTYctxcsPlanIndexUrban" parameterType="TYctxcsPlanIndexUrban">
+        update t_yctxcs_plan_index_urban
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="year != null">year = #{year},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="planId != null">plan_id = #{planId},</if>
+            <if test="urbanRate != null">urban_rate = #{urbanRate},</if>
+            <if test="isDeleted != null and isDeleted != ''">is_deleted = #{isDeleted},</if>
+            <if test="insertUserId != null">insert_user_id = #{insertUserId},</if>
+            <if test="insertTime != null">insert_time = #{insertTime},</if>
+            <if test="lastUpdateUserId != null">last_update_user_id = #{lastUpdateUserId},</if>
+            <if test="lastUpdateTime != null">last_update_time = #{lastUpdateTime},</if>
+            <if test="deleteUserId != null">delete_user_id = #{deleteUserId},</if>
+            <if test="deleteTime != null">delete_time = #{deleteTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTYctxcsPlanIndexUrbanById" parameterType="Long">
+        delete from t_yctxcs_plan_index_urban where id = #{id}
+    </delete>
+
+    <delete id="deleteTYctxcsPlanIndexUrbanByIds" parameterType="String">
+        delete from t_yctxcs_plan_index_urban where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

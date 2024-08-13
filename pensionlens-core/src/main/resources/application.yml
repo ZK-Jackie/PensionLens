@@ -1,0 +1,51 @@
+# Reset the port that SpringBoot would take for avoiding conflicts with other app
+server:
+  port: 8090
+
+spring:
+  # mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/calc?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: 'pension_lens'
+    password: 'PensionLens'
+  # redis
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    timeout: 10000
+    lettuce:
+      pool:
+        max-wait: 20s
+  # neo4j
+#  data:
+#    neo4j:
+#      database: neo4j
+#  neo4j:
+#    uri: bolt://localhost:7687
+#    authentication:
+#      username: neo4j
+#      password: password
+#    pool:
+#      connection-acquisition-timeout: 1m
+#      max-connection-pool-size: 10
+#      max-connection-lifetime: 10m
+  # static resources paths are allowed to be accessed
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/static
+# mybatis
+mybatis:
+  configuration:
+    # camel case
+    map-underscore-to-camel-case: true
+    # Set mybatis to show its running log in the console
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: edu.gdou.pensionlens.config.StringListTypeHandler
+  # mapper-locations
+  mapper-locations: classpath:mappers/*.xml
+
