@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 import pandas as pd
 import numpy as np
 import pymysql
@@ -61,7 +63,7 @@ def calculate(id, env):  # 测算
         @return L 总人数
         """
         if j == 0:
-            col = "nmale"
+            col = "male"
         elif j == 1:
             col = "female_worker"
         elif j == 2:
@@ -546,7 +548,7 @@ def calculate(id, env):  # 测算
     cursor.execute("describe t_yctxcs_person_number ")
     cols = cursor.fetchall()
     cols = [i[0] for i in cols]
-    cursor.execute("select * from t_yctxcs_person_number where plan_area =%s and mode=%s and year>=%s and year<=%s" % (
+    cursor.execute("select * from t_yctxcs_person_number where plan_area =%s and birth_mode=%s and year>=%s and year<=%s" % (
         plan_area, birth_mode, start_year, end_year))
     data5 = pd.DataFrame(cursor.fetchall(), columns=cols)
     data5 = data5[data5['age'] >= e].astype("float32")
@@ -582,11 +584,11 @@ def calculate(id, env):  # 测算
     data8 = data8.sort_values(by=["age"])
 
     # 读取默认结果表，系统给？是啥？
-    cursor.execute("describe t_yctxcs_default_results ")
-    cols = cursor.fetchall()
-    cols = [i[0] for i in cols]
-    cursor.execute(
-        "select * from t_yctxcs_default_results where plan_area =%s and birth_mode=%s" % (plan_area, birth_mode))
+    # cursor.execute("describe t_yctxcs_default_results ")
+    # cols = cursor.fetchall()
+    # cols = [i[0] for i in cols]
+    # cursor.execute(
+    #     "select * from t_yctxcs_default_results where plan_area =%s and birth_mode=%s" % (plan_area, birth_mode))
     # data9 = pd.DataFrame(cursor.fetchall(), columns=cols)
     # data9 = data9.astype("float32")
     #
@@ -628,11 +630,11 @@ def calculate(id, env):  # 测算
                 # 男性退休年龄
                 rt[0] = dict(data4[["year", "m_retire"]].astype("float32").values)
                 # 男性计发月数
-                m[0] = dict(data4_1[["year", "m_month"]].values)
+                m[0] = dict(data4_1[["year", "m_monthly"]].values)
                 all_j.append(0)
                 employ1 = data6[["age", "m_employment_rate"]].sort_values(by=["age"])
                 # 男性企业职工人数
-                person["nmale"] = data5_1["male"].values * \
+                person["male"] = data5_1["male"].values * \
                                   data7_1["urban_rate"].astype("float32").values * 0.8782 * employ1[
                                       "m_employment_rate"].astype("float32").values
                 # 死亡的男性企业职工人数
@@ -644,9 +646,9 @@ def calculate(id, env):  # 测算
             elif j == 1:
 
                 # 女职工退休年龄
-                rt[1] = dict(data4[["year", "w_retire"]].astype("float32").values)
+                rt[1] = dict(data4[["year", "f_retire"]].astype("float32").values)
                 # 女职工计发月数
-                m[1] = dict(data4_1[["year", "w_month"]].values)
+                m[1] = dict(data4_1[["year", "f_monthly"]].values)
                 all_j.append(1)
                 employ2 = data6[["age", "f_employment_rate"]].sort_values(by=["age"])
                 # 女职工人数
@@ -662,9 +664,9 @@ def calculate(id, env):  # 测算
             else:
 
                 # 女干部退休年龄
-                rt[2] = dict(data4[["year", "wc_retire"]].astype("float32").values)
+                rt[2] = dict(data4[["year", "fc_retire"]].astype("float32").values)
                 # 女干部计发月数
-                m[2] = dict(data4_1[["year", "wc_month"]].values)
+                m[2] = dict(data4_1[["year", "fc_monthly"]].values)
                 all_j.append(2)
                 employ3 = data6[["age", "f_employment_rate"]].sort_values(by=["age"])
                 # 女干部人数
@@ -688,8 +690,12 @@ def calculate(id, env):  # 测算
         rf4 = f4_1(i, person, all_j) + f4_2(i, person, all_j)
         # 第i年个账返还
         rf5 = f_return(i, person, all_j)
-
-        insert_result(id, i, u_o_i, l=[rf0, rf1, rf2, rf3, rf4, rf5])
+        print("测算成功,第",i,"年的情况：")
+        print(rf0, rf1, rf2, rf3, rf4, rf5)
+        #insert_result(id, i, u_o_i, l=[rf0, rf1, rf2, rf3, rf4, rf5])
 
     db.commit()
     db.close()
+
+if __name__ == '__main__':
+    calculate(2,"gstest")

@@ -1,16 +1,16 @@
-host = "http://localhost:3306/intelligent_cal"
+host = "localhost"
 
 # 开发数据库配置信息
-dev_user = "root"
-dev_password = "041006"
-dev_port = 3306
-dev_database = "intelligence_cal"
+dev_user = "pension_lens"
+dev_password = "PensionLens"
+dev_port = 33063
+dev_database = "calc"
 
 # 测试数据库配置信息
-cs_user = "root"
-cs_password = "041006"
-cs_port = 3306
-cs_database = "intelligence_cal"
+cs_user = "pension_lens"
+cs_password = "PensionLens"
+cs_port = 33063
+cs_database = "calc"
 
 # 服务器配置信息
 host_server = 'localhost'
