@@ -1,10 +1,13 @@
 package edu.gdou.pensionlens.service.impl;
 
+import cn.hutool.http.HttpUtil;
 import edu.gdou.pensionlens.constant.CalcConstants;
 import edu.gdou.pensionlens.mapper.PlanMapper;
 import edu.gdou.pensionlens.pojo.*;
 import edu.gdou.pensionlens.service.CalcService;
 import edu.gdou.pensionlens.service.ScreenService;
+import cn.hutool.*;
+import org.apache.coyote.Request;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +28,8 @@ public class CalcServiceImpl implements CalcService {
     @Resource
     private ScreenService screenService;
 
+    private final String BASE_URL = "http://localhost:8080/ylbxcs";
+
     @Override
     @Transactional
     public Screen calculate(Screen calcScreen) {
@@ -40,10 +45,9 @@ public class CalcServiceImpl implements CalcService {
         planMapper.addPlanAge(plan.getPlanAge());
         planMapper.addPlanUrban(plan.getPlanUrban());
         planMapper.addPlanYear(plan.getPlanYear());
-        // 3. gPRC 让 python 去算
-        /* TODO 算数 */
-        // 4. 同时更新大屏信息
-        screenService.updateScreenInfo(calcScreen);
+        // 3. 让 python 去算
+        String url = BASE_URL + "?id=2&userId=1";
+        HttpUtil.createGet(url);
         return screenService.getScreenInfo(2);
     }
 
