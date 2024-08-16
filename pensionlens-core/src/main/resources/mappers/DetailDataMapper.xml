@@ -43,6 +43,31 @@
         ${sqlStr}
     </select>
 
+    <select id="insuredNumber" resultMap="TableDataResultMap">
+        SELECT
+            piy.year AS x,
+            (pn.总人数 * u.平均城镇化率 * piy.insurance_rate * e.平均就业率) AS y
+        FROM
+            (SELECT year, insurance_rate FROM t_yctxcs_plan_index_year WHERE plan_id=2) piy
+        JOIN (
+            SELECT year, SUM(male) + SUM(female) AS 总人数
+            FROM t_yctxcs_person_number
+            WHERE plan_area=44
+                AND year IN (SELECT year FROM t_yctxcs_plan_index_year WHERE plan_id=2)
+            GROUP BY year ) pn
+        ON piy.year = pn.year
+        JOIN (
+            SELECT AVG(m_employment_rate) + AVG(f_employment_rate) AS 平均就业率
+            FROM t_yctxcs_plan_index_age
+            WHERE plan_id=2 ) e
+        JOIN (
+            SELECT year, AVG(urban_rate) AS 平均城镇化率
+            FROM t_yctxcs_plan_index_urban
+            WHERE plan_id=2
+            GROUP BY year ) u
+        ON piy.year = u.year
+    </select>
+
     <select id="getDetailData" resultMap="DetailDataResultMap">
         SELECT screen_data.data_id, data_name, display_mode,  displayable_mode, key_label, key_unit,
                value_label, value_unit, num_precision, max_value, min_value, data_color,
@@ -51,10 +76,8 @@
         FROM screen_detail_data
                  LEFT OUTER JOIN screen_data
                                  ON screen_data.data_id = screen_detail_data.data_id
-                 LEFT OUTER JOIN screen_data_color
-                                 ON screen_data.data_color_id = screen_data_color.data_color_id
                  LEFT OUTER JOIN screen_color
-                                 ON screen_data_color.data_color_id = screen_color.data_color_id
+                                 ON screen_data.data_color_id = screen_color.data_color_id
         WHERE detail_id = #{detailId}
     </select>
     <select id="getDataFromCalc" resultMap="TableDataResultMap">

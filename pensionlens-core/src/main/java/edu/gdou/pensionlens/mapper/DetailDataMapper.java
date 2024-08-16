@@ -22,4 +22,6 @@ public interface DetailDataMapper {
                          @Param("startTime") Integer startTime,
                          @Param("endTime") Integer endTime,
                          MapResultHandler<Integer, Double> mapResultHandler);
+
+    void insuredNumber(MapResultHandler<Integer, Double> resultHandler);
 }

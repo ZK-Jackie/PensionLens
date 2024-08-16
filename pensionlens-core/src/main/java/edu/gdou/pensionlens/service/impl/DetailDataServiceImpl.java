@@ -29,7 +29,17 @@ public class DetailDataServiceImpl implements DetailDataService {
                 List<Integer> buttonVals = List.of(3, 2, 1);
                 List<Object> combines = List.of(buttonNames, buttonVals);
                 detailData.setData(combines);
-                break;
+                continue;
+            }
+            if(detailData.getDataName().get(0).equals("参保人数")){
+                MapResultHandler<Integer, Double> resultHandler = new MapResultHandler<>();
+                detailDataMapper.insuredNumber(resultHandler);
+                Map<Integer, Double> data = resultHandler.getMappedResults();
+                List<Integer> keys = data.keySet().stream().sorted().toList();
+                List<Double> values = keys.stream().map(data::get).toList();
+                List<Object> combines = List.of(keys, values);
+                detailData.setData(combines);
+                continue;
             }
             // 3. 去拿数据，执行 query 语句
             // 把数据装成 Map，拿一个 resultHandler 去装
