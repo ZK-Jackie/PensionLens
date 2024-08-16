@@ -55,11 +55,19 @@ def run_jobs():
     - 'userId': 提交测算任务的用户的唯一标识符。
     """
     # executor.submit(ylbxcs, request.get_json())
-    ylbxcs(request.get_json())
-    result = {'status': 200, 'succeed': 'true', 'msg': "响应信息"}
-    result = json.dumps(result, ensure_ascii=False)
+    data=request.get_json()
+    success=ylbxcs(data)
+    # 执行某个函数（假设是 ylbxcs），并判断其是否成功
+    try:
+        if success:
+            result = {'status': 200, 'succeed': 'true', 'msg': "操作成功"}  # 执行成功
+        else:
+            result = {'status': 500, 'succeed': 'false', 'msg': "操作失败"}  # 执行失败
+    except Exception as e:
+        result = {'status': 500, 'succeed': 'false', 'msg': f"执行过程中出现错误: {str(e)}"}  # 捕获异常，返回错误信息
+
     # 将相应信息返回至响应体中
-    return result
+    return json.dumps(result, ensure_ascii=False)
 
 
 #测试连通性
@@ -70,7 +78,8 @@ def index():
 
 def ylbxcs(data):
     """
-    该函数用于执行养老保险测算任务。它接收一个包含测算任务相关信息的字典作为参数，然后提交这个任务到线程池中执行。
+    该函数用于执行养老保险测算任务。它接收一个包含测算任务相关信息的字典作为参数，
+    然后提交这个任务到线程池中执行。
 
     Parameters:
     data (dict): 包含测算任务相关信息的字典。字典中应包含以下键值对：
@@ -79,29 +88,33 @@ def ylbxcs(data):
         - 'userId': 提交测算任务的用户的唯一标识符。
 
     Returns:
-    None. 该函数没有返回值，但会影响全局状态，例如可能会更新数据库中的相关记录。
+    bool: 如果测算成功，返回True；如果测算失败，返回False。
 
     Raises:
-    Exception: 如果在执行测算任务过程中出现错误，该函数会捕获并记录这个错误，然后更新数据库中的相关记录以反映这个错误。
+    Exception: 如果在执行测算任务过程中出现错误，该函数会捕获并记录这个错误，
+    然后更新数据库中的相关记录以反映这个错误。
     """
     try:
         # 延迟一段时间等待数据库中有数据
         time.sleep(cfg.t)
         # 执行测算为id的任务，id-测算任务的唯一标识符，branch-执行测算任务的环境标识符（'gstest'或'serve'）
         calculate(data['id'], data['branch'])
+        print("测算成功")
         # 更新数据库中的记录，0-未测算，1-测算中，2-测算成功，3-测算失败
-        update_state(2, 0, data['id'], data['branch'], data['userId'])
-
+        # update_state(2, 0, data['id'], data['branch'], data['userId'])
+        return True
     except Exception as e:
         try:
+            print("测算失败")
             # 更新数据库中的记录，0-未测算，1-测算中，2-测算成功，3-测算失败
-            update_state(3, str(e), data['id'], data['branch'], data['userId'])
+            # update_state(3, str(e), data['id'], data['branch'], data['userId'])
         except Exception:
+            print("测算失败")
             # 获取log对象
             log = log_func()
             # 将异常信息记录到log中
             log.error("====================【开始测试】====================", exc_info=True)
-
+        return False
 
 # 启动
 if __name__ == '__main__':

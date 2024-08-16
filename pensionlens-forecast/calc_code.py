@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 import pymysql
@@ -61,7 +62,7 @@ def calculate(id, env):  # 测算
         @return L 总人数
         """
         if j == 0:
-            col = "nmale"
+            col = "male"
         elif j == 1:
             col = "female_worker"
         elif j == 2:
@@ -81,7 +82,27 @@ def calculate(id, env):  # 测算
         g_prod = np.prod(g_prod)  # 连乘
         return s_avg * f * (g_prod)
 
-    def f_old(t, person, all_j):
+    def insert_into_old(id,year, category, age, insured_people, year_pension, cursor):
+        """
+        将数据插入到数据库表中
+        @param id 表示对应测算方案的id
+        @param year 年份
+        @param category 用户类别
+        @param age 年龄
+        @param insured_people 参保人数
+        @param year_pension 一年的基本养老金
+        @param cursor 数据库游标
+        """
+        try:
+            sql = """
+            INSERT INTO t_member(plan_id,year, member_type,member_group, age, person_count,basic_pension)
+            VALUES (%s,%s, 0,%s, %s, %s, %s)
+            """
+            cursor.execute(sql, (id,year, category, age, int(insured_people), int(year_pension)))
+        except Exception as e:
+            print(f"Error inserting into database: {e}")
+
+    def f_old(id,t, person, all_j,cursor):
         """
         @name 老人的支出
         @param t 年份
@@ -92,9 +113,12 @@ def calculate(id, env):  # 测算
         output = 0
         for j in all_j:
             for x in range(r[j] + t - policy_1997 + 1, w + 1):
-                L = get_person(t, j, x, person)
-                O = get_old(t, j, x)
-                output += L * O * beta[t]
+                L = get_person(t, j, x, person)  #获得t年的类别为j的年龄为x的人数
+                L = L*beta[t] #获得t年的类别为j的年龄为x的参保人数
+                O = get_old(t, j, x)  #获得t年的类别为j的年龄为x的老人养老金
+                output += L * O   #获得t年的类别为j的年龄为x的总基本养老金
+                # 插入数据库
+                # insert_into_old(id,t, j, x, L, L*O, cursor)
         return output
 
     def get_b2_1(t0, j, x):
@@ -125,7 +149,45 @@ def calculate(id, env):  # 测算
         temp = (x - (t0 - base_year) - e) * delta[t0 - (x - r[j])]
         return s_avg * temp * g_prod
 
-    def f2_1(t, person, all_j):
+    def insert_or_update_oldMinTrans(id, year, category, age, insured_people, year_pension, cursor):
+        """
+        插入或更新数据库表中的数据
+        @param id 表示对应测算方案的id
+        @param year 年份
+        @param category 用户类别
+        @param age 年龄
+        @param insured_people 参保人数
+        @param year_pension 一年的过渡养老金
+        @param cursor 数据库游标
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 1 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, year, category, age))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作
+                update_sql = """
+                UPDATE t_member 
+                SET transitional_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 1 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(year_pension), id, year, category, age))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member(plan_id, year, member_type, member_group, age, person_count, transitional_pension)
+                VALUES (%s, %s, 1, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, year, category, age, int(insured_people), int(year_pension)))
+        except Exception as e:
+            print(f"Error inserting or updating database: {e}")
+
+    def f2_1(id,t, person, all_j,cursor):
         """
         @name 老中人的统帐支出
         @param t 年份
@@ -136,10 +198,13 @@ def calculate(id, env):  # 测算
         output = 0
         for j in all_j:
             for x in range(r[j] + t - policy_2005 + 1, min(r[j] + t - policy_1997 + 1, w + 1)):
-                L = get_person(t, j, x, person)
+                L = get_person(t, j, x, person)#获得t年的类别为j的年龄为x的人数
+                L = L * beta[t] #获得t年的类别为j的年龄为x的参保人数
                 B = get_b2_1(t, j, x)
                 T = get_t2_1(t, j, x)
-                output += L * (B + T) * beta[t]
+                output += L * (B + T)
+                #将对应的数据插入数据库
+                # insert_or_update_oldMinTrans(id,t,j,x,L,L * (B + T),cursor)
         return output
 
     def get_i2(t0, j, x):
@@ -164,7 +229,45 @@ def calculate(id, env):  # 测算
         temp1 = 12 / m[j][t0 - (x - r[j])]
         return temp1 * temp_i(t0, x, r[j]) * g_prod
 
-    def f2_2(t, person, all_j):
+    def insert_or_update_OldMinIndiv(id, year, category, age, insured_people, year_pension, cursor):
+        """
+        插入或更新数据库表中的数据
+        @param id 表示对应测算方案的id
+        @param year 年份
+        @param category 用户类别
+        @param age 年龄
+        @param insured_people 参保人数
+        @param year_pension 一年的个人养老金
+        @param cursor 数据库游标
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 1 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, year, category, age))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作
+                update_sql = """
+                UPDATE t_member 
+                SET  individual_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 1 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(year_pension), id, year, category, age))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member(plan_id, year, member_type, member_group, age, person_count, individual_pension)
+                VALUES (%s, %s, 1, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, year, category, age, int(insured_people), int(year_pension)))
+        except Exception as e:
+            print(f"Error inserting or updating database: {e}")
+
+    def f2_2(id,t, person, all_j,cursor):
         """
         老中人的个账支出
         """
@@ -172,9 +275,11 @@ def calculate(id, env):  # 测算
         for j in all_j:
             for x in range(r[j] + t - policy_2005 + 1, min(r[j] + t - policy_1997 - 1 + 1,
                                                            w + 1)):  ###-1
-                L = get_person(t, j, x, person)
-                I = get_i2(t, j, x)
-                output += sum(L * I * beta[t])
+                L = get_person(t, j, x, person)#获得t年的类别为j的年龄为x的人数
+                L = L * beta[t] #获得t年的类别为j的年龄为x的参保人数
+                I = get_i2(t, j, x)#获得t年的类别为j的年龄为x的个人养老金
+                output += sum(L * I)
+                # insert_or_update_OldMinIndiv(id, t, j, x, L, sum(L*I), cursor)
         return output
 
     def get_rti(x, t0, j):
@@ -210,7 +315,38 @@ def calculate(id, env):  # 测算
                 (r - e)) * (x - t0 - e + base_year) * delta[t0 - (x - r)]
         return s_avg * temp * g_prod
 
-    def f3_1(t, person, all_j):
+    def insert_or_update_NewMidTrans(id, t, j, x, L, I, cursor):
+        """
+        插入或更新计算结果到数据库
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 2 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, t, j, x))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作（只更新 transitional_pension）
+                update_sql = """
+                UPDATE t_member 
+                SET transitional_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 2 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(I), id, t, j, x))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member (plan_id, year, member_type, member_group, age, person_count, transitional_pension)
+                VALUES (%s, %s, 2, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, t, j, x, int(L), int(I)))
+        except Exception as e:
+            print(f"Error inserting or updating database: {e}")
+
+    def f3_1(id,t, person, all_j,cursor):
         """
         新中人的统帐支出
         """
@@ -221,20 +357,27 @@ def calculate(id, env):  # 测算
                 rti = get_rti(x, t, j)
                 B = get_b3_1(t, j, x, rti)
                 T = get_t3_1(t, j, x, rti)
-                L = get_person(t, j, x, person)
-                output += L * (B + T) * beta[t]
+                L = get_person(t, j, x, person)#获得t年的类别为j的年龄为x的人数
+                L = L * beta[t]#获得t年的类别为j的年龄为x的参保人数
+                output += L * (B + T)
+                #把数据插入数据库中
+                # insert_or_update_NewMidTrans(id,t,j,x,L,L * (B + T),cursor)
             if int(rt[j][t]) + 1 > e + t - policy_1997 + 1:
                 rti = get_rti(int(rt[j][t]), t, j)
                 B = get_b3_1(t, j, int(rt[j][t]), rti)
                 T = get_t3_1(t, j, int(rt[j][t]), rti)
                 L = get_person(t, j, int(rt[j][t]), person)
-                output += (int(rt[j][t]) + 1 - rt[j][t]) * L * (B + T) * beta[t] / 20
+                L = L * beta[t]  # 获得t年的类别为j的年龄为x的参保人数
+                output += (int(rt[j][t]) + 1 - rt[j][t]) * L * (B + T) / 20
+                # insert_or_update_NewMidTrans(id,t,j,int(rt[j][t]),L,(int(rt[j][t]) + 1 - rt[j][t]) * L * (B + T) / 20,cursor)
             elif w > int(rt[j][t]) + t - policy_2005:
                 rti = get_rti(int(rt[j][t]) + t - policy_2005, t, j)
                 B = get_b3_1(t, j, int(rt[j][t]) + t - policy_2005, rti)
                 T = get_t3_1(t, j, int(rt[j][t]) + t - policy_2005, rti)
                 L = get_person(t, j, int(rt[j][t]) + t - policy_2005, person)
-                output += (rt[j][t] - int(rt[j][t])) * L * (B + T) * beta[t] / 20
+                L = L * beta[t]# 获得t年的类别为j的年龄为x的参保人数
+                output += (rt[j][t] - int(rt[j][t])) * L * (B + T) / 20
+                # insert_or_update_NewMidTrans(id,t,j,int(rt[j][t]) + t - policy_2005,L,(rt[j][t] - int(rt[j][t])) * L * (B + T) / 20,cursor)
             else:
                 output = output
 
@@ -255,7 +398,38 @@ def calculate(id, env):  # 测算
         temp1 = 12 / m[j][t0 - (x - r)]
         return temp1 * temp_i(t0, x, r) * g_prod
 
-    def f3_2(t, person, all_j):
+    def insert_or_update_NewMidIndiv(id, t, j, x, L, I, cursor):
+        """
+        插入或更新计算结果到数据库
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 2 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, t, j, x))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作（只更新 individual_pension）
+                update_sql = """
+                UPDATE t_member 
+                SET individual_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 2 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(I), id, t, j, x))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member (plan_id, year, member_type, member_group, age, person_count, individual_pension)
+                VALUES (%s, %s, 2, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, t, j, x, int(L), int(I)))
+        except Exception as e:
+            print(f"Error inserting or updating database: {e}")
+
+    def f3_2(id,t, person, all_j,cursor):
         """
         新中人的个账支出
         """
@@ -264,19 +438,28 @@ def calculate(id, env):  # 测算
             for x in range(max(int(rt[j][t]) + 1, e + t - policy_1997 + 1),
                            min(w + 1, int(rt[j][t]) + t - policy_2005 + 1)):
                 rti = get_rti(x, t, j)  # x岁参保人员退休时的法定退休年龄
-                L = get_person(t, j, x, person)
-                I = get_i3(t, j, x, rti)
-                output += sum(L * I * beta[t])
-            if int(rt[j][t]) + 1 > e + t - policy_1997 + 1:
+                L = get_person(t, j, x, person) #获得t年的类别为j的年龄为x的人数
+                L = L * beta[t]#获得t年的类别为j的年龄为x的参保人数
+                I = get_i3(t, j, x, rti)#获得t年的类别为j的年龄为x的个人养老金
+                output += sum(L * I)
+                #将数据插入数据库中
+                # insert_or_update_NewMidIndiv(id, t, j, x, L, sum(L*I), cursor)
+            if int(rt[j][t]) + 1 > e + t - policy_1997 + 1:#针对特殊情况的一个处理
                 rti = get_rti(int(rt[j][t]), t, j)
                 L = get_person(t, j, int(rt[j][t]), person)
+                L = L * beta[t]#参保人数
                 I = get_i3(t, j, int(rt[j][t]), rti)
-                output += (int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I * beta[t]) / 20
-            elif w > int(rt[j][t]) + t - policy_2005:
+                output += (int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I) / 20
+                #对于特殊情况来说的话，如果情况存在，只会插入一条记录，人数照常，钱数按照下方进行计算
+                # insert_or_update_NewMidIndiv(id, t, j, int(rt[j][t]), L, (int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I) / 20, cursor)
+            elif w > int(rt[j][t]) + t - policy_2005:#针对特殊情况的一个处理
                 rti = get_rti(int(rt[j][t]) + t - policy_2005, t, j)
                 L = get_person(t, j, int(rt[j][t]) + t - policy_2005, person)
+                L = L * beta[t]
                 I = get_i3(t, j, int(rt[j][t]) + t - policy_2005, rti)
-                output += (rt[j][t] - int(rt[j][t])) * sum(L * I * beta[t]) / 20
+                output += (rt[j][t] - int(rt[j][t])) * sum(L * I) / 20
+                # 对于特殊情况来说的话，如果情况存在，只会插入一条记录，人数照常，钱数按照下方进行计算
+                # insert_or_update_NewMidIndiv(id, t, j, int(rt[j][t]) + t - policy_2005, L, (rt[j][t] - int(rt[j][t])) * sum(L * I) / 20, cursor)
             else:
                 output = output
         return output
@@ -290,7 +473,46 @@ def calculate(id, env):  # 测算
         temp = (1 + get_j(t0, j, x, r) / (r - e)) * (r - e) * 0.01
         return s_avg * g_prod * temp
 
-    def f4_1(t, person, all_j):
+    def insert_or_update_NewBasic(id, t, j, x, L, B, cursor):
+        """
+        插入或更新计算结果到数据库中
+        :param id: 测算方案id
+        :param t: 年份
+        :param j: 类别
+        :param x: 年龄
+        :param L: 新人参保人数
+        :param B: 基本养老金
+        :param cursor: 数据库游标
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 3 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, t, j, x))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作（只更新 basic_pension）
+                update_sql = """
+                UPDATE t_member 
+                SET basic_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 3 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(B), id, t, j, x))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member(plan_id, year, member_type, member_group, age, person_count, basic_pension)
+                VALUES (%s, %s, 3, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, t, j, x, int(L), int(B)))
+        except Exception as e:
+            # 打印错误信息
+            print(f"Error inserting or updating database: {e}")
+
+    def f4_1(id,t, person, all_j,cursor):
         """
         新人的统帐支出
         """
@@ -299,14 +521,19 @@ def calculate(id, env):  # 测算
             if e + t - policy_1997 >= rt[j][t]:
                 for x in range(int(rt[j][t]) + 1, min(e + t - policy_1997 + 1, w + 1)):
                     rti = get_rti(x, t, j)
-                    L = get_person(t, j, x, person)
-                    B = get_b4_1(t, j, x, rti)
-                    output += L * B * beta[t]
-                if rt[j][t] - int(rt[j][t]) != 0:
+                    L = get_person(t, j, x, person)#获得t年的类别为j的年龄为x的人数
+                    L = L *beta[t]#获得t年的类别为j的年龄为x的参保人数
+                    B = get_b4_1(t, j, x, rti)#获得t年的类别为j的年龄为x的基本养老金
+                    output += L * B
+                    #将数据插入数据库
+                    # insert_or_update_NewBasic(id, t, j, x, L, L * B, cursor)#对应整年的数据
+                if rt[j][t] - int(rt[j][t]) != 0:#非整年的数据处理
                     rti = get_rti(int(rt[j][t]), t, j)
                     L = get_person(t, j, int(rt[j][t]), person)
+                    L = L * beta[t]
                     B = get_b4_1(t, j, int(rt[j][t]), rti)
-                    output += (int(rt[j][t]) + 1 - rt[j][t]) * L * B * beta[t] / 20
+                    output += (int(rt[j][t]) + 1 - rt[j][t]) * L * B  / 20
+                    # insert_or_update_NewBasic(id,t,j,int(rt[j][t]),L,(int(rt[j][t]) + 1 - rt[j][t]) * L * B  / 20,cursor)
                 else:
                     output = output
             else:
@@ -328,7 +555,46 @@ def calculate(id, env):  # 测算
         temp1 = 12 / m[j][t0 - (x - r)]
         return temp1 * temp_i(t0, x, r) * g_prod
 
-    def f4_2(t, person, all_j):
+    def insert_or_update_NewIndiv(id, t, j, x, L, I, cursor):
+        """
+        插入或更新新人个人养老金到数据库
+        :param id: 测算方案id
+        :param t: 年份
+        :param j: 类别
+        :param x: 年龄
+        :param L: 新人参保人数
+        :param I: 一年个人养老金总和
+        :param cursor: 数据库游标
+        """
+        try:
+            # 首先检查记录是否存在
+            check_sql = """
+            SELECT COUNT(*) FROM t_member 
+            WHERE plan_id = %s AND year = %s AND member_type = 3 AND member_group = %s AND age = %s
+            """
+            cursor.execute(check_sql, (id, t, j, x))
+            result = cursor.fetchone()
+
+            if result[0] > 0:
+                # 记录存在，执行更新操作（只更新 individual_pension）
+                update_sql = """
+                UPDATE t_member 
+                SET individual_pension = %s 
+                WHERE plan_id = %s AND year = %s AND member_type = 3 AND member_group = %s AND age = %s
+                """
+                cursor.execute(update_sql, (int(I), id, t, j, x))
+            else:
+                # 记录不存在，执行插入操作
+                insert_sql = """
+                INSERT INTO t_member(plan_id, year, member_type, member_group, age, person_count, individual_pension)
+                VALUES (%s, %s, 3, %s, %s, %s, %s)
+                """
+                cursor.execute(insert_sql, (id, t, j, x, int(L), int(I)))
+        except Exception as e:
+            # 打印错误信息
+            print(f"Error inserting or updating database: {e}")
+
+    def f4_2(id,t, person, all_j,cursor):
         """
         新人的个账支出
         """
@@ -337,14 +603,18 @@ def calculate(id, env):  # 测算
             if e + t - policy_1997 >= rt[j][t]:
                 for x in range(int(rt[j][t]) + 1, min(e + t - policy_1997 + 1, w + 1)):
                     rti = get_rti(x, t, j)
-                    L = get_person(t, j, x, person)
+                    L = get_person(t, j, x, person)#获得t年的类别为j的年龄为x的人数
+                    L = L *beta[t]#获得t年的类别为j的年龄为x的参保人数
                     I = get_i4(t, j, x, rti)
-                    output += sum(L * I * beta[t])
+                    output += sum(L * I)
+                    # insert_or_update_NewIndiv(id,t,j,x,L,sum(L * I),cursor)
                 if rt[j][t] - int(rt[j][t]) != 0:
                     rti = get_rti(int(rt[j][t]), t, j)
                     L = get_person(t, j, int(rt[j][t]), person)
+                    L = L * beta[t]  # 获得t年的类别为j的年龄为x的参保人数
                     I = get_i4(t, j, int(rt[j][t]), rti)
-                    output += (int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I * beta[t]) / 20
+                    output += (int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I ) / 20
+                    # insert_or_update_NewIndiv(id,t,j,int(rt[j][t]),L,(int(rt[j][t]) + 1 - rt[j][t]) * sum(L * I ) / 20,cursor)
                 else:
                     output = output
             else:
@@ -546,8 +816,9 @@ def calculate(id, env):  # 测算
     cursor.execute("describe t_yctxcs_person_number ")
     cols = cursor.fetchall()
     cols = [i[0] for i in cols]
-    cursor.execute("select * from t_yctxcs_person_number where plan_area =%s and mode=%s and year>=%s and year<=%s" % (
-        plan_area, birth_mode, start_year, end_year))
+    cursor.execute(
+        "select * from t_yctxcs_person_number where plan_area =%s and birth_mode=%s and year>=%s and year<=%s" % (
+            plan_area, birth_mode, start_year, end_year))
     data5 = pd.DataFrame(cursor.fetchall(), columns=cols)
     data5 = data5[data5['age'] >= e].astype("float32")
 
@@ -582,11 +853,11 @@ def calculate(id, env):  # 测算
     data8 = data8.sort_values(by=["age"])
 
     # 读取默认结果表，系统给？是啥？
-    cursor.execute("describe t_yctxcs_default_results ")
-    cols = cursor.fetchall()
-    cols = [i[0] for i in cols]
-    cursor.execute(
-        "select * from t_yctxcs_default_results where plan_area =%s and birth_mode=%s" % (plan_area, birth_mode))
+    # cursor.execute("describe t_yctxcs_default_results ")
+    # cols = cursor.fetchall()
+    # cols = [i[0] for i in cols]
+    # cursor.execute(
+    #     "select * from t_yctxcs_default_results where plan_area =%s and birth_mode=%s" % (plan_area, birth_mode))
     # data9 = pd.DataFrame(cursor.fetchall(), columns=cols)
     # data9 = data9.astype("float32")
     #
@@ -628,13 +899,13 @@ def calculate(id, env):  # 测算
                 # 男性退休年龄
                 rt[0] = dict(data4[["year", "m_retire"]].astype("float32").values)
                 # 男性计发月数
-                m[0] = dict(data4_1[["year", "m_month"]].values)
+                m[0] = dict(data4_1[["year", "m_monthly"]].values)
                 all_j.append(0)
                 employ1 = data6[["age", "m_employment_rate"]].sort_values(by=["age"])
                 # 男性企业职工人数
-                person["nmale"] = data5_1["male"].values * \
-                                  data7_1["urban_rate"].astype("float32").values * 0.8782 * employ1[
-                                      "m_employment_rate"].astype("float32").values
+                person["male"] = data5_1["male"].values * \
+                                 data7_1["urban_rate"].astype("float32").values * 0.8782 * employ1[
+                                     "m_employment_rate"].astype("float32").values
                 # 死亡的男性企业职工人数
                 person["death_male"] = data8["m_death_rate"].values * data5_1["male"].values / (
                         1 - data8["m_death_rate"].values) \
@@ -644,9 +915,9 @@ def calculate(id, env):  # 测算
             elif j == 1:
 
                 # 女职工退休年龄
-                rt[1] = dict(data4[["year", "w_retire"]].astype("float32").values)
+                rt[1] = dict(data4[["year", "f_retire"]].astype("float32").values)
                 # 女职工计发月数
-                m[1] = dict(data4_1[["year", "w_month"]].values)
+                m[1] = dict(data4_1[["year", "f_monthly"]].values)
                 all_j.append(1)
                 employ2 = data6[["age", "f_employment_rate"]].sort_values(by=["age"])
                 # 女职工人数
@@ -662,9 +933,9 @@ def calculate(id, env):  # 测算
             else:
 
                 # 女干部退休年龄
-                rt[2] = dict(data4[["year", "wc_retire"]].astype("float32").values)
+                rt[2] = dict(data4[["year", "fc_retire"]].astype("float32").values)
                 # 女干部计发月数
-                m[2] = dict(data4_1[["year", "wc_month"]].values)
+                m[2] = dict(data4_1[["year", "fc_monthly"]].values)
                 all_j.append(2)
                 employ3 = data6[["age", "f_employment_rate"]].sort_values(by=["age"])
                 # 女干部人数
@@ -679,17 +950,22 @@ def calculate(id, env):  # 测算
         # 第i年养老金收入
         rf0 = f_income(i, person)
         # 第i年老人的支出
-        rf1 = f_old(i, person, all_j)
+        rf1 = f_old(id,i, person, all_j,cursor)
         # 第i年老中人的支出（统筹+个账）
-        rf2 = f2_1(i, person, all_j) + f2_2(i, person, all_j)
+        rf2 = f2_1(id,i, person, all_j,cursor) + f2_2(id,i, person, all_j,cursor)
         # 第i年新中人的支出（统筹+个账）
-        rf3 = f3_1(i, person, all_j) + f3_2(i, person, all_j)
-        # 第i年新人的支出（统筹+个账）
-        rf4 = f4_1(i, person, all_j) + f4_2(i, person, all_j)
+        rf3 = f3_1(id,i, person, all_j,cursor) + f3_2(id,i, person, all_j,cursor)
+        # 第i年新人的支出（统筹+个账）新人目前可能还没退休？？？
+        rf4 = f4_1(id,i, person, all_j,cursor) + f4_2(id,i, person, all_j,cursor)
         # 第i年个账返还
         rf5 = f_return(i, person, all_j)
-
-        insert_result(id, i, u_o_i, l=[rf0, rf1, rf2, rf3, rf4, rf5])
+        print("测算成功,第", i, "年的情况：")
+        print(rf0, rf1, rf2, rf3, rf4, rf5)
+        #insert_result(id, i, u_o_i, l=[rf0, rf1, rf2, rf3, rf4, rf5])
 
     db.commit()
     db.close()
+
+
+if __name__ == '__main__':
+    calculate(2, "gstest")

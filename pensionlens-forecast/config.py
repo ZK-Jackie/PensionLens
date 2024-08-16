@@ -1,15 +1,15 @@
-host = "http://localhost:3306/"
+host = "localhost"
 
 # 开发数据库配置信息
 dev_user = "pension_lens"
 dev_password = "PensionLens"
-dev_port = 3306
+dev_port = 33063
 dev_database = "calc"
 
 # 测试数据库配置信息
 cs_user = "pension_lens"
 cs_password = "PensionLens"
-cs_port = 3306
+cs_port = 33063
 cs_database = "calc"
 
 # 服务器配置信息
