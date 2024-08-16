@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface DetailDataMapper {
 
     List<DetailData> getDetailData(Integer detailId);
 
-    void customDataQuery(@Param("sqlStr")String sqlStr, MapResultHandler<Integer, Double> mapResultHandler);
+    void customDataQuery(@Param("sqlStr")String sqlStr, MapResultHandler<Integer, BigDecimal> mapResultHandler);
 
     void getDataFromCalc(@Param("tableName") String tableName,
                          @Param("x") String colX,
@@ -23,5 +24,5 @@ public interface DetailDataMapper {
                          @Param("endTime") Integer endTime,
                          MapResultHandler<Integer, Double> mapResultHandler);
 
-    void insuredNumber(MapResultHandler<Integer, Double> resultHandler);
+    void insuredNumber(MapResultHandler<Integer, BigDecimal> resultHandler);
 }
