@@ -149,7 +149,7 @@ export default {
         barWidth: '35%', //柱子宽度
         barCategoryGap: '35%',
         itemStyle: {
-          color: that.data[0].dataColor[0],
+          color: that.data[0].dataColor.dataColor[0],
           opacity: 1,
           borderRadius: 5,
         },
@@ -190,7 +190,7 @@ export default {
           barWidth: '35%', //柱子宽度
           barCategoryGap: '35%',
           itemStyle: {
-            color: that.data[1].dataColor[0],
+            color: that.data[1].dataColor.dataColor[0],
             opacity: 1,
             borderRadius: 5,
           },

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="HttpClientEndpointsTabState">
+    <option name="requestToText" value="&lt;CachedHttpClientTabRequests&gt;&#10;  &lt;entry key=&quot;871e4a0d4e67ef017452c221d4261328f5544ae9&quot; value=&quot;###&amp;#10;GET http://localhost:8090/captchaImage&quot; /&gt;&#10;  &lt;entry key=&quot;b66d5231d4a94553af504f8fcff93294e86bd918&quot; value=&quot;###&amp;#10;GET http://localhost:8090/screen/{{screenId}}&quot; /&gt;&#10;&lt;/CachedHttpClientTabRequests&gt;" />
+  </component>
+</project>

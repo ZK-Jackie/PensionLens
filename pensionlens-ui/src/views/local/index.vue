@@ -151,7 +151,7 @@ export default {
     },
     reqData(){
       this.$store.dispatch('GetScreenDetail', this.nowScreenId).then(res => {
-        this.totalDetails = JSON.parse(JSON.stringify(res));
+        this.totalDetails = JSON.parse(JSON.stringify(res.data.screenDetails));
         this.preProcessDetail();
         this.isLoadable = true;
       }).catch(err => {

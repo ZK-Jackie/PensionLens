@@ -77,7 +77,7 @@ export default {
         type: 'pie',
         center: ['50%', '55%'],
         radius: ['40%', '65%'],
-        color: that.data[0].dataColor,
+        color: that.data[0].dataColor.dataColor,
         label: {
           show: false
         },

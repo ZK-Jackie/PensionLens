@@ -142,7 +142,7 @@ export default {
         symbolSize: 5,
         showSymbol: false,
         lineStyle: {
-          color: that.data[0].dataColor[0],
+          color: that.data[0].dataColor.dataColor[0],
           width: 2
         },
         areaStyle: {
@@ -157,7 +157,7 @@ export default {
           shadowColor: 'rgba(0, 0, 0, 0.1)',
         },
         itemStyle: {
-          color: that.data[0].dataColor[0],
+          color: that.data[0].dataColor.dataColor[0],
           borderColor: 'rgba(221,220,107,.1)',
           borderWidth: 12
         },
@@ -184,12 +184,12 @@ export default {
           symbolSize: 5,
           showSymbol: false,
           lineStyle: {
-            color: that.data[0].dataColor[0],
+            color: that.data[0].dataColor.dataColor[0],
             width: 2,
             type: 'dotted'
           },
           itemStyle: {
-            color: that.data[0].dataColor[0],
+            color: that.data[0].dataColor.dataColor[0],
             width: 2
           }
         })
@@ -210,7 +210,7 @@ export default {
           symbolSize: 5,
           showSymbol: false,
           lineStyle: {
-            color: that.data[1].dataColor[0],
+            color: that.data[1].dataColor.dataColor[0],
             width: 2
           },
           areaStyle: {
@@ -225,7 +225,7 @@ export default {
             shadowColor: 'rgba(0, 0, 0, 0.1)',
           },
           itemStyle: {
-            color: that.data[1].dataColor[0],
+            color: that.data[1].dataColor.dataColor[0],
             borderColor: 'rgba(221,220,107,.1)',
             borderWidth: 12
           },
@@ -250,17 +250,18 @@ export default {
             symbolSize: 5,
             showSymbol: false,
             lineStyle: {
-              color: that.data[1].dataColor[0],
+              color: that.data[1].dataColor.dataColor[0],
               width: 2,
               type: 'dotted'
             },
             itemStyle: {
-              color: that.data[1].dataColor[0],
+              color: that.data[1].dataColor.dataColor[0],
               width: 2
             }
           })
         }
       }
+      console.log(that.data)
       /************数据系列2结束************/
 
       chart && chart.setOption(option);

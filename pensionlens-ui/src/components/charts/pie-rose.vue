@@ -88,7 +88,7 @@ export default {
         type: 'pie',
         center: ['50%', '53%'],
         radius: ['20%', '80%'],
-        color: that.data[0].dataColor,
+        color: that.data[0].dataColor.dataColor,
         roseType: 'area',
         label: {
           show: false

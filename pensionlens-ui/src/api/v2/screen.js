@@ -1,13 +1,15 @@
 import request from '@/utils/request'
 import {parseBoolean} from "@/utils/string";
 import { Message } from 'element-ui';
+import axios from "axios";
 
 const isOffline = parseBoolean(process.env.VUE_APP_IS_OFFLINE);
+const baseApi = process.env.VUE_APP_BASE_API;
 
-export function getScreenInfo() {
+export function getScreenInfo(id) {
   if (!isOffline) {
     return request({
-      url: '/screen',
+      url: `/screen/${id}`,
       method: 'get',
     })
   } else {
