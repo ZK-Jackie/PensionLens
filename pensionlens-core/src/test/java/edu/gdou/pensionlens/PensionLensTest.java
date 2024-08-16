@@ -45,7 +45,7 @@ public class PensionLensTest {
 
     @Test
     public void testScreenService() throws Exception {
-        jacksonSerialization(screenService.getScreenInfo(4));
+        jacksonSerialization(screenService.getScreenInfo(2));
     }
 
     @Autowired
