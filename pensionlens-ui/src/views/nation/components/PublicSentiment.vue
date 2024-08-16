@@ -30,7 +30,7 @@ export default {
   data() {
     return{
       listData: [
-        { importance:3,
+        { importance:2,
           source_name:"微博",
           publish_time:"2023-03-01",
           title:"基本养老保险和医疗保险在缴费模式上的差异性",
