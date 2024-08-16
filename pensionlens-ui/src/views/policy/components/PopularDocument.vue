@@ -1,16 +1,16 @@
 <template>
     <div >
-      <VueSeamlessScroll :data="listData" :class-option="optionSingleHeight" class="seamless-warp">
+      <VueSeamlessScroll :data="listData" :class-option="optionSingleHeight" class="policy-seamless-warp">
         <!--上述代码实现滚动效果，数据由listData提供,后面来设置每个列表的高度-->
-        <div class="list">
-          <div class="item" v-for="(item,index) in listData" :key="index" @click="click_item(item)">
-            <div class="info">
-              <div v-if="item.importance==1" class="mood importance">重要</div>
-              <div v-else-if="item.importance==2" class="mood normal">一般</div>
-              <div v-else class="mood not_importance">不重要</div>
-              <div class="source">{{item.source_name}}</div>
-              <div class="date">{{item.publish_time}}</div>
-              <div class="login-title">{{item.title}}</div>
+        <div class="policy-list">
+          <div class="policy-item" v-for="(item,index) in listData" :key="index" @click="click_item(item)">
+            <div class="policy-info">
+              <div v-if="item.importance==1" class="policy-mood policy-importance">重要</div>
+              <div v-else-if="item.importance==2" class="policy-mood policy-normal">一般</div>
+              <div v-else class="policy-mood policy-not_importance">不重要</div>
+              <div class="policy-source">{{item.source_name}}</div>
+              <div class="policy-date">{{item.publish_time}}</div>
+              <div class="policy-login-title">{{item.title}}</div>
             </div>
           </div>
         </div>
@@ -90,48 +90,48 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seamless-warp {
+.policy-seamless-warp {
   position: absolute;
   top:23%;
   height: 3.24rem;
   overflow: hidden;
 }
-.list{
+.policy-list{
   padding: 0 .15rem;
 }
-.item{
+.policy-item{
   width: 100%;
   height: .55rem;
   line-height: .5rem;
   position: relative;
   display: flex;
   align-items: center;
-  .info{
+  .policy-info{
     display: flex;
-    .mood{
+    .policy-mood{
       font-size: 16px;
       margin-right: .32rem;
     }
-    .importance {
+    .policy-importance {
       color: #36bea6;
     }
-    .normal {
+    .policy-normal {
       color: #ffbc34;
     }
-    .not_importance {
+    .policy-not_importance {
       color: #f62d51;
     }
-    .source{
+    .policy-source{
       color: #03b4f5;
       font-size: 16px;
       margin-right: .3rem;
     }
-    .date{
+    .policy-date{
       color: #03b4f5;
       font-size: 15px;
       margin-right: .3rem;
     }
-    .login-title{
+    .policy-login-title{
       flex: 1;
       color: #fff;
       font-size: 16px;
@@ -141,7 +141,7 @@ export default {
     }
   }
 }
-.item:hover{
+.policy-item:hover{
   cursor: pointer;
 }
 

@@ -1,18 +1,18 @@
 <template>
   <div >
-      <vue-seamless-scroll :data="listData" :class-option="optionSingleHeight" class="seamless-warp">
-        <div class="list">
-          <div class="item" v-for="(item,index) in listData" :key="index" @click="click_item(item)">
-            <div class="info">
-              <div class="content-title">
-                <div class="login-title">{{item.title}}</div>
-                <span v-if="item.importance===1" class="mood importance">重要</span>
-                <span v-else-if="item.importance===2" class="mood normal">一般</span>
-                <span v-else class="mood not_importance">不重要</span>
+      <vue-seamless-scroll :data="listData" :class-option="optionSingleHeight" class="nation-seamless-warp">
+        <div class="nation-list">
+          <div class="nation-item" v-for="(item,index) in listData" :key="index" @click="click_item(item)">
+            <div class="nation-info">
+              <div class="nation-content-title">
+                <div class="nation-login-title">{{item.title}}</div>
+                <span v-if="item.importance===1" class="nation-mood nation-importance">重要</span>
+                <span v-else-if="item.importance===2" class="nation-mood nation-normal">一般</span>
+                <span v-else class="nation-mood nation-not_importance">不重要</span>
               </div>
-              <div class="details">
-                <span class="date">{{item.publish_time}}</span>
-                <span class="source">{{item.source_name}}</span>
+              <div class="nation-details">
+                <span class="nation-date">{{item.publish_time}}</span>
+                <span class="nation-source">{{item.source_name}}</span>
               </div>
             </div>
           </div>
@@ -82,28 +82,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.seamless-warp {
+.nation-seamless-warp {
   height: 4.25rem;
   overflow: hidden;
 }
-.item{
+.nation-list{
+  padding: 0 .01rem;
+}
+.nation-item{
   width: 100%;
   height: .73rem;
   display: flex;
   margin-top: .08rem;
-  .info{
+  .nation-info{
     flex-direction: column;
     width: 100%;
     display: flex;
     padding: .05rem 0 .08rem 0;
     border: .05rem solid transparent;
-    .content-title{
+    .nation-content-title{
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between; /* 让子元素左右对齐 */
     }
-    .mood{
+    .nation-mood{
       margin-right: .05rem;
       color: #43c0ab;
       padding: .05rem .13rem;
@@ -112,27 +115,27 @@ export default {
       white-space: nowrap;
       background-color: rgba(245, 249, 255, 0.2);
     }
-    .importance {
+    .nation-importance {
       color: #36bea6;
     }
-    .normal {
+    .nation-normal {
       color: #ffbc34;
     }
-    .not_importance {
+    .nation-not_importance {
       color: #f62d51;
     }
-    .source{
+    .nation-source{
       color: #03b4f5;
       font-size: 15px;
       margin-top: .06rem;
     }
-    .date{
+    .nation-date{
       color: #03b4f5;
       font-size: 15px;
       margin-top: .06rem;
       margin-right: .3rem;
     }
-    .login-title{
+    .nation-login-title{
       width: calc(100% - .3rem);
       color: #ffffff;
       font-size: 15px;
@@ -140,12 +143,12 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    .details {
+    .nation-details {
       display: flex;
     }
   }
 }
-.item:hover{
+.nation-item:hover{
   cursor: pointer;
 }
 </style>
